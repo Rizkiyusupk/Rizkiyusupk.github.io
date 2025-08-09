@@ -78,9 +78,9 @@ author:
     - label: "Gmail"
       icon: "fab fa-fw fa-google"
       url: "mailto:rizkiyusupk@gmail.com"
-    - icon:  "fab fa-fw fa-docker"
-      label: "Docker Hub"
-      href: "https://hub.docker.com/u/rizki736"
+    - label: "Docker Hub"
+      icon: "fab fa-fw fa-docker"
+      url: "https://hub.docker.com/u/rizki736"
 
 
 
@@ -102,9 +102,9 @@ footer:
     - label: "Gmail"
       icon: "fab fa-fw fa-google"
       url: "rizkiyusupk@gmail.com"
-    - icon:  "fab fa-fw fa-docker"
-      label: "Docker Hub"
-      href: "https://hub.docker.com/u/rizki736"
+    - label: "Docker Hub"
+      icon: "fab fa-fw fa-docker"
+      url: "https://hub.docker.com/u/rizki736"
 
 defaults:
   # _posts
