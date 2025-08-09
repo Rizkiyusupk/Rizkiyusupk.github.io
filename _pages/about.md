@@ -1,6 +1,8 @@
 ---
-title: "About Me"
+title: "About"
 permalink: /about/
+layout: single
+author_profile: true
 ---
 
 # 👋 Halo, Saya Rizki Yusup Kurniawan
