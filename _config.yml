@@ -76,8 +76,9 @@ author:
       icon: "fab fa-fw fa-gitlab"
       url: "https://gitlab.com/rizkiyusupk"
     - label: "Gmail"
-      icon: "fab fa-fw fa-Gmail"
-      url: "rizkiyusupk@gmail.com"
+      icon: "fab fa-fw fa-google"
+      url: "mailto:rizkiyusupk@gmail.com"
+
 
 
 footer:
@@ -95,7 +96,7 @@ footer:
       icon: "fab fa-fw fa-gitlab"
       url: "https://gitlab.com/rizkiyusupk"
     - label: "Gmail"
-      icon: "fab fa-fw fa-Gmail"
+      icon: "fab fa-fw fa-google"
       url: "rizkiyusupk@gmail.com"
 
 defaults:
