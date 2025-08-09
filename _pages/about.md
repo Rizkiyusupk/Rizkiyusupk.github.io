@@ -23,9 +23,9 @@ Saya percaya bahwa **rasa ingin tahu** adalah kunci untuk berkembang, baik secar
 ## 📜 Sertifikasi & Prestasi
 
 - 🎓 **Red Hat Certified System Administrator** (RH124 & RH104)  
-- 🐳 **Certified Docker Practitioner**  
-- ⚙️ **Certified Ansible Automation**  
-- 🦊 **Certified GitLab for DevOps**  
+- 🐳 **Certified Docker Practitioner Adinusa**  
+- ⚙️ **Certified Ansible Automation Adinusa**  
+- 🦊 **Certified GitLab for DevOps Adinusa**  
 - 🥇 **Juara 1 Lomba ITNSA (IT Network System Administration) tingkat Kota**  
 - 🥉 **Peserta Lomba ITNSA tingkat Provinsi**
 
