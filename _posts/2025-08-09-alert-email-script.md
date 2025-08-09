@@ -2,10 +2,10 @@
 title: "Automation Alert Email Script Documentation"
 date: 2025-08-09
 tags: [automation, email, alert, script]
-![Shell Scripting Logo](/assets/images/png-clipart-bash-shell-command-line-interface-ls-shell-rectangle-logo-thumbnail.png)
+image: /assets/images/png-clipart-bash-shell-command-line-interface-ls-shell-rectangle-logo-thumbnail.png
 
 ---
-
+![Shell Scripting Logo](/assets/images/png-clipart-bash-shell-command-line-interface-ls-shell-rectangle-logo-thumbnail.png)
 # Automation Alert Email Script
 
 ## Deskripsi
