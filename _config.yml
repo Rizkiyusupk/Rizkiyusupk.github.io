@@ -72,6 +72,12 @@ author:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       url: "https://www.instagram.com/ikiii736__/profilecard/?igsh=MTV2MnpzN2ltZTgwdg=="
+    - label: "GitLab"
+      icon: "fab fa-fw fa-gitlab"
+      url: "https://gitlab.com/rizkiyusupk"
+    - label: "Gmail"
+      icon: "fab fa-fw fa-Gmail"
+      url: "rizkiyusupk@gmail.com"
 
 
 footer:
