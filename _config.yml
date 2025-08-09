@@ -112,6 +112,7 @@ defaults:
       path: ""
       type: posts
     values:
+      image: null
       layout: single
       author_profile: true
       read_time: true
