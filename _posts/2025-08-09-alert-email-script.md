@@ -76,3 +76,19 @@ untuk referensi nya ada di sini silahkan baca
 
 [klik disini untuk referensinya](https://itsupport.umd.edu/itsupport?id=kb_article_view&sysparm_article=KB0015112)
 
+setelah set up untuk akun gmail yang akan digunakan,selanjutnya membuat file dengan nama sasl_passwd di **/etc/postfix/sasl_passwd**
+```
+sudo vim /etc/postfix/sasl_passwd
+```
+lalu tulis di dalamnya dengan format seperti dibawah ini
+```
+[smtp.gmail.com]:587  youremail@gmail.com:app_password
+```
+
+setelah itu kamu simpan,lalu jalankan command
+```
+sudo postmap /etc/postfix/sasl_passwd
+```
+
+
+
