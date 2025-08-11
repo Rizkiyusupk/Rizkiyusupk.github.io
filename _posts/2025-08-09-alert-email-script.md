@@ -31,5 +31,6 @@ Langkah pertama dalam pembuatan script ini ialah installasi smtp dan mutt,untuk 
 > 💡 **Tips:** Pastikan jalankan perintah ini sebagai root.
 
 ```bash
+
 sudo apt-get update
 
