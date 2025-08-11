@@ -153,10 +153,11 @@ untuk nah sekarang sudah sampai dibagian dimana script akan dibuat,**spoile!!** 
 awk sebagai command yang akan mengambil nilai atau value dan memasukan nya ke dalam script
 
 selanjutnya kamu tinggal membuat scriptnya langkah awal pembuatanya,buat file terlebih dahulu kamu bisa membuatnya dengan **touch** ataupun **echo** [referensi untuk command command linux](https://linuxcommand.org/lc3_man_page_index.php) bisa juga langsung dengan command text editor
-seperti **vim** [refrensi untuk vim](https://www.vim.org/docs.php)ataupun **nano** [referensi untuk nano](https://docs.nano.org/)
+seperti **vim** [refrensi untuk vim](https://www.vim.org/docs.php) ataupun **nano** [referensi untuk nano](https://docs.nano.org/)
 
 jika dengan command akan seperti ini
-> 💡 **Tips:** format dari script itu wajib **.sh** 
+> 💡 **Tips:** format dari script itu wajib **.sh**
+
 ```
 touch namafile.sh
 ```
