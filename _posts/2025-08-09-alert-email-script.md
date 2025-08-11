@@ -146,8 +146,38 @@ ini adalah contoh jika testnya berhasil
 
 ![gambar](/assets/images/automation_alert_email/WhatsApp Image 2025-08-11 at 19.13.27.jpeg)
 
-🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
+🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 ## Scripting
 
+untuk nah sekarang sudah sampai dibagian dimana script akan dibuat,**spoile!!** saya disini akan menggunakan
+awk sebagai command yang akan mengambil nilai atau value dan memasukan nya ke dalam script
 
+selanjutnya kamu tinggal membuat scriptnya langkah awal pembuatanya,buat file terlebih dahulu kamu bisa membuatnya dengan **touch** ataupun **echo** [referensi untuk command command linux](https://linuxcommand.org/lc3_man_page_index.php) bisa juga langsung dengan command text editor
+seperti **vim** [refrensi untuk vim](https://www.vim.org/docs.php)ataupun **nano** [referensi untuk nano](https://docs.nano.org/)
 
+jika dengan command akan seperti ini
+> 💡 **Tips:** format dari script itu wajib **.sh** 
+```
+touch namafile.sh
+```
+bukan hanya itu saja
+
+```
+echo "isi text" > namafile.sh
+```
+
+tapi sedikit berbeda dengan text editor karena jika membuat file menggunakan text editor maka kita akan langsung masuk ke menu text editor itu sendiri
+contoh
+
+```
+vim namafile.sh
+```
+
+![logo3](/assets/images/automation_alert_email/Screenshot 2025-08-11 195056.png)
+
+lalu jika kamu pakai nano 
+```
+nano namafile.sh
+```
+
+![logo4](/assets/images/automation_alert_email/Screenshot 2025-08-11 195108.png)
