@@ -26,3 +26,8 @@ Script ini berfungsi mengirimkan email alert otomatis untuk memantau kondisi ser
 - Akun Gmail untuk SMTP (atau sesuaikan dengan SMTP lain)
 
 ## Instalasi dan Setup
+Langkah pertama dalam pembuatan script ini ialah installasi smtp dan mutt,untuk itu lebih baiknya update package terlebih dahulu
+> 💡 **Tips:** Pastikan jalankan perintah ini sebagai root.
+```bash
+sudo apt-get update
+
