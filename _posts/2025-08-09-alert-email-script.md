@@ -149,7 +149,7 @@ ini adalah contoh jika testnya berhasil
 🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 ## Scripting
 
-untuk nah sekarang sudah sampai dibagian dimana script akan dibuat,**spoiler!!** saya disini akan menggunakan
+nah sekarang sudah sampai dibagian dimana script akan dibuat,**spoiler!!** saya disini akan menggunakan
 awk sebagai command yang akan mengambil nilai atau value dan memasukan nya ke dalam script
 
 >💡 **Tips:** jalankan command dibawah ini agar script nantinya bisa jalan
@@ -160,7 +160,7 @@ docker run --rm -it polinux/stress stress --cpu 4
 dd if=/dev/zero of=dummyfile bs=1M count=10240
 ```
 
-script diatas berfungsi sebagai pemberat untuk sistem,karena ini adalah script yang mendeteksi adanya penggunaan resource maka dari itu butuh pemberat
+command diatas berfungsi sebagai pemberat untuk sistem,karena ini adalah script yang mendeteksi adanya penggunaan resource maka dari itu butuh pemberat
 🏋️🏋️🏋️🏋️🏋️🏋️🏋️
 selanjutnya kamu tinggal membuat scriptnya langkah awal pembuatanya,buat file terlebih dahulu kamu bisa membuatnya dengan **touch** ataupun **echo** [referensi untuk command command linux](https://linuxcommand.org/lc3_man_page_index.php) bisa juga langsung dengan command text editor
 seperti **vim** [refrensi untuk vim](https://www.vim.org/docs.php) ataupun **nano** [referensi untuk nano](https://docs.nano.org/)
@@ -219,7 +219,7 @@ done
 ```
 
 Berikut penjelasan dari dua line diatas, kenapa saya memakai sebuah variable karena saya ingin tidak ada output yang memenuhi layar jika kamu coba manual top -b -n1 trus pakai awk tadi 
-maka akan ada output yang cukup menganggu,dan di awk saya memakai dua variable yaitu **$9** & **$12**, variable **$9** itu sendiri merupakan kolom cpu dimana penggunaan cpu oleh program di tampilkan lalu variable **12** adalah nama program yang sudah kita set sebelumnya lalu ada redirect ke file bernama output.txt untuk menyimpan output dari scriptnya lalu dikirim ke email ,sebenarnya script nya sudah bisa jalan namun saya ingin menambahkan beberapa sentuhan,
+maka akan ada output yang cukup menganggu,dan di awk saya memakai dua variable yaitu **$9** & **$12**, variable **$9** itu sendiri merupakan kolom cpu dimana penggunaan cpu oleh program di tampilkan lalu variable **12** adalah nama program yang sudah kita set sebelumnya lalu ada redirect ke file bernama output.txt untuk menyimpan output dari scriptnya lalu dikirim ke email.Untuk line kedua kita bakalan menggunakan dummy file sebagai pemberat dengan size 10gb agar sistem mendeteksi penggunaan dari memory yang melebihi 10% ,sebenarnya script nya sudah bisa jalan namun saya ingin menambahkan beberapa sentuhan,
 
 
 ```
