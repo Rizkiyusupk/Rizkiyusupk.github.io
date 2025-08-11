@@ -74,5 +74,5 @@ tekan **enter** lagi untuk mereboot
 Setelah semua installasi selesai sekarang bagian setup dan configurasi,pertama tama buat app password dari akun gmail yang akan digunakan
 untuk referensi nya ada di sini silahkan baca 
 
-https://support.google.com/mail/answer/185833?hl=en
+[klik disini untuk referensinya](https://support.google.com/mail/answer/185833?hl=en)
 
