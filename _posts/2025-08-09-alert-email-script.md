@@ -33,11 +33,40 @@ Langkah pertama dalam pembuatan script ini ialah installasi smtp dan mutt,untuk 
 ```
 sudo apt-get update
 ```
+
 setelah kamu menupdate package sistem mu langsung saja install postfixnya
+
 ```
 sudo apt install postfix -y
 ```
-kenapa pakai **-y?** karena agar bisa langsung menjawab pertanyaan **y/n?** saat penginstalan berlangsung
+
+kenapa pakai **-y** karena agar bisa langsung menjawab pertanyaan **y/n?** saat penginstalan berlangsung
+
 ![Logo](/assets/images/automation_alert_email/Screenshot 2025-08-11 134044.png)
 
-jika ada tampilan seperti ini pilih site internet
+jika ada tampilan seperti ini pilih site internet,selanjutnya jika ada tampilan seperti ini
+
+![logo1](/assets/images/automation_alert_email/Screenshot 2025-08-11 134105.png)
+
+isi dengan nama hostname mu,lalu setelah itu akan ada tampilan untuk reboot seperti ini
+tekan **enter** untuk merboot tinggalkan semua dalam kondisi default
+
+![Logo2](/assets/images/automation_alert_email/Screenshot 2025-08-11 134818.png)
+
+setelah itu sistem akan mengalami reboot tunggu saja beberapa saat.
+
+lalu setelah sistem reboot langsung install mailutilsnya
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo apt-get mailutils -y
+```
+
+seperti biasa pakai flag **-y** di saat penginstallan akan ada opsi untuk reboot lagi seperti di postfix tadi
+
+![Logo2](/assets/images/automation_alert_email/Screenshot 2025-08-11 134818.png)
+
+tekan **enter** lagi untuk mereboot
+
+
