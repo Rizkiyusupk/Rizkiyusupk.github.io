@@ -158,9 +158,11 @@ seperti **vim** [refrensi untuk vim](https://www.vim.org/docs.php) ataupun **nan
 jika dengan command akan seperti ini
 > 💡 **Tips:** format dari script itu wajib **.sh**
 
+
 ```
 touch namafile.sh
 ```
+
 bukan hanya itu saja
 
 ```
