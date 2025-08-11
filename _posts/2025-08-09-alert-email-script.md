@@ -22,7 +22,7 @@ Script ini berfungsi mengirimkan email alert otomatis untuk memantau kondisi ser
 ## Prasyarat
 
 - Ubuntu os (bisa memakai Virtual Mesin)
-- Smtp untuk mengirim alert ke email dan Mutt buat attach file output dari script 
+- Smtp untuk mengirim alert ke email di sini kita bakalan pakai postfix dan Mutt buat attach file output dari script 
 - Akun Gmail untuk SMTP (atau sesuaikan dengan SMTP lain)
 
 ## Instalasi dan Setup
@@ -33,3 +33,11 @@ Langkah pertama dalam pembuatan script ini ialah installasi smtp dan mutt,untuk 
 ```
 sudo apt-get update
 ```
+setelah kamu menupdate package sistem mu langsung saja install postfixnya
+```
+sudo apt install postfix -y
+```
+kenapa pakai **-y?** karena agar bisa langsung menjawab pertanyaan **y/n?** saat penginstalan berlangsung
+![Logo](/assets/images/automation_alert_email/Screenshot 2025-08-11 134044.png)
+
+jika ada tampilan seperti ini pilih site internet
