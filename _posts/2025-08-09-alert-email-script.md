@@ -85,7 +85,6 @@ sudo vim /etc/postfix/sasl_passwd
 ```
 lalu tulis di dalamnya dengan format seperti dibawah ini
 
-> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
 [smtp.gmail.com]:587  youremail@gmail.com:app_password
@@ -138,6 +137,17 @@ smtp_sasl_security_options = noanonymous
 smtp_sasl_tls_security_options = noanonymous
 ```
 
-setelah itu save
+setelah itu save,setelah itu coba untuk test mail terlebih dahulu
+
+```
+echo "test" | mail -s "test" youremail@gmail.com
+```
+ini adalah contoh jika testnya berhasil 
+
+![gambar](/assets/images/automation_alert_email/WhatsApp Image 2025-08-11 at 19.13.27.jpeg)
+
+🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
+## Scripting
+
 
 
