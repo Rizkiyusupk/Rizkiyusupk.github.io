@@ -149,9 +149,19 @@ ini adalah contoh jika testnya berhasil
 🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 ## Scripting
 
-untuk nah sekarang sudah sampai dibagian dimana script akan dibuat,**spoile!!** saya disini akan menggunakan
+untuk nah sekarang sudah sampai dibagian dimana script akan dibuat,**spoiler!!** saya disini akan menggunakan
 awk sebagai command yang akan mengambil nilai atau value dan memasukan nya ke dalam script
 
+>💡 **Tips:** jalankan command dibawah ini agar script nantinya bisa jalan
+
+
+```
+docker run --rm -it polinux/stress stress --cpu 4
+dd if=/dev/zero of=dummyfile bs=1M count=10240
+```
+
+script diatas berfungsi sebagai pemberat untuk sistem,karena ini adalah script yang mendeteksi adanya penggunaan resource maka dari itu butuh pemberat
+🏋️🏋️🏋️🏋️🏋️🏋️🏋️
 selanjutnya kamu tinggal membuat scriptnya langkah awal pembuatanya,buat file terlebih dahulu kamu bisa membuatnya dengan **touch** ataupun **echo** [referensi untuk command command linux](https://linuxcommand.org/lc3_man_page_index.php) bisa juga langsung dengan command text editor
 seperti **vim** [refrensi untuk vim](https://www.vim.org/docs.php) ataupun **nano** [referensi untuk nano](https://docs.nano.org/)
 
@@ -184,3 +194,63 @@ nano namafile.sh
 ```
 
 ![logo4](/assets/images/automation_alert_email/Screenshot 2025-08-11 195108.png)
+
+setelah membuat filenya bisa langsung masuk ke tahap pembuatan scriptnya,langkah awal dalam scripting ialah pembuatan shebang
+bisa kamu lihat apa itu shebang di sini [referensi](https://en.wikipedia.org/wiki/Shebang_(Unix))
+
+>💡 **Tips:** disini karena kita akan pakai bash jadi pakai /bin/bash
+
+```
+#!/bin/bash
+```
+
+setelah shebang sudah dibuat langsung masuk ke bagian utama scriptnya,sudah saya sebut sebelumnya script ini akan menggunakan awk
+berikut [referensi awk](https://www.geeksforgeeks.org/linux-unix/awk-command-unixlinux-examples/)
+
+>💡 **Tips:** disini saya juga memakai while loop agar script bisa jalan terus di latar belakang supaya nanti waktu script di jalankan bisa menggunakan cronjob agar bisa mengotomatisasi tugas,dan nantinya script akan mengirim alert terus menerus,tulis dibawah shebang tadi
+
+```
+while true
+do
+        system="$(top -b -n1 | awk '{if ($9 > 60 && $12 == "stress") { print "penggunaan cpu diatas batas wajar:", $9 }}' > output.txt)"
+        system1="$(df -h | awk '{usage = substr ($5,1 ,length($5)-1; if (usage+0 > 10 ) print "pengunaan disk diatas batas wajar:"$5}' >> output.txt)"
+        echo "Ini hasil monitoring CPU dan Disk." | mutt -s "Laporan Monitoring" -a output.txt -- example@gmail.com
+done
+```
+
+Berikut penjelasan dari dua line diatas, kenapa saya memakai sebuah variable karena saya ingin tidak ada output yang memenuhi layar jika kamu coba manual top -b -n1 trus pakai awk tadi 
+maka akan ada output yang cukup menganggu,dan di awk saya memakai dua variable yaitu **$9** & **$12**, variable **$9** itu sendiri merupakan kolom cpu dimana penggunaan cpu oleh program di tampilkan lalu variable **12** adalah nama program yang sudah kita set sebelumnya lalu ada redirect ke file bernama output.txt untuk menyimpan output dari scriptnya lalu dikirim ke email ,sebenarnya script nya sudah bisa jalan namun saya ingin menambahkan beberapa sentuhan,
+
+
+```
+while true
+do
+        echo "pengecekan sistem..."
+        sleep 5
+        system="$(df -h | awk '{usage = substr ($5,1, length($5)-1); if (usage+0 > 10) print "pengunaan disk diatas batas wajar:"$5}' > output.txt )"
+        echo "pengiriman laporan melalui email.."
+        sleep 5
+        system1="$(top -b -n1 | awk '{ if ($9 > 60 && $12 == "stress") { print "penggunaan cpu diatas batas wajar:", $9 }}' >> output.txt)"
+        echo "Ini hasil monitoring CPU dan Disk." | mutt -s "Laporan Monitoring" -a output.txt -- example@gmail.com
+        echo "done"
+        break
+done
+```
+
+nah sipp kurang lebih seperti ini guys, saat nya test
+
+<video controls width="640" height="360">
+  <source src="{{ '/assets/images/automation_alert_email/video
+/anjay-2500-6000.mp4' | relative_url }}" type="video/mp4">
+  Browser kamu tidak mendukung video tag.
+</video>
+
+nahh kurang lebih seperti ini outputnya jika sudah ada alert di email
+
+![logo7](/assets/images/automation_alert_email/video/jembut_ketilang.jpeg)
+
+dan seperti ini output dari file nya
+
+
+![logo5](/assets/images/automation_alert_email/video/WhatsApp Image 2025-08-11 at 23.07.44.jpeg)
+
