@@ -106,7 +106,7 @@ setelah itu berikutnya kamu konfigurasi di file **/etc/postfix/main.cf**,lalu ub
 ```
 sudo vim /etc/postfix/main.cf
 ```
-lalu  ganti di bagian bawah **TLS** dengan confif berikut ini
+lalu  ganti di bagian bawah **TLS** dengan config berikut ini
 
 ```
 smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
