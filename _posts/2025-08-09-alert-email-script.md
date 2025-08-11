@@ -27,7 +27,9 @@ Script ini berfungsi mengirimkan email alert otomatis untuk memantau kondisi ser
 
 ## Instalasi dan Setup
 Langkah pertama dalam pembuatan script ini ialah installasi smtp dan mutt,untuk itu lebih baiknya update package terlebih dahulu
+
 > 💡 **Tips:** Pastikan jalankan perintah ini sebagai root.
+
 ```bash
 sudo apt-get update
 
