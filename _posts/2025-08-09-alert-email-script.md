@@ -240,8 +240,7 @@ done
 nah sipp kurang lebih seperti ini guys, saat nya test
 
 <video controls width="640" height="360">
-  <source src="{{ '/assets/images/automation_alert_email/video
-/output.mp4' | relative_url }}" type="video/mp4">
+  <source src="{{ 'Rizkiyusupk.github.io/assets/video/output.mp4' | relative_url }}" type="video/mp4">
   Browser kamu tidak mendukung video tag.
 </video>
 
