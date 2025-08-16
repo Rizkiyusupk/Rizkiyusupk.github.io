@@ -1,4 +1,3 @@
-
 ---
 title: "Kubernetes Cluster dengan 1 Master dan 2 Worker"
 date: 2025-08-16
