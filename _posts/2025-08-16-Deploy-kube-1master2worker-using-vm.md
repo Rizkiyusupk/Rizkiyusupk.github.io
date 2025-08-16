@@ -6,6 +6,7 @@ header:
   teaser: /assets/images/images.png
 
 ---
+![kubelogo](/assets/images/images.png)
 
 ## 📖 Apa itu Kubernetes?
 Kubernetes (sering disingkat **k8s**) adalah sebuah **platform orkestrasi container** yang digunakan untuk mengelola aplikasi berbasis container secara otomatis. Dengan Kubernetes, kita bisa:
