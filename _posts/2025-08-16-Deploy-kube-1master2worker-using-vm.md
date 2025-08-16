@@ -19,7 +19,7 @@ Kubernetes (sering disingkat **k8s**) adalah sebuah **platform orkestrasi contai
 
 Singkatnya, Kubernetes memungkinkan kita untuk mengelola cluster server sebagai satu kesatuan sistem.
 
----
+
 
 ## 🖥️ Apa itu Virtual Machine (VM)?
 **Virtual Machine (VM)** adalah sebuah **mesin komputer virtual** yang berjalan di atas hardware fisik melalui software hypervisor seperti VirtualBox, VMware, atau KVM.  
@@ -27,7 +27,7 @@ Singkatnya, Kubernetes memungkinkan kita untuk mengelola cluster server sebagai 
 VM memiliki resource sendiri (CPU, RAM, Storage) yang dialokasikan dari host.  
 Dalam konteks Kubernetes, VM sering digunakan untuk membuat cluster secara lokal atau dalam lab environment sebelum ke server produksi.
 
----
+
 
 ## ⚙️ Tools Yang Akan Digunakan
 Berikut Datail Hal-hal yang akan digunakan:
@@ -43,11 +43,11 @@ Berikut Datail Hal-hal yang akan digunakan:
 - **Cluster Topologi**:  
   - 1 Master Node  
   - 2 Worker Node  
----
 
 
 
 ## Install Virtual Machine (VM)
+---
 Pertama-tama buat topologi dari cluster terlebih dahulu yaitu 1 master 2 worker,dengan ini
 kita perlu 3 **Virtual Machine** (**VM**),[selengkapnya mengenai installasi vm dan apa itu vm](https://www.virtualbox.org/),
 disini saya akan menggunakan iso **ubuntu 24** [selengkapnya untuk iso ubuntu 24](https://ubuntu.com/download/server),setelah kamu mendownload iso ubuntu 
