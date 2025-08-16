@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes Cluster dengan 1 Master dan 2 Worker"
+title: "Kubernetes Cluster dengan 1 Master dan 2 Worker menggunakan 2 VM"
 date: 2025-08-16
 tags: [kubernetes, vm, containerd, flannel, cluster]
 header:
@@ -43,7 +43,7 @@ Berikut Datail Hal-hal yang akan digunakan:
 - **Cluster Topologi**:  
   - 1 Master Node  
   - 2 Worker Node  
-
+test
 
 
 ## Install Virtual Machine (VM)
