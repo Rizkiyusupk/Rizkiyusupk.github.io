@@ -59,6 +59,6 @@ Pertama-tama kamu masuk terlebih dahulu ke menu dashboard dari virtual box
 Terus lakuka seperti yang ada digambar,setelah kamu masuk ke menu **machine**  lalu klik tombol **new**
 setelah itu kamu akan diarahkan ke menu seperti ini
 
-![logovm1](/assets/images/kube_cluster/Screenshot 2025-08-16 213025.png
+![logovm1](/assets/images/kube_cluster/Screenshot 2025-08-16 213025.png)
 
 kamu isi sendiri sesuai dengan kemauan mu
