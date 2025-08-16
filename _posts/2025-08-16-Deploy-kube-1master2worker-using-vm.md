@@ -53,5 +53,12 @@ kita perlu 3 **Virtual Machine** (**VM**),[selengkapnya mengenai installasi vm d
 disini saya akan menggunakan iso **ubuntu 24** [selengkapnya untuk iso ubuntu 24](https://ubuntu.com/download/server),setelah kamu mendownload iso ubuntu 
 sekarang kamu tinggal melakukan installasi untuk vmnya.
 Pertama-tama kamu masuk terlebih dahulu ke menu dashboard dari virtual box
+
 ![vm](/assets/images/kube_cluster/Screenshot 2025-08-16 212949.png)
 
+Terus lakuka seperti yang ada digambar,setelah kamu masuk ke menu **machine**  lalu klik tombol **new**
+setelah itu kamu akan diarahkan ke menu seperti ini
+
+![logovm1](/assets/images/kube_cluster/Screenshot 2025-08-16 213025.png
+
+kamu isi sendiri sesuai dengan kemauan mu
