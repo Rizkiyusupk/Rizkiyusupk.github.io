@@ -29,10 +29,11 @@ Dalam konteks Kubernetes, VM sering digunakan untuk membuat cluster secara lokal
 
 ---
 
-## ⚙️ Pre-Install Checklist
-Berikut detail pre-install yang digunakan dalam setup ini:
+## ⚙️ Tools Yang Akan Digunakan
+Berikut Datail Hal-hal yang akan digunakan:
 
-- **Sistem Operasi**: Ubuntu 24.04 LTS (1 Master + 2 Worker).  
+- **Sistem Operasi**: Ubuntu 24.04 LTS (ubuntu sever iso).
+- **Virtual Box Versi:** `1.7.10`
 - **Container Runtime**: `containerd v1.27.7`.  
 - **Kubernetes Tools**:  
   - `kubeadm v1.28`  
@@ -42,5 +43,16 @@ Berikut detail pre-install yang digunakan dalam setup ini:
 - **Cluster Topologi**:  
   - 1 Master Node  
   - 2 Worker Node  
+---
+
 
 ---
+## Install Virtual Machine (VM)
+---
+Pertama-tama buat topologi dari cluster terlebih dahulu yaitu 1 master 2 worker,dengan ini
+kita perlu 3 **Virtual Machine** (**VM**),[selengkapnya mengenai installasi vm dan apa itu vm](https://www.virtualbox.org/),
+disini saya akan menggunakan iso **ubuntu 24** [selengkapnya untuk iso ubuntu 24](https://ubuntu.com/download/server),setelah kamu mendownload iso ubuntu 
+sekarang kamu tinggal melakukan installasi untuk vmnya.
+Pertama-tama kamu masuk terlebih dahulu ke menu dashboard dari virtual box
+![vm](/assets/images/kube_cluster/Screenshot 2025-08-16 212949.png)
+
