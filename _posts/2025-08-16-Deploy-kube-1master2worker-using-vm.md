@@ -85,3 +85,77 @@ setelah kamu enable adapter networknya pilih host-only adapter
 
 ![vm](/assets/images/kube_cluster/Screenshot 2025-08-17 195638.png)
 
+jangan edit adapter 1 biarkan default saja,setelah itu klik ok lalu klik pada bagian
+storage dan pilih bagian optical drive itu ada file iso yang akan digunakan,kamu bisa pilih search di file download dengan mengklik choose a disk file
+
+![vm4](/assets/images/kube_cluster/memek.png)
+
+setelah kamu memilih file di disk berikutnya tinggal start si machine 
+setelah start beberapa saat kemudian akan muncul opsi **try or install ubuntu** pencet enter pada bagian itu
+lalu kamu akan dibawa ke menu pemilihan bahasa 
+
+![vm1](/assets/images/kube_cluster/VirtualBox_Master1_16_08_2025_21_53_33.png)
+
+pilih bahasa yang kamu sukai saya disini memilih bahasa inggris,jika sudah tekan enter
+
+![vm4](/assets/images/kube_cluster/VirtualBox_Master1_16_08_2025_21_53_51.png)
+
+maka akan di arahkan ke menu selanjutnya,jika terdapat menu seperti ini 
+
+![vm5](/assets/images/kube_cluster/VirtualBox_Master1_16_08_2025_21_53_51.png)
+
+maka tekan enter saja untuk default,lalu selanjutnya untuk opsi ini
+
+![vm5](/assets/images/kube_cluster/VirtualBox_Master1_16_08_2025_21_54_04.png)
+
+langsung tekan enter karena kita akan memakai full ubuntu server,setelah itu akan muncul opsi untuk network yang akan digunakan
+
+![vm6](/assets/images/kube_cluster/VirtualBox_Master1_16_08_2025_22_16_19.png)
+
+langsung tekan enter saja untuk default jangan mengotak-atik apapun,
+
+![vm7](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_22_59_06.png)
+
+setelah kamu mnegklik enter maka selanjutnya akan ada opsi untuk mengconfigurasi proxy address
+
+![vm7](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_22_59_06.png)
+
+langsung klik enter saja disini kita belum mengconfigurasi proxy address,nah next kita akan dibawa ke
+opsi untuk mengconfigurasi storage
+
+![vm8](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_22_59_42.png)
+
+disini disable pilihan untuk lvm dengan cara tekan space pada opsi kotak lvm 
+
+![vm9](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_22_59_42.png)
+
+setelah itu pilih done lalu enter,selanjutnya akan ada opsi agar kamu bisa mengulang configurasimu jika masih ragu bisa pilih 
+**reset atau back** lalu tekan enter,jika dirasa sudah pas pilih opsi **done** lalu continue
+
+![vm9](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_22_59_57.png)
+
+setelah itu kamu akan dibawa ke configurasi selanjutnya,disini kamu akan diminta mengisi profile untuk server seperti nama,nama server,username,dan password
+
+![vm10](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_22_59_57.png)
+
+jika sudah mengisi semua field bisa langsung pilih done lalu enter,jika ada opsi seperti ini bisa langsung pilih done lalu enter
+
+![vm11](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_23_00_33.png)
+
+setelah itu kamu bisa menginstall ssh dengan menekan space untuk opsi install ssh,ssh ini berguna untuk nanti nya bisa remote si server 
+[berikut detail mengenai ssh](https://www.1kosmos.com/security-glossary/secure-shell-ssh/#:~:text=Secure%20Shell%20(SSH)%20is%20a,manage%20remote%20systems%20and%20servers.)
+
+![vm12](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_23_00_46.png)
+
+setelah menginstall ssh selanjutnya kamu bisa memilih opsi untuk install applikasi lainnya seperti docker containerd,dll
+namu disini kita tidak akan memilih opsi opsi yang tadi langsung saja pakai kursor bawah sampai opsi done,karena jika kita memilih opsinya maka installasi akan
+dilakukan menggunakan **snap** [soal snap](https://ubuntu.com/tutorials/create-your-first-snap#1-overview),karena kita tidak akan memakai snap untuk installasi melainkan lewat
+**apt** atau package manager ubuntu,[referensi apt](https://ubuntu.com/tutorials/create-your-first-snap#1-overview),setelah itu kamu bisa langsung pilih opsi done lalu tekan enter
+
+![vm13](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_23_01_07.png)
+
+setelah itu kamu bisa tunggu untuk proses installasinya selesai!!
+
+![vm15](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_23_03_41.png)
+
+jika sudah tinggal di reboot lalu installasi seesai 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
