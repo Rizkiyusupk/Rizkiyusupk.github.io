@@ -116,11 +116,11 @@ langsung tekan enter saja untuk default jangan mengotak-atik apapun,
 
 ![vm7](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_22_59_06.png)
 
-setelah kamu mnegklik enter maka selanjutnya akan ada opsi untuk mengconfigurasi proxy address
+setelah kamu mengklik enter maka selanjutnya akan ada opsi untuk mengconfigurasi proxy address
 
 ![vm7](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_22_59_06.png)
 
-langsung klik enter saja disini kita belum mengconfigurasi proxy address,nah next kita akan dibawa ke
+langsung klik enter saja disini kita belum mengconfigurasi proxy address,nah selanjutnya kita akan dibawa ke
 opsi untuk mengconfigurasi storage
 
 ![vm8](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_22_59_42.png)
