@@ -136,7 +136,7 @@ setelah itu pilih done lalu enter,selanjutnya akan ada opsi agar kamu bisa mengu
 
 setelah itu kamu akan dibawa ke configurasi selanjutnya,disini kamu akan diminta mengisi profile untuk server seperti nama,nama server,username,dan password
 
-![vm10](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_22_59_57.png)
+![vm10](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_23_00_08.png)
 
 jika sudah mengisi semua field bisa langsung pilih done lalu enter,jika ada opsi seperti ini bisa langsung pilih done lalu enter
 
@@ -159,3 +159,44 @@ setelah itu kamu bisa tunggu untuk proses installasinya selesai!!
 ![vm15](/assets/images/kube_cluster/VirtualBox_master1_16_08_2025_23_03_41.png)
 
 jika sudah tinggal di reboot lalu installasi seesai 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
+**jika sudah kamu tinggal mengulangi hal yang sama,dan jangan lupa untuk mengganti nama dari vmnya dengan worker** 🥳🥳🥳🥳🥳🥳🥳🥳
+
+
+##Setup Kubernetes
+---
+
+Karena kamu sudah berhasil dengan installasi tadi sekarang masu ke tahap setup kubernetes
+untuk langkah pertama kamu bisa langsung akses ke vm atau seperti yang saya akan tunjukan lewat ssh di terminal
+klik **windows + r** lalu ketik **cmd** setelah itu tekan enter dengan begitu akan muncul jendela terminal
+
+![vm14](/assets/images/kube_cluster/Screenshot 2025-08-17 232944.png)
+
+lalu setelah itu kamu mengconfigurasi semua alamat ip dan nama hostname dari semua vm mu
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+
+```
+sudo vim /etc/hosts
+```
+
+lalu didalam file konfigurasinya kamu isi dengan
+
+```
+192.168.xxx.xxx nama_hostname_vm_mu
+192.168.xxx.xxx nama_hostname_vm_mu
+192.168.xxx.xxx nama_hostname_vm_mu
+```
+maka hasil nya akan seperti contoh ini
+
+![vm17](/assets/images/kube_cluster/Screenshot 2025-08-18 003936.png)
+
+setelah itu run command ini di prompt
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo apt-get update
+```
+
+setelah mengupdate package repository kamu 
