@@ -336,6 +336,8 @@ sudo kubeadm join 192.168.xxx.xxx:6443 --token <token> --discovery-token-ca-cert
 ```
 
 cari output itu diantara output **sudo kubedm init** tadi pastinya sudah sesuai dengan vm master mu,setelah itu copy lalu paste di vm worker 
+verifikasi ✔️✔️✔️✔️✔️✔️✔️✔️✔️✔️
+
 
 ![vm16](/assets/images/Screenshot 2025-08-17 232944.png)
 
