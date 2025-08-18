@@ -199,4 +199,27 @@ setelah itu run command ini di prompt
 sudo apt-get update
 ```
 
-setelah mengupdate package repository kamu 
+setelah mengupdate package repository tahap selanjutnya ialah menonaktifkan swapp yang ada di ubuntu server mu
+jika kamu ingin melihat nya coba ketik command ini 
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+free -h
+```
+coba lihat di bagian terminalnya kamu bisa lihat ada kolom **free** nah itu yang akan di nonaktifkan
+karena kubelet tidak akan berjalan jika ada swapp yang on
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+#ini itu untuk menonaktifkan swapnya tapi sementara
+sudo swapoff -a
+
+#dan masukan command ini untuk menonaktifkannya secara permanen
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+```
+
+jika kamu ingin tahu kenapa swap harus off ketika ingin install kubernetes [lihat disini](https://stackoverflow.com/questions/40553541/disable-swap-on-a-kubelet?utm_source=chatgpt.com)
+
+
