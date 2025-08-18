@@ -191,7 +191,28 @@ maka hasil nya akan seperti contoh ini
 
 ![vm17](/assets/images/kube_cluster/Screenshot 2025-08-18 003936.png)
 
-setelah itu run command ini di prompt
+setelah itu menonaktifkan firewall dan port yang akan digunakan,[apa itu firewall](https://tuxcare.com/blog/linux-firewalls/#:~:text=Linux%20Firewalls%20are%20the%20first,Linux%20are%20iptables%20and%20nftables.) dan [apa itu port](https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/#:~:text=Ports%20are%20virtual%20places%20within,the%20network%20traffic%20they%20receive.),semua port yang di butuhkan akan di configurasikan disini
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+#semua port yang dibutuhkan di master
+sudo ufw allow "OpenSSH"
+sudo ufw enable
+sudo ufw allow 6443/tcp
+sudo ufw allow 2379:2380/tcp
+sudo ufw allow 10250/tcp
+sudo ufw allow 10259/tcp
+sudo ufw allow 10257/tcp
+```
+dan untuk vm worker
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo ufw allow 10250/tcp
+sudo ufw allow 30000:32767/tcp
+```
 
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
@@ -221,5 +242,101 @@ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ```
 
 jika kamu ingin tahu kenapa swap harus off ketika ingin install kubernetes [lihat disini](https://stackoverflow.com/questions/40553541/disable-swap-on-a-kubelet?utm_source=chatgpt.com)
+setelah swap dimatikan kamu bisa langsung ke tahap selanjutnya yaitu mennconfigurasi modul untuk cri [apa itu cri].(https://kubernetes.io/docs/concepts/architecture/cri/#:~:text=The%20Container%20Runtime%20Interface%20(CRI,components%20kubelet%20and%20container%20runtime.)
+tahap ini berfungsi untuk menulis modul-modul secara presistent agar nantinya bisa mendukung komunikasi dan building layer untuk container
 
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
+```
+# Load modules
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# Buat persistent
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+```
+
+module diatas berfungsi untuk mendukung layering saat pembuatan container nantinya dan juga untuk bridging
+trus untuk membuat configurasinya persistent ditambahkan juga ke **/etc/modules-load.d/k8s.conf** nantinya modul akan tetap ada walaupun sistem di reboot
+tahap selanjutnya ialah installasi untuk cri (container runtime interface) kita disini akan menggunakan containerd
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+# Install dependencies
+sudo apt install -y apt-transport-https ca-certificates curl gnupg lsb-release
+
+# Add Docker GPG key
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+# Add Docker repository (Ubuntu 24.04 menggunakan noble)
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Install containerd
+sudo apt update
+sudo apt install -y containerd.io
+
+# Configure containerd
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+
+# Edit config untuk systemd cgroup (Ubuntu 24.04 sudah default systemd)
+sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
+
+# Restart containerd
+sudo systemctl restart containerd
+sudo systemctl enable containerd
+```
+
+jika sudah bisa kita langsung ke tahap selanjutnya
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+# Add Kubernetes GPG key dan repository
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+# Install Kubernetes tools
+sudo apt update
+sudo apt install -y kubelet kubeadm kubectl
+
+# Hold packages dari auto-update
+sudo apt-mark hold kubelet kubeadm kubectl
+
+# Enable kubelet
+sudo systemctl enable kubelet
+```
+**lakukan semua step diatas disemua vm!!!!**
+**SELANJUTNYA INIT DI VM MASTER**
+untuk step selanjutnya ialah init dari vm master
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo kubeadm init
+```
+
+tunggu beberapa saat memang memakan waktu yang cukup lama,jika sudah akan ada output yang perlu dicatat 
+
+```
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+copy semua lalu paster di terminal untuk membuat direktori config dari kube,setelah itu di simpan kamu bisa langsung join dengan token output yang 
+muncul bersamaan dengan command tadi
+
+```
+sudo kubeadm join 192.168.xxx.xxx:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
+```
+
+cari output itu diantara output **sudo kubedm init** tadi pastinya sudah sesuai dengan vm master mu,setelah itu copy lalu paste di vm worker 
+
+![vm16](/assets/images/Screenshot 2025-08-17 232944.png)
+
+setelah itu selesai sudah semua config 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
