@@ -262,6 +262,22 @@ EOF
 
 module diatas berfungsi untuk mendukung layering saat pembuatan container nantinya dan juga untuk bridging
 trus untuk membuat configurasinya persistent ditambahkan juga ke **/etc/modules-load.d/k8s.conf** nantinya modul akan tetap ada walaupun sistem di reboot
+nah selanjutnya ialah configurasi untk iptables dan juga untuk ipv4
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+
+```
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+# Apply sysctl
+sudo sysctl --system
+```
+
 tahap selanjutnya ialah installasi untuk cri (container runtime interface) kita disini akan menggunakan containerd
 
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
