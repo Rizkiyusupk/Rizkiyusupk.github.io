@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes Cluster dengan 1 Master dan 2 Worker menggunakan 3 VM (**Fixed Version**)"
 date: 2025-08-16
-tags: [kubernetes, vm, containerd, flannel, cluster,fixed-disk,#20252108]
+tags: [kubernetes, vm, containerd, flannel, cluster,fixed-disk,issue-20252108]
 header:
   teaser: /assets/images/images.png
 
