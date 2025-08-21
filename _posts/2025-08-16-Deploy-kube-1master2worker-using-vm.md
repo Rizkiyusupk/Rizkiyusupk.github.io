@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes Cluster dengan 1 Master dan 2 Worker menggunakan 2 VM"
+title: "Kubernetes Cluster dengan 1 Master dan 2 Worker menggunakan 3 VM (**Dynamic Version**)"
 date: 2025-08-16
 tags: [kubernetes, vm, containerd, flannel, cluster]
 header:
@@ -242,7 +242,8 @@ sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ```
 
 jika kamu ingin tahu kenapa swap harus off ketika ingin install kubernetes [lihat disini](https://stackoverflow.com/questions/40553541/disable-swap-on-a-kubelet?utm_source=chatgpt.com)
-setelah swap dimatikan kamu bisa langsung ke tahap selanjutnya yaitu mennconfigurasi modul untuk cri [apa itu cri](https://kubernetes.io/docs/concepts/architecture/cri/#:~:text=The%20Container%20Runtime%20Interface%20(CRI,components%20kubelet%20and%20container%20runtime.)
+setelah swap dimatikan kamu bisa langsung ke tahap selanjutnya yaitu mennconfigurasi modul untuk cri 
+[apa itu cri](https://kubernetes.io/docs/concepts/architecture/cri/#:~:text=The%20Container%20Runtime%20Interface%20(CRI,components%20kubelet%20and%20container%20runtime.)
 tahap ini berfungsi untuk menulis modul-modul secara presistent agar nantinya bisa mendukung komunikasi dan building layer untuk container
 
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
