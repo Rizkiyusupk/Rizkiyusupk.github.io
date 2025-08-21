@@ -318,7 +318,10 @@ untuk step selanjutnya ialah init dari vm master
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-sudo kubeadm init
+sudo kubeadm init \
+  --apiserver-advertise-address=192.168.xxx.xxx \
+  --pod-network-cidr=10.244.0.0/16 \
+  --node-name=nama-vm-mastermu
 ```
 
 tunggu beberapa saat memang memakan waktu yang cukup lama,jika sudah akan ada output yang perlu dicatat 
