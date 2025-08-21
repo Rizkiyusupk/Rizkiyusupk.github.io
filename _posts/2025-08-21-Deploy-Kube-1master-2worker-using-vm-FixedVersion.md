@@ -69,7 +69,7 @@ akan digunakan di waktu yang akan mendatang untuk belajar maka persiapkan resour
 ![vm2](/assets/images/kube_cluster/Screenshot 2025-08-16 213042.png)
 
 jika sudah maka akan terlihat seperti itu,setelah itu masuk ke bagian Hardisk,lalu set size sebesar 130gb
-karena ini emang untuk bahan pembelajaran selanjutnya,**note karena ini meneggunakan preallocate full size sebaiknya gunakan disk yang lebih kecil 
+karena ini emang untuk bahan pembelajaran selanjutnya,**note karena ini menenggunakan preallocate full size sebaiknya gunakan disk yang lebih kecil 
 bertujuan agar nantinya tidak ada beban disistem karena ini hanya untuk lab pembelajaran semata!!!!!**
 
 ![vm3](/assets/images/kube_cluster/kontol.png)
