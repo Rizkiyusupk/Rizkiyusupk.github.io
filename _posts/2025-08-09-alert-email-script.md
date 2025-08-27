@@ -108,29 +108,37 @@ sudo vim /etc/postfix/main.cf
 lalu  ganti di bagian bawah **TLS** dengan config berikut ini
 
 ```
+# TLS parameters (incoming mail)
 smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
 smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
 smtpd_tls_security_level=may
-
-smtp_tls_CApath=/etc/ssl/certs
-smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
-myhostname = ypurhostname
+
+# Hostname & aliases
+myhostname = master
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
-mydestination = $myhostname, yourhostname, localhost.localdomain, , localhost
+mydestination = $myhostname, localhost.localdomain, localhost
+
+# Relay host Gmail
 relayhost = [smtp.gmail.com]:587
+
+# Network
 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+
+# Mailbox settings
 mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
 inet_protocols = all
-# TLS settings
+
+# TLS (outgoing mail)
 smtp_use_tls = yes
 smtp_tls_security_level = encrypt
 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 
-# SASL authentication
+# SASL authentication (for Gmail relay)
 smtp_sasl_auth_enable = yes
 smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
 smtp_sasl_security_options = noanonymous
