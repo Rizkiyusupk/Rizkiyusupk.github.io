@@ -1,15 +1,10 @@
 ---
-title: "🚀 Demo Kubernetes Deployment v1.28 - Rolling Update & Replicas"
-date: 2025-08-31 02:30:00 +0700
-categories:
-  - Kubernetes
-  - Deployment
-tags:
-  - kubernetes
-  - deployment
-  - rolling-update
-  - replicas
-  - alpine
+title: "Deploy Kubernetes 2 Worker - Rolling Update Alpine & Custom Image menggunakan manifest"
+date: 2025-08-31
+categories: [Kubernetes, Deployment]
+tags: [k8s, replicas, rolling update, dockerhub, alpine]
+header:
+  teaser: /assets/images/images.png
 ---
 
 ## 🌐 Overview
