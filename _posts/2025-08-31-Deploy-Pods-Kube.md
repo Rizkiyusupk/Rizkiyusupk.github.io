@@ -4,7 +4,10 @@ date: 2025-08-31
 categories: [Kubernetes, Deployment]
 tags: [k8s, replicas, rolling update, dockerhub, alpine]
 excerpt: "Demonstrasi deployment Kubernetes dengan 2 worker node, 3 deployment menggunakan replicas, rolling update Alpine 1.19 ➡ 1.22, dan custom image dari Docker Hub."
+header:
+  teaser: /assets/images/images.png
 ---
+![kubelogo](/assets/images/images.png)
 
 ## 🚀 Overview
 
