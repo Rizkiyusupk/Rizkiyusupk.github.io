@@ -6,3 +6,4 @@ tags: [k8s, replicas, rolling update, dockerhub, alpine]
 header:
   teaser: /assets/images/images.png
 ---
+jokowi kontlllll
