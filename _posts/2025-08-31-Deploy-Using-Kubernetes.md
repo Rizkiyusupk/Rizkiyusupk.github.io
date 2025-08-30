@@ -1,8 +1,6 @@
 ---
 title: "Deploy Pods Kubernetes dengan Replicas & Rolling Update"
 date: 2025-08-31
-categories: [Kubernetes, Deployment]
-tags: [k8s,Kubernetes,Deployment]
 tags: [k8s, replicas, rolling-update, alpine, dockerhub]
 header:
   teaser: /assets/images/images.png
