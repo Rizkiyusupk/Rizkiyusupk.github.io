@@ -11,7 +11,7 @@ header:
 
 ## 🌐 Overview
 
-Pada tulisan kali ini saya akan mendemokan bagaimana cara melakukan **Deployment di Kubernetes v1.28** dengan setup cluster berbasis **Ubuntu 24.04 LTS** ⚡.  
+Pada pst kali ini saya akan mendemokan bagaimana cara melakukan **Deployment di Kubernetes v1.28** dengan setup cluster berbasis **Ubuntu 24.04 LTS** ⚡.  
 Cluster ini terdiri dari **1 Master Node** dan **2 Worker Node**, sehingga bisa dicoba skenario _real cluster_ sederhana.  
 
 Tujuan dari eksperimen ini adalah:  
@@ -21,9 +21,9 @@ Tujuan dari eksperimen ini adalah:
 
 ## ⚡ Konsep yang Diterapkan
 
-1. **Deployment 1** → Base image Alpine, dilakukan _rolling update_ dari versi lama ke versi baru.  
+1. **Deployment 1** → Base image Alpine, dilakukan _rolling update_ dari versi lama ke versi baru dan replicas
 2. **Deployment 2** → Menjalankan service dengan beberapa replicas untuk simulasi _load balancing_.  
-3. **Deployment 3** → Deploy aplikasi berbasis Nginx dengan akses menggunakan NodePort.  
+3. **Deployment 3** → Deploy aplikasi berbasis node.js
 
 Dengan kombinasi ini saya bisa menunjukkan bagaimana Kubernetes:
 - Menjaga **aplikasi tetap available** ✅  
