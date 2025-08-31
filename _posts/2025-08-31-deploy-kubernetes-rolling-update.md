@@ -183,9 +183,66 @@ spec:
 
 ```
 
-nah kurang lebih sama dengan deploment apps2 tidak jauh berbeda ada deployment dan service untuk setiap deployment,kenapa di deployment apps1 tidak menggunakan service karena saya sengaja untuk,karena image yang saya gunakan juga sama-sama custom jadi base image ini dari node js makanya saya sengaja target port ke 3000,nah jika sudah exit dari text editornya lalu ketik command ini
+nah kurang lebih sama dengan deploment apps2 tidak jauh berbeda ada deployment dan service untuk usetiap deployment,kenapa di deployment apps1 tidak menggunakan service karena saya sengaja untuk,karena image yang saya gunakan juga sama-sama custom jadi base image ini dari node js makanya saya sengaja target port ke 3000,nah jika sudah exit dari text editornya lalu ketik command ini
 
 ```
 kubectl apply -f namafile.yml
 ```
 
+kurang lebih outputnya seperti ini
+
+![logo](/assets/images/Kube/Screenshot 2025-08-31 230716.png)
+
+setelah itu cek informasi mengenai pods 
+
+![logo](/assets/images/Kube/Screenshot 2025-08-31 231916.png)
+
+setelah sudah mendapat informasi mengenai podsnya cek versi image dari deploymentnya untuk memastikan saja versinya sama dengan yang ada di manifest,
+gunakan perintah **kubectl describe deployment nama-deployment**
+
+![logo](/assets/images/Kube/Screenshot 2025-08-31 232141.png)
+
+setelah mendapat informasi mengenai deployment sekarang tinggal rolling out update untuk versi alpine dari 3.19 ke 3.22
+
+```
+kubectl set image deployment/namaDeployment nama-container=alpine:3.22
+```
+
+seperti yang tertera di gambar ada bagian di deskripsi deployment tertulis nama container seperti di contoh **container-nginx** lalu detail soal image dan versi imagenya
+jadi yang dipakai di rolling out itu nama container dari si deploymentnya
+
+![logo4](/assets/images/Kube/Screenshot 2025-08-31 232232.png)
+
+jika sudah cek dan outputnya mirip seperti gambar di atas versi image sudah berubah dari 3.19 ke 3.22 maka dari itu rolling out sudah selesai
+berikutnya ialah mengecek output dari apps2 dan apps3 ,pertama-tama cek terlebih dahulu nama pods dan servicenya
+
+```
+kubectl get svc -o wide
+```
+
+dan
+
+```
+kubectl get pods -o wide
+```
+
+kurang lebih outputnya seperti ini
+
+![logo5](/assets/images/Kube/Screenshot 2025-08-31 232407.png)
+
+dan setelah itu kamu bisa menggunakan perintah describe untuk mendapatkan ip dari worker yang menjalankan podsnya
+
+![logo7](/assets/images/Kube/Screenshot 2025-08-31 232423.png)
+
+dikarenakan sudah mendapatkan informasi soal port dan juga ip nodenya tinggal curl
+
+```
+curl ip-worker:port-node
+```
+
+contohnya seperti ini
+
+![logo8](/assets/images/Kube/Screenshot 2025-08-31 232510.png)
+
+dan tinggal lakukan hal yang sama ke apps3.
+Dan berakhir sudah demo saya terimakasih 😄😄😄😄😄😄😄😄
