@@ -1,7 +1,7 @@
 ---
 title: "Blog posts"
 layout: posts
-permalink: /year-archive/
+permalink: /posts/
 author_profile: true
 entries_layout: list
 classes: wide
