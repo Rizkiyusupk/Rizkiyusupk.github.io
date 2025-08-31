@@ -1,5 +1,5 @@
 ---
-title: "Deploy Kubernetes 2 Worker - Rolling Update & replicas deployment "
+title: "Deploy Kubernetes 2 Worker - Rolling Update & replicas using manifest "
 date: 2025-08-31
 categories: [Kubernetes, Deployment]
 tags: [k8s, replicas, rolling update, dockerhub, alpine]
@@ -15,7 +15,7 @@ Pada pst kali ini saya akan mendemokan bagaimana cara melakukan **Deployment di 
 Cluster ini terdiri dari **1 Master Node** dan **2 Worker Node**, sehingga bisa dicoba skenario _real cluster_ sederhana.  
 
 Tujuan dari eksperimen ini adalah:  
-- 🔄 **Rolling Update** → mengganti image dari **Alpine v1.19 ➡ v1.22** tanpa downtime  
+- 🔄 **Rolling Update** → mengganti image dari **Alpine v3,19 ➡ v3.22** tanpa downtime  
 - 📦 **Replicas** → memastikan aplikasi tetap berjalan meskipun salah satu pod mati  
 - ☸️ **Deployment via manifest** → semua konfigurasi dibuat dalam file YAML sehingga bisa dengan mudah dikelola & diulang  
 
@@ -88,9 +88,11 @@ spec:
     spec:
       containers:
         - name: container-nginx
-          image: alpine:1.19
-          ports:
-            - containerPort: 80
+          image: alpine:3.19
+          command:
+            - /bin/sh
+            - -c
+            - while true; do echo "hidup jokowiii"; sleep 10 ; done;
 ```
 
 nah tambahan di atas itu adalah bagian dari deployment untuk apps1 seperti **replicas** untuk berapa banyak replicas yang akan digunakan karena saya di atas sudah menyebutkan soal
@@ -139,4 +141,51 @@ spec:
 
 Config di atas itu untuk deployment apps2 dimana saya memakai image custom dari registry di dockerhub yabg sebelumnya sudah saya buat lalu saya push ke regist pribadi saya
 dan tentunya jangan lupa dengan service sebagai expose agar nanti bisa di curl lewat cli,di configurasinya saya memakai protocol **tcp** agar bisa saling berkomunikasi antar pod,[selengkapnya mengenai tcp](https://en.wikipedia.org/wiki/Transmission_Control_Protocol),selanjutnya itu saya memakai target port 80 karena base dari image ini itu nginx yang dimana default listennya itu ada di 80, selanjutnya untuk port dari si pods ke node saya buka di 8081 agar nanti bisa berkomunikasi lewat port itu,trus agar bisa di curl lewat master saya pakai 
-tipe **node port** dengan port 30001 [referensi node port](https://www.tkng.io/services/nodeport/#:~:text=NodePort%20builds%20on%20top%20of,values%20can%20remain%20the%20same.)
+tipe **node port** dengan port 30001 [referensi node port](https://www.tkng.io/services/nodeport/#:~:text=NodePort%20builds%20on%20top%20of,values%20can%20remain%20the%20same.),kenapa 
+saya memakai port 30001 kaya banyak sekali begitu,itu karena alasan range di dalam portnya itu diantara 30000-327627 dan [ini referensinya](https://stackoverflow.com/questions/63698150/in-kubernetes-why-nodeport-has-default-port-range-from-30000-32767),selanjutnya untuk deployment apps3,
+
+```
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apps3
+  labels:
+    apps3: test
+spec:
+  selector:
+    matchLabels:
+      apps3: test
+  template:
+    metadata:
+      labels:
+        apps3: test
+    spec:
+      containers:
+        - name: container-node
+          image: rizki736/todo
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apps3-service
+spec:
+  selector:
+    apps3: test
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 30002
+  type: NodePort
+
+```
+
+nah kurang lebih sama dengan deploment apps2 tidak jauh berbeda ada deployment dan service untuk setiap deployment,kenapa di deployment apps1 tidak menggunakan service karena saya sengaja untuk,karena image yang saya gunakan juga sama-sama custom jadi base image ini dari node js makanya saya sengaja target port ke 3000,nah jika sudah exit dari text editornya lalu ketik command ini
+
+```
+kubectl apply -f namafile.yml
+```
+
