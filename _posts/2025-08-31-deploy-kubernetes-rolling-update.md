@@ -11,7 +11,7 @@ header:
 
 ## 🌐 Overview
 
-Pada pst kali ini saya akan mendemokan bagaimana cara melakukan **Deployment di Kubernetes v1.28** dengan setup cluster berbasis **Ubuntu 24.04 LTS** ⚡.  
+Pada post kali ini saya akan mendemokan bagaimana cara melakukan **Deployment di Kubernetes v1.28** dengan setup cluster berbasis **Ubuntu 24.04 LTS** ⚡.  
 Cluster ini terdiri dari **1 Master Node** dan **2 Worker Node**, sehingga bisa dicoba skenario _real cluster_ sederhana.  
 
 Tujuan dari eksperimen ini adalah:  
