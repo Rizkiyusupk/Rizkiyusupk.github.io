@@ -7,7 +7,6 @@ header:
 
 ---
 ![Shell Scripting Logo](/assets/images/png-clipart-bash-shell-command-line-interface-ls-shell-rectangle-logo-thumbnail-removebg-preview.png)
-# Automation Alert Email Script
 
 ## Deskripsi
 Apa Itu Shell Scripting?
