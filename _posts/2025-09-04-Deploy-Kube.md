@@ -17,7 +17,7 @@ Hasilnya? Saya bisa ganti isi halaman **nginx** hanya dengan update ConfigMap �
 1. Buat **Deployment** dengan container nginx 📦  
 2. Mount **ConfigMap** ke dalam Pod 🗂️  
 3. Akses via **NodePort** untuk lihat hasil awal 🌐  
-4. Update ConfigMap → hapus Pod lama → Pod baru otomatis pakai config terbaru 🔄  
+4. Update ConfigMap 🔄  
 
 ## 🎯 Tujuan dari Latihan Ini
 
