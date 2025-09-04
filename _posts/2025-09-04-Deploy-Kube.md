@@ -37,7 +37,5 @@ dan keduanya sebaiknya dipisah untuk skalabilitas jangka panjang ⚡.
 Begitu ConfigMap diganti, halaman nginx langsung berubah warnanya sesuai isi ConfigMap baru 🌈.  
 Rolling update berjalan mulus tanpa downtime yang berarti 🙌.  
 
----
-
 💡 **Insight:**  
 Dengan cara ini, kita bisa ubah konfigurasi aplikasi kapan saja tanpa harus rebuild image atau redeploy penuh. Super praktis buat aplikasi yang konfigurasi-nya sering berubah ⚡.
