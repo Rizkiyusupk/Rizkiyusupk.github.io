@@ -6,7 +6,7 @@ tags: [k8s, initContainers, rolling update, configMap, alpine]
 header:
   teaser: /assets/images/images.png
 ---
-![logo](/assets/images/images.png)v
+![logo](/assets/images/images.png)
 
 
 # ☸️ Instalasi MetalLB sebagai Load Balancer pada Cluster Kubernetes (1 Master, 2 Worker)
@@ -37,14 +37,18 @@ Tanpa MetalLB, Service tipe LoadBalancer akan selalu berstatus `<pending>` karen
 ---
 
 ## 🧱 Detail Cluster
-| Node | Peran | Sistem Operasi | Kapasitas Disk | Versi Kubernetes |
-|------|--------|----------------|----------------|------------------|
-| Master | Control Plane | Ubuntu 24.04 LTS | 30 GB | v1.28 |
-| Worker 1 | Node Worker | Ubuntu 24.04 LTS | 30 GB | v1.28 |
-| Worker 2 | Node Worker | Ubuntu 24.04 LTS | 30 GB | v1.28 |
 
-- Total Node: **3**
-- Container Runtime: **containerd**
-- Instalasi menggunakan: **kubeadm**
+| 🖥️ Node | ⚙️ Peran | 🐧 Sistem Operasi | 💾 Kapasitas Disk | ☸️ Versi Kubernetes |
+|:--------|:----------|:-----------------|:------------------|:--------------------|
+| **Master** | Control Plane | Ubuntu 24.04 LTS | 30 GB | v1.28 |
+| **Worker 1** | Node Worker | Ubuntu 24.04 LTS | 30 GB | v1.28 |
+| **Worker 2** | Node Worker | Ubuntu 24.04 LTS | 30 GB | v1.28 |
+
+
+
+- 🧱 **Total Nodes:** 3  
+- 🐧 **Operating System:** Ubuntu 24.04 LTS  
+- ⚙️ **Container Runtime:** containerd  
+- 📦 **Deployed Using:** kubeadm
 
 ---
