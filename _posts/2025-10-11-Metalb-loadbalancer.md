@@ -78,4 +78,4 @@ kubectl get pods -n metalLB-system
 
 nanti akan ada output seperti ini 
 
-![logo1](assets/images/metallb/Screenshot 2025-10-11 225126.png)
+![logo1](/assets/images/metallb/Screenshot 2025-10-11 225126.png)
