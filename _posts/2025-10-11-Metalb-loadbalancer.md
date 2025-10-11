@@ -19,10 +19,9 @@ Untuk mengatasinya, digunakan **MetalLB** agar service dapat memiliki **alamat I
 
 ## 🎯 Tujuan Proyek
 Proyek ini dibuat dengan tujuan untuk:
-- ⚙️ Mengaktifkan fitur **LoadBalancer Service** pada cluster bare-metal  
+- ⚙️ Mengaktifkan fitur **LoadBalancer Service** pada cluster vm (Virtual Machine)
 - 🌐 Memungkinkan akses aplikasi dari luar cluster menggunakan **IP statis**  
 - 📘 Mempelajari cara kerja **networking Kubernetes** secara lebih mendalam  
-- 🚀 Mempersiapkan cluster untuk implementasi **Ingress Controller** dan deployment aplikasi yang lebih kompleks  
 
 ---
 
