@@ -75,7 +75,41 @@ jika kamu ingin mengeceknya tinggal gunakan command
 ```
 kubectl get pods -n metalLB-system
 ```
-
-nanti akan ada output seperti ini 
+maka akan muncul output seperti ini
 
 ![logo1](/assets/images/metallb/Screenshot 2025-10-11 225126.png)
+
+setelah outputnya muncul bisa langsung menentukan ip range yang akan di gunakan oleh si kube dengan membuat sebuah file **yaml**
+
+```
+vim metallb-config.yml
+```
+
+setelah itu copy paste code ini
+
+```
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  namespace: metallb-system
+  name: default-address-pool
+spec:
+  addresses:
+  - 192.168.56.240-192.168.56.250
+
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  namespace: metallb-system
+  name: default
+
+```
+
+kamu bisa bebas mengganti range ip dari 240-250 sesuai kemauanmu setelah itu baru kamu apply file confignya ini dengan menggunakan command 
+
+```
+kubectl apply -f metallb-config.yml
+```
+
+waktunya test!!
