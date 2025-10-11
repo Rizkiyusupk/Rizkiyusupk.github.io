@@ -28,7 +28,6 @@ Proyek ini dibuat dengan tujuan untuk:
 ## 💡 Mengapa Menggunakan MetalLB?
 - ☸️ Kubernetes tidak menyediakan Load Balancer bawaan di lingkungan non-cloud  
 - 🌍 **MetalLB** memungkinkan Service tipe LoadBalancer mendapatkan IP eksternal  
-- 🔧 Mendukung dua mode operasi: **Layer 2 (L2)** dan **BGP**  
 - 💡 Mudah dipasang, cocok untuk **VM lokal**, **lab pengujian**, maupun **on-premise cluster**
 
 Tanpa MetalLB, Service tipe LoadBalancer akan selalu berstatus `<pending>` karena tidak ada komponen yang menyediakan IP eksternal.
@@ -51,3 +50,32 @@ Tanpa MetalLB, Service tipe LoadBalancer akan selalu berstatus `<pending>` karen
 - 📦 **Deployed Using:** kubeadm
 
 ---
+## Tahapan Setup
+
+Pertama-tama update packagenya dengan menggunakan **sudo apt-get update**,
+```
+sudo apt-get update
+```
+
+setelah kamu mengupdatenya kamu bisa langsung membuat metalLB,selanjutnya ke pembuatan namespace
+
+```
+kubectl create namespace metalLB-system
+```
+
+nah setelah kamu setup untuk namespacenya sekarang bagian untuk menapply dari repo githubnya
+
+```
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml
+```
+
+setelah apply dari repo resmi github dari metalLBnya tinggal tunggu  untuk si podsnya jalan
+jika kamu ingin mengeceknya tinggal gunakan command 
+
+```
+kubectl get pods -n metalLB-system
+```
+
+nanti akan ada output seperti ini 
+
+![logo1](assets/images/metallb/Screenshot 2025-10-11 225126.png)
