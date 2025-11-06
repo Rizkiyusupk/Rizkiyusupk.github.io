@@ -5,4 +5,4 @@ tags: [podman, rhel, httpd, container, openshift, devops]
 header:
   teaser: /assets/images/httpd-podman.png
 ---
-![logo](assets/images/redhat/Red_Hat-Logo.wine.png)
+![logo](/assets/images/redhat/Red_Hat-Logo.wine.png)
