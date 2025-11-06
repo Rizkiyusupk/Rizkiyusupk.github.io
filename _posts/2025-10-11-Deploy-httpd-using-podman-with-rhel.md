@@ -1,5 +1,5 @@
 ---
-title: "Deploy HTTPD Container di RHEL Menggunakan Podman (OpenShift Training Edition)"
+title: "Deploy HTTPD Container using podman in RED HAT ENTERPRISE LINUX(OpenShift Training Edition)"
 date: 2025-11-06
 tags: [podman, rhel, httpd, container, openshift, devops]
 header:
@@ -64,4 +64,30 @@ nah berikut ini beberapa command tau perintah yang sama yang ada di podman dan d
 | Hentikan container | `docker stop webserver` | `podman stop webserver` |
 | Build image | `docker build -t myimage .` | `podman build -t myimage .` |
 
+## Deploy
+Langsung saja masuk ke deploymentnya,pertama-tama mulai untuk menyalakan labnya terlebih dahulu
 
+![logo4](/assets/images/redhat/Screenshot 2025-11-06 141726.png)
+
+tunggu beberapa saat untuk si labnya berjalan,setelah berjalan langsung klik workstation di labnya dan tunggu pop up dari windows workstationnya muncul,lalu jika sudah muncul 
+masuk ke activities di sebelah pojok kanan atas dan cari icon terminal,dikarenakan saya masuk ke program openshift di redhat saya terlebih dahulu memulai dengan **lab start**,
+setelah itu saya run **podman pull** selayaknya **docker pull**
+
+![logo5](/assets/images/redhat/Screenshot 2025-11-06 140237.png)
+
+setelah proses dari pull image selesai run image httpd yang sudah di pull tadi,ohh saya memakai registry dari rhelnya jadi bukan dari docker dikarenakan podman memang sangat di dukung 
+di lingkungan rhel
+
+![logo7](/assets/images/redhat/Screenshot 2025-11-06 140329.png)
+
+dan disini saya memakai flag **-p** untuk port forwarding dan flag **--rm** untuk delete otomatis si container saat sudah selesai digunakan,jika sudah running bisa langsung cek
+ada dua cara bisa menggunakan **curl** dari terminal atau langsung dari web browser seperti **firefox** 
+
+![logo6](/assets/images/redhat/Screenshot 2025-11-06 140346.png)
+
+disini saya menggunakan web browser untuk mengecek apakah si httpd bisa di akses dari host,cukup klik tulisan activities di pojok kanan atas lalu
+cari firefox karena browser default untuk linux itu firefox,setelah itu ketik di search bar **localhost:8080** karena saya membuka di port 8080 maka saya ketik 8080
+
+![logo10](/assets/images/redhat/Screenshot 2025-11-06 140418.png)
+
+jika tampilan menunjukan output seperti gambar di atas maka httpd bisa di akses,
