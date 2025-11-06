@@ -55,5 +55,13 @@ nah apa perbedaan podman dan docker?? kurang lebih seperti ini
 | **Daemon Process** | ❌ Tidak ada daemon | ✅ Ada daemon |
 | **Tujuan Utama** | Enterprise, RHEL, OpenShift, keamanan tinggi. | Developer umum, CI/CD, pengembangan aplikasi. |
 
----
+nah berikut ini beberapa command tau perintah yang sama yang ada di podman dan docker
+
+| Tujuan | **Docker** | **Podman** |
+|--------|-------------|-------------|
+| Jalankan container HTTPD | `docker run -d -p 8080:80 httpd` | `podman run -d -p 8080:80 httpd` |
+| Lihat container aktif | `docker ps` | `podman ps` |
+| Hentikan container | `docker stop webserver` | `podman stop webserver` |
+| Build image | `docker build -t myimage .` | `podman build -t myimage .` |
+
 
