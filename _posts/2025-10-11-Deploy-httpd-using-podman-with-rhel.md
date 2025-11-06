@@ -90,4 +90,18 @@ cari firefox karena browser default untuk linux itu firefox,setelah itu ketik di
 
 ![logo10](/assets/images/redhat/Screenshot 2025-11-06 140418.png)
 
-jika tampilan menunjukan output seperti gambar di atas maka httpd bisa di akses,
+jika tampilan menunjukan output seperti gambar di atas maka httpd bisa di akses,bukan cuman di cli saja saya akan test menggunakan desktop podman,
+untuk nextnya bisa langsung menggunakan terminal tambahan atau kill container yang sedang berjalan,setelah itu di terminal ketik **podman-desktop**
+
+![logo11](/assets/images/redhat/Screenshot 2025-11-06 140458.png)
+
+tunggu beberapa saat jika ada output seperti gambar di atas maka proses berhasil,perbersar layar jika ada tampilan berupa options pilih yang ada kata podman atau simbol atau gambar podman
+nah jika sudah maka akan di bawa ke sebuah menu diatas
+
+![logo12](/assets/images/redhat/Screenshot 2025-11-06 140615.png)
+
+nah jika sudah melihat ada tampilan untuk image-image yang sudah pernah di pull dari registry,klik image httpd lalu klik tombol start,lalu kamu akan di arahkan ke menu yang sama dengan gambar di atas,atur untuk local portnya dimana kamu akan mengakses si httpd lalu jika sudah klik start,
+
+![logo13](/assets/images/redhat/Screenshot 2025-11-06 140753.png)
+
+jika sudah maka tampilan akan seperti di gambar,untuk mengecek lakukan langkah yang sebelumnya.
