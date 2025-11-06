@@ -30,5 +30,10 @@ untuk lebih jelasnya lagi ini contohnya untuk docker
 ![logo3](/assets/images/redhat/applsci-12-06737-g001.png)
 
 tapi di sini saya akan menggunakan **podman** sama seperti docker podman juga merupakan tools untuk micro service dan containerization,tidak jauh berbeda dengan docker podman juga merupakan 
-tool yang populer untuk micro services atau container 
-![logo3](/assets/images/redhat/applsci-12-06737-g001.png)
+tool yang populer untuk micro services atau container,dan juga saya disini akan mendemokan deploymen httpd menggunakan podman di RHEL(Red Hat Entterprise Linux),dikarenakan saya masuk
+ke program openshift di rhel tersebut,
+
+![logo](/assets/images/redhat/Red_Hat-Logo.wine.png)
+
+
+
