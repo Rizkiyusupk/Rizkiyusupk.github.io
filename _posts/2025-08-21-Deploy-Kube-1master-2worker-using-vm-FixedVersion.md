@@ -243,10 +243,21 @@ sudo swapoff -a
 #dan masukan command ini untuk menonaktifkannya secara permanen
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ```
+nah selanjutnya ialah optimasi disk i/o agar tidak terlalu berat
 
+```
+cat <<EOF | sudo tee -a /etc/sysctl.d/k8s.conf
+vm.dirty_ratio = 40
+vm.dirty_background_ratio = 10
+vm.swappiness = 1
+EOF
+
+sudo sysctl --system
+
+```
 jika kamu ingin tahu kenapa swap harus off ketika ingin install kubernetes [lihat disini](https://stackoverflow.com/questions/40553541/disable-swap-on-a-kubelet?utm_source=chatgpt.com)
 setelah swap dimatikan kamu bisa langsung ke tahap selanjutnya yaitu mennconfigurasi modul untuk cri 
-[apa itu cri](https://kubernetes.io/docs/concepts/architecture/cri/#:~:text=The%20Container%20Runtime%20Interface%20(CRI,components%20kubelet%20and%20container%20runtime)
+[apa itu cri](https://kubernetes.io/docs/concepts/containers/cri/#:~:text=The%20Container%20Runtime%20Interface%20(CRI,components%20kubelet%20and%20container%20runtime)
 tahap ini berfungsi untuk menulis modul-modul secara presistent agar nantinya bisa mendukung komunikasi dan building layer untuk container
 
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
@@ -350,9 +361,14 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
-
-copy semua lalu paster di terminal untuk membuat direktori config dari kube,setelah itu di simpan kamu bisa langsung join dengan token output yang 
+copy semua lalu paste di terminal untuk membuat direktori config dari kube,setelah itu di simpan kamu bisa langsung join dengan token output yang 
 muncul bersamaan dengan command tadi
+nah selanjutnya ialah tahap instalasi untuk network disini saya menggunakan network flannel
+
+```
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+```
+lalu setelah itu bisa langsung init
 
 ```
 sudo kubeadm join 192.168.xxx.xxx:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
