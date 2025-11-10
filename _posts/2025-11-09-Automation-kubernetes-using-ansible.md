@@ -43,7 +43,6 @@ Kubernetes mengelola **container dan aplikasi yang berjalan**, sementara Ansible
 
 ### Contoh penerapan:
 - Menyiapkan node untuk cluster Kubernetes.
-- Menginstal komponen seperti `kubeadm`, `kubelet`, dan `kubectl`.
 - Mengonfigurasi jaringan cluster (CNI plugin).
 - Mengotomatiskan deployment file manifest Kubernetes (.yaml).
 - Integrasi dengan CI/CD pipeline.
@@ -344,3 +343,78 @@ ssh rizki@192.168.56.161
 nah jika si output seperti ini
 
 ![logo14](/assets/images/ansible/Screenshot 2025-11-11 013535.png)
+
+nah jika sudah di konfirmasi bahwa sudah selesai dengan ssh sekarang masuk ke tahap setup dan konfigurasi ansible
+cek apakah python sudah terinstall di os linux biasanya jika menginstall linux akan sepaket dengan python,tapi jika belum bisa install menggunakan apt
+
+```
+sudo apt-get update
+
+sudo apt install python3 -y
+```
+
+nah kenapa python dibutuhkan di ansible ya karena ansible sendiri itu di buat atau di bangun diatas python jadi kita perlu python
+untuk menggunakannya [selengkapnya](https://www.redhat.com/en/blog/ansible-coding-programming?utm_source=chatgpt.com),
+nah untuk step selanjutnya kita perlu yang namanya venv untuk env ansiblenya nanti dan juga pip untuk install beberapa dependensi
+
+```
+sudo apt install python3-venv python3-pip -y
+```
+
+jika sudah install venv dan pip kamu bisa langsung buat direktori tempat venv di simpan misal
+
+```
+mkdir ansible-k8s
+```
+
+selanjutnya masuk ke direktori yang sudah dibuat
+
+```
+cd ansible-k8s
+```
+
+terus inisiasi untuk venv di direktori tersebut 
+
+```
+python3 -m venv ansible-venv
+```
+
+command diatas akan menginisiasi venv untuk env si ansible dan jika ingin langsung masuk ke venv bisa activate menggunakan command
+
+```
+source ansible-venv/bin/active
+```
+
+nah command diatas akan membuat terminal masuk ke venv yang sudah di inisiasi sebelumnya
+dan masuk ke step berikutnya tinggal install beberapa dependensi untuk ansible core dan kubernetes menggunakan pip tentunya 
+karena kita akan menginstallnya di dalam venv
+
+```
+## untuk upgrade si pipnya
+pip install --upgrade pip
+
+## dependesi si ansible
+pip install ansible
+
+## libraries buat kuber di python
+pip install kubernetes openshift PyYAML
+
+```
+
+nah jika sudah kamu bisa langsung membuat inventorynya untuk mengetahui yang mana saja node yang akan di manage
+menggunakan vim atau nano atau text editor manapun dengan format .ini
+
+```
+vim inventory.ini
+
+[master]
+master ansible_host=192.168.56.160 ansible_user=rizki
+[workers]
+worker ansible_host=192.168.56.161 ansible_user=rizki
+worker1 ansible_host=192.168.56.163 ansible_user=rizki
+
+```
+
+ganti ke nama host mu dan ip node mu setelah itu test ping 
+
+![logo16](/assets/images/ansible/Screenshot 2025-11-11 023605.png)
