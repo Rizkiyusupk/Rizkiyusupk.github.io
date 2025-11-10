@@ -339,7 +339,7 @@ untuk mengetesnya kamu cukup lakukan ssh ke nodenya
 
 ```
 ssh rizki@192.168.56.161
-``
+```
 
 nah jika si output seperti ini
 
