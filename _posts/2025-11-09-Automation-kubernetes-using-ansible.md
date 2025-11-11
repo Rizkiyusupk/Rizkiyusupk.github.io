@@ -399,6 +399,9 @@ pip install ansible
 ## libraries buat kuber di python
 pip install kubernetes openshift PyYAML
 
+## install core buat kuber jaga jaga
+ansible-galaxy collection install kubernetes.core
+
 ```
 
 nah jika sudah kamu bisa langsung membuat inventorynya untuk mengetahui yang mana saja node yang akan di manage
@@ -418,3 +421,101 @@ worker1 ansible_host=192.168.56.163 ansible_user=rizki
 ganti ke nama host mu dan ip node mu setelah itu test ping 
 
 ![logo16](/assets/images/ansible/Screenshot 2025-11-11 023605.png)
+
+nah setelah test ping berhasil kamu bisa langsung activate venv nya dengan command
+
+```
+source ansible-k8s/ansible-venv/bin/active
+```
+
+ganti full path dengan versi dari direktori dimana kamu menyimpan venvnya
+setelah masuk ke venvnya buatlah sebuah namespace
+
+```
+kubectl create namespace myapp
+```
+
+jika sudah buat sebuah kube mainfest untuk test deployment
+
+```
+rizki@master:~$ cat kube.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apps1
+  labels:
+    apps1: test
+  namespace: myapp
+spec:
+  selector:
+    matchLabels:
+      apps1: test
+  template:
+    metadata:
+      labels:
+        apps1: test
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apps1-service
+  namespace: myapp
+spec:
+  selector:
+    apps1: test
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30001
+  type: NodePort
+```
+
+disini saya menggunakan nginx sebagai base image,dan saya menggunakan sebuah namespace karena sudah di buat sebelumnya,
+setelah itu buat sebuah playbook untuk ansible
+
+```
+---
+- name: Deploy aplikasi ke kubernetes
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: Apply manifests
+      command: kubectl apply -f kube.yml
+
+
+    - name: Wait for deployment ready
+      command: kubectl get pods -o wide --namespace myapp
+
+```
+
+nah jika sudah kamu bisa langsung test runiningnya menggunakan command
+
+```
+ansible-playbook -i inventory playbook.yaml
+```
+
+tunggu untuk si ansible memproses playbooknya hingga selesai,jika sudah outputnya akan seperti ini
+
+![kucai](/assets/images/ansible/Screenshot 2025-11-11 163623.png)
+
+jika outputnya seudah seperti itu maka playbook berjalan tanpa adanya eror
+jika sudah kamu bisa langsung test curl atau lewat browser host karena ini menggunakan type nodeport
+
+
+![kucai2](/assets/images/ansible/Screenshot 2025-11-11 164207.png)
+
+lewat browser
+
+![kucai3](/assets/images/ansible/Screenshot 2025-11-11 164500.png)
+
+## SELESAII BERAKHIR SUDAH DEMONYA TERIMAKASIH SUDAH SAMPAI SINI DAN SEMOGA BISA BERMANFAAT
