@@ -1,7 +1,7 @@
 ---
-title: "Setup Integrated Deployment System Full Setup"
+title: "Build Integrated Deployment System Full Setup"
 date: 2025-08-16
-tags: [kubernetes, vm, virtualbox, containerd, flannel, cluster, devops]
+tags: [kubernetes, vm, virtualbox, containerd, flannel, cluster, devops,system]
 header:
   teaser: /assets/images/ci-cd/Untitled design (2).png
 categories: [DevOps, Kubernetes]
@@ -9,10 +9,10 @@ categories: [DevOps, Kubernetes]
 
 ![Kubernetes Cluster Architecture](/assets/images/ci-cd/Untitled design (2).png)
 
-## 🎯 **Overview**
+##  **Overview**
 Membangun Kubernetes cluster production-like dengan 1 Master dan 2 Worker Node menggunakan VirtualBox. Setup ini cocok untuk development, testing, dan pembelajaran Kubernetes.
 
-## 📋 **Spesifikasi Hardware & Software**
+##  **Spesifikasi Hardware & Software**
 
 ### **Virtual Machine Requirements:**
 | Node | CPU | RAM | Storage | Network |
