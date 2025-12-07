@@ -25,7 +25,7 @@ Saya akan membangun Kubernetes cluster production-like dengan 1 Master dan 2 Wor
 
 berikut topologi yang saya pakai 
 ![logo3](/assets/images/ci-cd/WhatsApp Image 2025-11-16 at 20.37.31 (2).jpeg)
-
+dan
 ![logo4](/assets/images/ci-cd/WhatsApp Image 2025-11-16 at 20.37.31 (3).jpeg)
 ### **Software Versions:**
 - **OS**: Ubuntu Server 24.04 LTS
@@ -38,7 +38,8 @@ berikut topologi yang saya pakai
 -  **Ngrok**: 3.33.1
 
 
-##  **Step 1: VirtualBox Setup**
+##  **Step 1: Kubernetes Setup**
+**NOTE UNTUK SETUP VIRTUAL BOX INI SAMA DENGAN SETUP KUBE DI POSTINGAN YANG SEBELUMNYA JADI INI SAMA TIDAKA DA BEDANYA UNTUK SETUP SI KUBERNETESNYA**
 Pertama-tama buat topologi dari cluster terlebih dahulu yaitu 1 master 2 worker,dengan ini
 kita perlu 3 **Virtual Machine** (**VM**),[selengkapnya mengenai installasi vm dan apa itu vm](https://www.virtualbox.org/),
 disini saya akan menggunakan iso **ubuntu 24** [selengkapnya untuk iso ubuntu 24](https://ubuntu.com/download/server),setelah kamu mendownload iso ubuntu 
@@ -358,7 +359,7 @@ nah selanjutnya ialah tahap instalasi untuk network disini saya menggunakan netw
 ```
 kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
 ```
-lalu setelah itu bisa langsung init
+lalu setelah itu bisa langsung join menggunakan output dari init tadi 
 
 ```
 sudo kubeadm join 192.168.xxx.xxx:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
@@ -372,3 +373,5 @@ verifikasi ✔️✔️✔️✔️✔️✔️✔️✔️✔️✔️
 
 setelah itu selesai sudah semua config 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 
+## **Step 2: Jenkins Setup**
+Pada tahap ini saya akan membuat kembali 1 vm baru untuk si jenkinsnya,sebenarnya bisa saja saya membuat versi containernya yang bisa di scale dikarenakan saya itu masih belajar untuk versi containernya akan saya tunda terlebih dahulu,untuk stepnya sama seperti membuat vm kube sebelumnya jadi bisa langsung skip ke installasi jenkinsnya
