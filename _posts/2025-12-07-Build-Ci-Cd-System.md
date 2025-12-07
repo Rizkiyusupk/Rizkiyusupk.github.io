@@ -10,16 +10,18 @@ categories: [DevOps, Kubernetes]
 ![Kubernetes Cluster Architecture](/assets/images/ci-cd/Untitled design (2).png)
 
 ##  **Overview**
-Membangun Kubernetes cluster production-like dengan 1 Master dan 2 Worker Node menggunakan VirtualBox. Setup ini cocok untuk development, testing, dan pembelajaran Kubernetes.
+Saya akan membangun Kubernetes cluster production-like dengan 1 Master dan 2 Worker Node menggunakan VirtualBox. Setup ini cocok untuk development, testing, dan pembelajaran Kubernetes.Semua ini bertujuan untuk pembelajaran dan pemahaman semata agar saya dan yang melihat ini bisa paham dalam Ci/Cd,
 
 ##  **Spesifikasi Hardware & Software**
 
 ### **Virtual Machine Requirements:**
-| Node | CPU | RAM | Storage | Network |
-|------|-----|------|---------|---------|
-| **Master** | 2 cores | 2GB | 20GB | 2 Adapters (NAT + Host-only) |
-| **Worker 1** | 2 cores | 2GB | 20GB | 2 Adapters (NAT + Host-only) |
-| **Worker 2** | 2 cores | 2GB | 20GB | 2 Adapters (NAT + Host-only) |
+
+| Node        | CPU     | RAM  | Storage | Network                     |
+|-------------|---------|------|---------|------------------------------|
+| **Master**  | 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Host-only) |
+| **Worker 1**| 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Host-only) |
+| **Worker 2**| 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Host-only) |
+| **Jenkins** | 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Host-only) |
 
 ### **Software Versions:**
 - **OS**: Ubuntu Server 24.04 LTS
