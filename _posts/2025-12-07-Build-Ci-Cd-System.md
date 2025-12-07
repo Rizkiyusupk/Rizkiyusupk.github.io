@@ -10,7 +10,7 @@ categories: [DevOps, Kubernetes]
 ![Kubernetes Cluster Architecture](/assets/images/ci-cd/Untitled design (2).png)
 
 ##  **Overview**
-Saya akan membangun Kubernetes cluster production-like dengan 1 Master dan 2 Worker Node menggunakan VirtualBox. Setup ini cocok untuk development, testing, dan pembelajaran Kubernetes.Semua ini bertujuan untuk pembelajaran dan pemahaman semata agar saya dan yang melihat ini bisa paham dalam Ci/Cd,
+Saya akan membangun Kubernetes cluster production-like dengan 1 Master,2 Worker dan 1 jenkins Node menggunakan VirtualBox. Setup ini cocok untuk development, testing, dan pembelajaran Kubernetes.Semua ini bertujuan untuk pembelajaran dan pemahaman semata agar saya dan yang melihat ini bisa paham dalam secara mendalam apa itu Ci/Cd dan praktik di industri Ci/Cd,
 
 ##  **Spesifikasi Hardware & Software**
 
