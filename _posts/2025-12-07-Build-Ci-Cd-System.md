@@ -1,7 +1,7 @@
 ---
 title: "Build Integrated Deployment System Full Setup"
 date: 2025-08-16
-tags: [kubernetes, vm, virtualbox, containerd, flannel, cluster, devops,system]
+tags: [kubernetes, vm, virtualbox, containerd, flannel, cluster, devops,system,jenkins,Jenkins]
 header:
   teaser: /assets/images/ci-cd/Untitled design (2).png
 categories: [DevOps, Kubernetes]
@@ -375,3 +375,27 @@ setelah itu selesai sudah semua config 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀�
 
 ## **Step 2: Jenkins Setup**
 Pada tahap ini saya akan membuat kembali 1 vm baru untuk si jenkinsnya,sebenarnya bisa saja saya membuat versi containernya yang bisa di scale dikarenakan saya itu masih belajar untuk versi containernya akan saya tunda terlebih dahulu,untuk stepnya sama seperti membuat vm kube sebelumnya jadi bisa langsung skip ke installasi jenkinsnya
+pertama-tama update lalu buat install openjdk jika java belum terinstall,kenapa butuh java karena jenkins tidak akan berjalan tanpa java 
+[selengkapnya](https://www.jenkins.io/solutions/java/#:~:text=Jenkins%20supports%20building%20Java%20projects,the%20tool%20many%20years%20ago.)
+,kita skip langsung ke instalasinya update package terlebih dahulu
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo apt-get update
+```
+
+jika sudah bisa langsung install openjdknya 
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo apt install openjdk-17-jdk -y
+```
+
+jika sudah pastikan sudah terinstall untuk javanya
+
+```
+java --version
+```
+
