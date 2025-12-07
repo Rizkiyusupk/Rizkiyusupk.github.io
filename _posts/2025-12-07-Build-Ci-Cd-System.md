@@ -399,3 +399,44 @@ jika sudah pastikan sudah terinstall untuk javanya
 java --version
 ```
 
+nah untuk outputnya seperti ini 
+![logo3](/assets/images/ci-cd/Screenshot 2025-12-07 202907.png)
+
+jika outputnya sudah seperti itu maka selamat java sudah terinstall di vmnya,next selanjutnya ialah instalasi jenkins karena java sudah terinstall maka untuk selanjutnya ialah jenkins,kita bisa langsung masuk ke installasinya 
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+```
+
+tambahkan repo jenkins resmi,setelah itu 
+
+```
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+```
+
+lalu install jika sudah menambahkan semua kebutuhannya
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo apt update
+sudo apt install jenkins
+```
+
+jika sudah dan tidak ada eror satupun itu berarti installasi berhasil dan cek apakah benar-benar berhasil dengan
+
+```
+jenkins --version
+```
+
+outputnya seharunya seperti ini
+
+![logo4](/assets/images/ci-cd/Screenshot 2025-12-07 205215.png)
+
+jika sudah sekarang bisa langsung ke tahap selanjutnya yaitu 
