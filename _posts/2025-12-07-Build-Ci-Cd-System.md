@@ -439,4 +439,113 @@ outputnya seharunya seperti ini
 
 ![logo4](/assets/images/ci-cd/Screenshot 2025-12-07 205215.png)
 
-jika sudah sekarang bisa langsung ke tahap selanjutnya yaitu 
+jika sudah sekarang bisa mulai jenkins dengan menggunakan command
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+```
+
+check status jenkinsnya dengan 
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo systemctl status jenkins
+```
+
+sekarang masuk tahap yang krusial tahap dimana installasi untuk kubectl,kenapa cuman kubectl engga sekalian aja kubeadm,kubelet? dikarenakan hanya
+kubectl yang akan berguna dan terpakai jadi pada saat penggunaan hanya kubectl saja yang akan mengakses ke clusternya tidak dengan kubeadm maupun kubelet,maka dari itu hanya kubectl yang akan di install,langsung saja tambahkan dependencies
+
+```
+sudo apt install -y apt-transport-https ca-certificates curl
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+```
+
+setelah itu 
+```
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
+
+setelah semua kebutuhan untuk installasi kubectl selesai bisa langsung masuk tahap installasi saja
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo apt-get update
+sudo apt install kubectl -y
+```
+
+jika proses sudah berhasil dan tidak ada eror pastikan apakah kubectl terinstall dengan command
+
+```
+kubectl version --client
+```
+
+outputnya akan seperti ini
+![logo1](/assets/images/ci-cd/Screenshot 2025-12-07 225158.png)
+
+jika outputnya sudah sesuai itu berarti kubectl terinstall dengan benar untuk tahap selanjutnya itu copy kubeconfig dari master ke jenkins vm
+saya akan melakukannya lewat terminal ssh,buka cmd di windows dengan menekan tombol 
+
+```
+windows + r
+lalu ketik cmd+enter
+```
+
+jika sudah maka kamu akan masuk ke tampilan terminal,ssh ke vm kube master dengan command
+
+```
+ssh host@ip-vm
+misal
+ssh rizki@192.168.56.167
+```
+
+jika sudah masuk ke terminal master ketik command
+
+```
+cat ~/.kube/config
+```
+
+output seharusnya seperti ini 
+
+![logo7](/assets/images/ci-cd/Screenshot 2025-12-07 225732.png)
+
+copy semua hasil dari output itu lalu ssh ke terminal jenkins dengan cara yang sama seperti ke kube master
+jika sudah buat sebuah direktori untuk meyimpan file user jenkins
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo mkdir -p /var/lib/jenkins/.kube
+```
+
+jika sudah copy output tadi di masukan ke file di dalam direktori yang baru saja di buat
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo vim /var/lib/jenkins/.kube/config
+```
+setelah itu ubah perizinan dari si filenya 
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo chown -R jenkins:jenkins /var/lib/jenkins/.kube
+```
+
+jika sudah di paste test untuk uji coba akses ke kube gunakan command 
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo -u jenkins kubectl get nodes
+```
+
+untuk test saja gunakan command diatas,output yang akan di keluar itu seperti ini
+
+![logo3](/assets/images/ci-cd/Screenshot 2025-12-07 232527.png)
+
