@@ -1,5 +1,5 @@
 ---
-title: "Setup Kubernetes Cluster 1 Master + 2 Worker dengan VirtualBox"
+title: "Setup Integrated Deployment System Full Setup"
 date: 2025-08-16
 tags: [kubernetes, vm, virtualbox, containerd, flannel, cluster, devops]
 header:
