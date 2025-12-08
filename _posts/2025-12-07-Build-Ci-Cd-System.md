@@ -35,7 +35,8 @@ dan
 - **VirtualBox**: 7.0.10
 - **Jenkins**: 2.528.2
 - **Java Open-jdk**: 17.0.17
--  **Ngrok**: 3.33.1
+- **Ngrok**: 3.33.1
+- **Git Bash**
 
 
 ##  **Step 1: Kubernetes Setup**
@@ -651,4 +652,32 @@ pilih suggested lalu akan diarahkan ke halaman seperti ini
 ![logo022](/assets/images/ci-cd/jenkins_plugin_install_two.png)
 
 **NOTE** semua gambar diatas diambil dari internet jadi saya lupa untuk mengambil gambar dari proses installasi saya 
-untuk step selanjutnya 
+untuk step selanjutnya,buat secret di jenkins dengan masuk ke menu ui dari jenkins dan masuk ke dashboardnya setelah itu klik icon atau logo gear
+disebelah kanan atas klik itu
+
+![logoo](/assets/images/ci-cd/Screenshot 2025-12-08 234431.png)
+
+jika sudah akan di bawa ke menu tampilan seperti dibawah ini,
+
+![logooo](/assets/images/ci-cd/Screenshot 2025-12-08 234445.png)
+
+jika sudah masuk ke menu settings cari credentials lalu klik menu credentials
+
+![logoop](/assets/images/ci-cd/Screenshot 2025-12-08 234505.png)
+
+diatas merupakan isi dari menu credentials,jika belum menambahkan credentials apapun klik domains global lalu add credentials
+
+![logooi](/assets/images/ci-cd/Screenshot 2025-12-08 234646.png)
+
+contohnya seperti diatas klik add credentials lalu kamu akan dibawa kemenu halaman seperti 
+
+![logoou](/assets/images/ci-cd/Screenshot 2025-12-08 235703.png)
+
+set credentials ke ssh userame with private key lalu di bagian private key klik enter directly lalu klik key dan setelah itu akan muncuk kolom dimana
+kamu bisa menaruh ssh key yang sudah di generate sebelumnya pada saat setup gitlab,gunakan key itu lagi untuk di jenkins,username bebas dan id bebas itu terserah kamu
+jika sudah save **NOTE** gambar diatas hanyalah contoh jadi key yang akans saya gunakan itu key yang berbeda dari contoh,
+
+## SETUP BASH
+
+dikarenakan ini webhook jadi nantinya saya akan mendemokan bagaimana caranya sesuai dengan yang ada di gambar jadi ketika dev push dari laptop dev
+ke gitlab nantinya gitlab akan menerima webhook event lalu triger jenkinsnya lalu jenkins akan mendeploynya ke kubernetes,jadi saya akan menstup bash terlebih dahulu,install dulu bash di laptop masing masing jika tidak ada [link bash](https://git-scm.com/install/windows),nah jika sudah masuk ke bashnya lalu ketik command gitlab login
