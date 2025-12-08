@@ -627,3 +627,28 @@ kurang lebih outputnya seperti ini
 ![logo01](/assets/images/ci-cd/Screenshot 2025-12-08 190504.png)
 
 jika output sama seperti diatas selamat karena gitlab sudah berhasil terhubung dengan jenkins
+
+## CONFIG JENKINS
+untuk step selanjutnya masuk ke tahap config jenkins buka browser mu lalu masuk ke ui dari jenkins dengan mengetikan 
+
+```
+ip-vm:8080
+misal
+192.168.56.169:8080
+```
+
+jika sudah maka akan ada tampilan seperti ini diawal
+
+![logo](/assets/images/ci-cd/setup-jenkins-01-unlock-jenkins-page.jpg)
+
+buka saja file yang berisi passwordnya jadi untuk masuk ke jenkins perlu password admin dan passwordnya ada di direktori defaultnya
+lalu copy dan paste di kolom yang sudah disediakan,setelah itu akan diarahakan ke menu install plugin
+
+![logo011](/assets/images/ci-cd/customize_jenkins_screen_two.png)
+
+pilih suggested lalu akan diarahkan ke halaman seperti ini
+
+![logo022](/assets/images/ci-cd/jenkins_plugin_install_two.png)
+
+**NOTE** semua gambar diatas diambil dari internet jadi saya lupa untuk mengambil gambar dari proses installasi saya 
+untuk step selanjutnya 
