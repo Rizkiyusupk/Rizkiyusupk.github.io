@@ -24,7 +24,7 @@ Saya akan membangun Kubernetes cluster production-like dengan 1 Master,2 Worker 
 | **Jenkins** | 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Host-only) |
 
 berikut topologi yang saya pakai 
-![logo3](/assets/images/ci-cd/WhatsApp Image 2025-11-16 at 20.37.31 (2).jpeg)
+![logo3](/assets/images/ci-cd/2.png)
 dan
 ![logo4](/assets/images/ci-cd/WhatsApp Image 2025-11-16 at 20.37.31 (3).jpeg)
 ### **Software Versions:**
