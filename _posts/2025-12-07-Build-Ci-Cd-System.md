@@ -366,12 +366,13 @@ sudo kubeadm join 192.168.xxx.xxx:6443 --token <token> --discovery-token-ca-cert
 ```
 
 cari output itu diantara output **sudo kubedm init** tadi pastinya sudah sesuai dengan vm master mu,setelah itu copy lalu paste di vm worker 
-verifikasi ✔️✔️✔️✔️✔️✔️✔️✔️✔️✔️
 
 
-![vm16](/assets/images/Screenshot 2025-08-17 232944.png)
 
-setelah itu selesai sudah semua config 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
+![vm16](/_posts/2025-12-07-Build-Ci-Cd-System.md)
+
+diatas merupakan contoh yang saya ambil dari internet,diatas merupakan sebuah contoh utuk output join command,jika sudah semua maka
+kubernetes berhasil di buat
 
 ## **Step 2: Jenkins Setup**
 Pada tahap ini saya akan membuat kembali 1 vm baru untuk si jenkinsnya,sebenarnya bisa saja saya membuat versi containernya yang bisa di scale dikarenakan saya itu masih belajar untuk versi containernya akan saya tunda terlebih dahulu,untuk stepnya sama seperti membuat vm kube sebelumnya jadi bisa langsung skip ke installasi jenkinsnya
@@ -549,3 +550,80 @@ untuk test saja gunakan command diatas,output yang akan di keluar itu seperti in
 
 ![logo3](/assets/images/ci-cd/Screenshot 2025-12-07 232527.png)
 
+jika sudah keluar output nodesnya berarti sekarang jenkins bisa akses ke kubernetes cluster 
+## SSH SETUP
+untuk tahap selanjutnya generate ssh key 
+untuk commandnya seperti ini
+
+```
+ssh-keygen -t rsa
+```
+
+tekan enter terus sampai proses selesai agar ssh key dalam mode default,lakukan lagi di cluster kube,jika sudah 
+melakukannya ke semua node copy ssh-keygen ke semua node menggunakan command
+
+```
+ssh-copy -i -i /PATH/TO/FILE host@ip-vm
+atau
+ssh-copy- -i /home/rizki/.ssh/pub rizki@192.168.56.167
+```
+
+copy command diatas itu akan mengcopy dari vm jenkins ke master,tekan tab pada saat setelah mengetik flag -i agar mempercepat proses
+lakukan kesemua vm
+
+```
+jenkins -> master
+jenkins -> worker
+jenkins -> worker1
+---
+master -> jenkins
+master -> worker
+master -> worker1
+---
+worker -> master
+worker -> jenkins
+worker -> worker1
+---
+worker1 -> master
+worker1 -> jenkins
+worker1 -> worker
+
+```
+
+lakukan semua step diatas ke masing masing nodes dengan command yang sudah di tunjukan 
+
+## SETUP GITLAB
+Pada tahap ini saya akan mensetup atau configurasi gitlab untuk nantinya bisa terhubung dengan node,
+pertama-tama buat keybaru lalu simpan di direktori user yang sebelumnya sudah di buat 
+
+```
+sudo -u jenkins ssh-keygen -t rsa -b 4096 -C "jenkins@your-vm" -f /var/lib/jenkins/.ssh/id_rsa -N ""
+```
+
+jika ingin copy dari ssh-key sebelumnya juga tidak masalah atau malah ingin menimpa dengan yang ini tapi jika ingin menimpa maka
+harus mencopy ulang langkah sebelumnya,jika sudah buka id_rsa.pub file yang tersimpan lalu copy 
+
+![logo12](/assets/images/ci-cd/Screenshot 2025-12-08 183743.png)
+
+kurang lebih seperti ini nah jika sudah lalu copy semua outputnya lalu pergi ke browser lalu ketik gitlab,pastikan punya akun gitlabnya setelah 
+itu login lalu pergi ke edit profile setelah itu 
+masuk ke menu ssh-key di sebelah kiri
+
+![logo13](/assets/images/ci-cd/Screenshot 2025-12-08 183650.png)
+
+kurang lebih seperti diatas menu di bagian ssh-key,nah setelah itu klik add new key,paste yang sudah di copy tadi lalu 
+tambahkan title misal auth lalu set ke authentication & signing setelah itu set expiration datenya bebas terserah kamu
+
+![logo02](/assets/images/ci-cd/Screenshot 2025-12-08 183717.png)
+
+setelah itu test apakah jenkins sudah terhubung dengan gitlab dengan command 
+
+```
+sudo -u jenkins ssh -T git@gitlab.com
+```
+
+kurang lebih outputnya seperti ini
+
+![logo01](/assets/images/ci-cd/Screenshot 2025-12-08 190504.png)
+
+jika output sama seperti diatas selamat karena gitlab sudah berhasil terhubung dengan jenkins
