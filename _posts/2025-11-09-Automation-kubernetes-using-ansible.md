@@ -1,6 +1,6 @@
 ---
 title: "Automation Kubernetes Deployment Using Ansible (Full Infrastructure Setup)"
-date: 2025-11-06
+date: 2025-11-11
 tags: [kubernetes, ansible, automation, devops, infrastructure, linux]
 header:
   teaser: /assets/images/ansible/Untitled design.jpg
