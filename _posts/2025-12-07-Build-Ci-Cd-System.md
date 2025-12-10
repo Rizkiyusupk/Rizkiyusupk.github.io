@@ -814,6 +814,10 @@ lalu
 
 ![iasabf](/assets/images/ci-cd/result/Screenshot 2025-12-11 004037.png)
 
+dan hasil akhir jenkins file terdeploy
+
+![tai](/assets/images/ci-cd/result/Screenshot 2025-12-11 004049.png)
+
 dan ini hasil dari push yang tadi saya lakukan terbukti jenkins file berhasil di push lalu gitlab menerima webhook dan triger jenkinsfile 
 setelah itu akan ada job yang jalan.Jadi selesai sudah saya menjelaskan workflow dari sistem deployment yang saya buat saya sistem ini merupakan 
 pembelajarn dan experimen bagi saya yang penasaran tentang Ci/Cd workflow untuk kedepannya saya akan membuat yang lainya entah itu nantinya akan 
