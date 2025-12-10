@@ -369,7 +369,6 @@ sudo kubeadm join 192.168.xxx.xxx:6443 --token <token> --discovery-token-ca-cert
 cari output itu diantara output **sudo kubedm init** tadi pastinya sudah sesuai dengan vm master mu,setelah itu copy lalu paste di vm worker 
 
 
-
 ![vm16](/_posts/2025-12-07-Build-Ci-Cd-System.md)
 
 diatas merupakan contoh yang saya ambil dari internet,diatas merupakan sebuah contoh utuk output join command,jika sudah semua maka
@@ -552,6 +551,7 @@ untuk test saja gunakan command diatas,output yang akan di keluar itu seperti in
 ![logo3](/assets/images/ci-cd/Screenshot 2025-12-07 232527.png)
 
 jika sudah keluar output nodesnya berarti sekarang jenkins bisa akses ke kubernetes cluster 
+
 ## SSH SETUP
 untuk tahap selanjutnya generate ssh key 
 untuk commandnya seperti ini
@@ -677,7 +677,29 @@ set credentials ke ssh userame with private key lalu di bagian private key klik 
 kamu bisa menaruh ssh key yang sudah di generate sebelumnya pada saat setup gitlab,gunakan key itu lagi untuk di jenkins,username bebas dan id bebas itu terserah kamu
 jika sudah save **NOTE** gambar diatas hanyalah contoh jadi key yang akans saya gunakan itu key yang berbeda dari contoh,
 
+## SETUP NGROK
+Dikarenakan gitlab yang saya pakai itu adalah gitlab web jadinya gitlab perlu mengakses ke ip vm saya sedangkan vm saya adalah local jadinya saya perlu sesuatu agar gitlab bisa mengakses vm saya maka saya akan menggunakan ngrok disini [install ngrok](https://ngrok.com/download/linux),jika sudah terinstall ambil token auth ngrok dengan masuk ke websitenya,jika sudah masuk dan login masuk ke your auth token 
+
+![logoo1](/assets/images/ci-cd/Screenshot 2025-12-10 172759.png)
+
+kurang lebih seperti ini tampilannya,copy lalu pergi ke terminal jenkins llau ketik command ini
+
+```
+ngrok config add-authtoken <token>
+```
+
+ganti token dengan auth token yang tadi di copy lalu jalankan ngrok dengan command
+
+```
+ngrok http 8080 
+```
+
+arahkan ke port dimana jenkins berjalan agar nantinya bisa melakukan webhook,jika sudah maka akan ada output seperti ini
+
+![logoo9](/assets/images/Screenshot 2025-12-10 170011.png)
+
+simpan link yang diberikan nantinya akan di pakai untuk webhook
 ## SETUP BASH
 
 dikarenakan ini webhook jadi nantinya saya akan mendemokan bagaimana caranya sesuai dengan yang ada di gambar jadi ketika dev push dari laptop dev
-ke gitlab nantinya gitlab akan menerima webhook event lalu triger jenkinsnya lalu jenkins akan mendeploynya ke kubernetes,jadi saya akan menstup bash terlebih dahulu,install dulu bash di laptop masing masing jika tidak ada [link bash](https://git-scm.com/install/windows),nah jika sudah masuk ke bashnya lalu ketik command gitlab login anjay
+ke gitlab nantinya gitlab akan menerima webhook event lalu triger jenkinsnya lalu jenkins akan mendeploynya ke kubernetes,jadi saya akan menstup bash terlebih dahulu,install dulu bash di laptop masing masing jika tidak ada [link bash](https://git-scm.com/install/windows),nah jika sudah masuk ke bashnya lalu ketik command gitlab login 
