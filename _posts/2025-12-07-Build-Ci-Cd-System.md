@@ -1,6 +1,6 @@
 ---
 title: "Build Integrated Deployment System Full Setup"
-date: 2025-08-16
+date: 2025-12-11
 tags: [kubernetes, vm, virtualbox, containerd, flannel, cluster, devops,system,jenkins,Jenkins]
 header:
   teaser: /assets/images/ci-cd/Untitled design (2).png
