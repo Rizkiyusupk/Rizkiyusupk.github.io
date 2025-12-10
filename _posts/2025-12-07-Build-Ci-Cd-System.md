@@ -770,4 +770,61 @@ dari contoh diatas ke
 
 ![kucai](/assets/images/ci-cd/Screenshot 2025-12-09 224326.png)
 
-jadi seperti contoh diatas ini masukan credentials yang sebelumnya sudah di buat 
+jadi seperti contoh diatas ini masukan credentials yang sebelumnya sudah di buat jangan lupa atur branchnya ke main
+setelah itu save,**NOTE** catat url yang ada di menu "Build when is pushed to gitlab" di bagian itu ada path penting yang mengarah ke project
+
+```
+http://192.168.56.169:8080/project/test2
+```
+
+bagian **/project/test2/** itu bagian penting catat dan simpan,jika sudah maka save
+langkah selanjutnya ialah pergi ke gitlab lagi dan masuk ke repo yang tadi sudah di buat terus klik bagian 
+settings lalu ke webhook lalu add new webhook
+
+![logoo0812](/assets/images/ci-cd/Screenshot 2025-12-10 233659.png)
+
+setelah itu akan ada tampilan seperti ini isi kolom url dengan url yang ngrok kasih sebelumnya lalu tambahkan sedikit diujung path dari project yang tadi di simpan dari config jobs di jenkins,lalu gabungkan,lalu kolom secret token didapat dari generate secret token paste ke url secret token setelah itu scroll kebawah
+
+![logoii](/assets/images/ci-cd/Screenshot 2025-12-10 233710.png)
+
+checklist semua yang ada karena ini hanya untuk test deployment dan buka production real jadi ini hanya experiment,lalu uncheck di bagian ssl biar lebih memudahkan,jika sudah maka save,setelah itu masu kembali ke bash lalu coba masukan file jenkins nya ke mode stagging,
+
+```
+git add .
+git commit -m "commit"
+git push origin main
+```
+
+seperti ini 
+
+![logooo](/assets/images/ci-cd/result/Screenshot 2025-12-11 003826.png)
+
+jika sudah bisa langsung di cek di bagian job di pipeline test2 maka akan ada job yang muncul karena berhasil triger lewat webhooknya
+berikut beberapa tangkapan layar 
+
+![logooo1](/assets/images/ci-cd/result/Screenshot 2025-12-11 003934.png)
+
+![aoskd](/assets/images/ci-cd/result/Screenshot 2025-12-11 003949.png)
+
+dan
+
+![adi](/assets/images/ci-cd/result/Screenshot 2025-12-11 004010.png)
+
+lalu
+
+![iasabf](/assets/images/ci-cd/result/Screenshot 2025-12-11 004037.png)
+
+dan ini hasil dari push yang tadi saya lakukan terbukti jenkins file berhasil di push lalu gitlab menerima webhook dan triger jenkinsfile 
+setelah itu akan ada job yang jalan.Jadi selesai sudah saya menjelaskan workflow dari sistem deployment yang saya buat saya sistem ini merupakan 
+pembelajarn dan experimen bagi saya yang penasaran tentang Ci/Cd workflow untuk kedepannya saya akan membuat yang lainya entah itu nantinya akan 
+ada monitorng log atau menggunakan argo,tapi saya akan mendeploy nginx di postingan saya selanjutnya tunggu saja saya akan selalu membagikan 
+tips dan materi pembelajaran saya senang bisa berbagi,kedepanya juga saya ingin sekali untuk menggunkan bare metal ketimbang vm saja saya 
+meiliki laptop usang yang tidak terpakai saya memiliki niat untuk mengubah laptop itu menjadi home server nantinya,tunggu saja postingan selanjutnya dari saya tentang deployment menggunakan sistem ini,oh ya karena saya bukan dev jadi saya hanya deploy nginx karena simpel dan cepat 
+saya juga masih belajar mungkin kedepanya saya akan coba deploy php saya akan melakukan beberapa variasi deployment agar tidak bosan heheh 😆😆😆
+ohh ya saya menggunakan beberapa referensi jika kalian butuh 
+
+- [JENKINS](https://www.jenkins.io/doc/book/installing/linux/)
+- [NGROK](https://ngrok.com/download/linux)
+- [KUBERNETES](https://kubernetes.io/docs/tasks/tools/)
+
+TERIMAKASIH SUDAH MENYIMAK DAN MEMBACA SAMPAI AKHIR SEMOGA HARIMU MENYENANGKAN
