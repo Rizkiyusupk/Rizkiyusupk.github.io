@@ -785,11 +785,11 @@ bagian **/project/test2/** itu bagian penting catat dan simpan,jika sudah maka s
 langkah selanjutnya ialah pergi ke gitlab lagi dan masuk ke repo yang tadi sudah di buat terus klik bagian 
 settings lalu ke webhook lalu add new webhook
 
-![logoo0812](/assets/images/ci-cd/Screenshot 2025-12-10 233659.png)
+![logoo0812](/assets/images/ci-cd/result/Screenshot 2025-12-11 013403.png)
 
 setelah itu akan ada tampilan seperti ini isi kolom url dengan url yang ngrok kasih sebelumnya lalu tambahkan sedikit diujung path dari project yang tadi di simpan dari config jobs di jenkins,lalu gabungkan,lalu kolom secret token didapat dari generate secret token paste ke url secret token setelah itu scroll kebawah
 
-![logoii](/assets/images/ci-cd/Screenshot 2025-12-10 233710.png)
+![logoii](/assets/images/ci-cd/result/Screenshot 2025-12-11 013418.png)
 
 checklist semua yang ada karena ini hanya untuk test deployment dan buka production real jadi ini hanya experiment,lalu uncheck di bagian ssl biar lebih memudahkan,jika sudah maka save,setelah itu masu kembali ke bash lalu coba masukan file jenkins nya ke mode stagging,
 
