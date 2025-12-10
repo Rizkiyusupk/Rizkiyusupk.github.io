@@ -47,6 +47,10 @@ disini saya akan menggunakan iso **ubuntu 24** [selengkapnya untuk iso ubuntu 24
 sekarang kamu tinggal melakukan installasi untuk vmnya.
 Pertama-tama kamu masuk terlebih dahulu ke menu dashboard dari virtual box
 
+**NOTE GAMBAR ADA SEDIKTI KESALAH MENGENAI RUANG SAYA BELUM MEMPERBAIKINYA GAMBAR INSTALLASI VM TIDAK SESUAI DENGAN SPESIFIKASI!!ABAIKAN SAJA**
+**NOTE INSTALLASI TIDAK HARUS MENGIKUTI SPESIFIKASI YANG ADA DI GAMBAR JADI IKUTI SAJA SESUAI BACAA NANTI SAYA AKAN PERBAIKI BEBERAPA GAMBAR
+YANG MEMANG ADA YANG RUSAK DAN TIDAK SESUAI TERIMAKASIH**
+
 ![vm](/assets/images/kube_cluster/Screenshot 2025-08-16 212949.png)
 
 Terus lakukan seperti yang ada digambar,setelah kamu masuk ke menu **machine**  lalu klik tombol **new**
