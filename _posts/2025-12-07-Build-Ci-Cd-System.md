@@ -699,7 +699,75 @@ arahkan ke port dimana jenkins berjalan agar nantinya bisa melakukan webhook,jik
 ![logoo9](/assets/images/Screenshot 2025-12-10 170011.png)
 
 simpan link yang diberikan nantinya akan di pakai untuk webhook
-## SETUP BASH
 
+## SETUP BASH
 dikarenakan ini webhook jadi nantinya saya akan mendemokan bagaimana caranya sesuai dengan yang ada di gambar jadi ketika dev push dari laptop dev
-ke gitlab nantinya gitlab akan menerima webhook event lalu triger jenkinsnya lalu jenkins akan mendeploynya ke kubernetes,jadi saya akan menstup bash terlebih dahulu,install dulu bash di laptop masing masing jika tidak ada [link bash](https://git-scm.com/install/windows),nah jika sudah masuk ke bashnya lalu ketik command gitlab login 
+ke gitlab nantinya gitlab akan menerima webhook event lalu triger jenkinsnya lalu jenkins akan mendeploynya ke kubernetes,jadi saya akan menstup bash terlebih dahulu,install dulu bash di laptop masing masing jika tidak ada [link bash](https://git-scm.com/install/windows),nah jika sudah masuk ke bashnya lalu login atau bisa langsung clone repo dengan cara
+
+```
+git clone url-repo
+```
+
+dengan begitu akan otomatis mengclone repo jika sudah masuk ke direktori repo lalu buat sebuah Jenkinsfile simple karena hanya untuk test webhook saja
+berikut contoh Jenkinsnya
+
+```
+pipeline {
+    agent any
+    stages {
+        stage('Test Webhook') {
+            steps {
+                echo 'Webhook triggered successfully!'
+                sh 'ls -la'
+            }
+        }
+    }
+}
+```
+
+copy jenkins diatas dan paste kedalam file jenkins setelah itu simpan jangan dulu di masukan ke stagging mode simpan saja terlebih dahulu
+
+## SETUP WEBHOOK 
+jika setup bash sudah dilakukan kini masuk ketahap setup webhook masuk ke gitlab,masuk ke gitlab lalu masuk ke menu project dan 
+klik New project
+
+![logoou](/assets/images/ci-cd/Screenshot 2025-12-09 222155.png)
+
+jika sudah maka akan di bawa ke tampilan halam seperti di bawah ini
+
+![logoo8](/assets/images/ci-cd/Screenshot 2025-12-09 222207.png)
+
+setelah itu klik create blank project,jika sudah maka akan dibawa ke halaman seperti ini
+
+![logoo8p](/assets/images/ci-cd/Screenshot 2025-12-09 222226.png)
+
+untuk tahap selanjutnya isi nama projectnya sesuai dengan keinginan lalu isikan project url dengan username gitlab kamu
+pastikan project itu public jika tidak itu terserah kembali kepada diri masing-masing,setelah itu klik create project 
+untuk tahap selanjutnya 
+
+![logoo0](/assets/images/ci-cd/Screenshot 2025-12-09 222226.png)
+
+seperti contoh diatas jika sudah masuk ke tahap selanjutnya untuk pembuatan pipeline,
+masuk ke jenkins lalu klik new item pojok kanan atas lalu kamu bisa langsung memilih tipe jobsnya pilih pipeline lalu berinama
+
+![najay](/assets/images/ci-cd/Screenshot 2025-12-09 223903.png)
+
+seperti contoh diatas,jika sudah scroll ke bawah sampai bagian triggers jika sudah checklist bagian "Build when is pushed to gitlab "
+
+![logoo1](/assets/images/ci-cd/Screenshot 2025-12-09 224117.png)
+
+jika sudah kamu scroll ke bawah ke bagian advanced lalu kamu bisa generate secret token,ini penting sangat penting kamu copy dan simpan tokennya
+nantinya token itu akan di pakai untuk webhook di gitlab,
+
+![logoo112](/assets/images/ci-cd/Screenshot 2025-12-09 224128.png)
+
+jika sudah scroll lagi kebawah sampai di menu pipeline definition lalu ubah tipe pipelinenya dari pipeline script ke 
+ke pipeline scrip from scm 
+
+![logooo1](/assets/images/ci-cd/Screenshot 2025-12-09 224136.png)
+
+dari contoh diatas ke
+
+![kucai](/assets/images/ci-cd/Screenshot 2025-12-09 224326.png)
+
+jadi seperti contoh diatas ini masukan credentials yang sebelumnya sudah di buat 
