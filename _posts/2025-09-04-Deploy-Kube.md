@@ -206,7 +206,7 @@ spec:
           command:
             - /bin/sh
             - -c
-            - echo " $(cat /etc/config/presiden) hebat" > /pod-data/index.html
+            - echo " $(cat /etc/config/presiden) hebat mantap" > /pod-data/index.html
 ```
 
 sama tidak ada bedanya dengan depolyment apps1 cuman disini itu ada bagian init containers,nah apasih bedanya init containers dengan sidecar containers,bedanya itu
