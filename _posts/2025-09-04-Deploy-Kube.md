@@ -206,7 +206,7 @@ spec:
           command:
             - /bin/sh
             - -c
-            - echo " $(cat /etc/config/presiden) anjing" > /pod-data/index.html
+            - echo " $(cat /etc/config/presiden) hebat" > /pod-data/index.html
 ```
 
 sama tidak ada bedanya dengan depolyment apps1 cuman disini itu ada bagian init containers,nah apasih bedanya init containers dengan sidecar containers,bedanya itu
@@ -273,7 +273,6 @@ nah kurang lebih seperti ini,jika sudah exit lalu coba curl dan lihat outputnya
 dan begitulah kurang lebih demonstrasi mengenai update isi container untuk sidecar container,
 dan untuk init container cuman curl biasa untuk mengecek apakah initnya sudah jalan 
 
-![logo7](/assets/images/Kube/memek1.png)
 
 jika ada output dari curl berarti initnya sudah jalan 
 🚀🚀🚀🚀  
