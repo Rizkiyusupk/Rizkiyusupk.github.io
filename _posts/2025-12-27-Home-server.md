@@ -68,3 +68,27 @@ jika sudah maka akan ada output yang mirip seperti ini
 output diatas adalah output dari laptop saya yang sudah terinstall k3s jadinya banyak kata **SKIPPING** jika pertama kali
 install maka akan ada output **INFO**,jika sudah test cek nodes 
 
+```
+kubectl get nodes
+```
+
+jika sudah mengetikan command seperti diatas maka output akan seperti ini
+
+![logooo](/assets/images/home-server/Screenshot 2025-12-28 232047.png)
+
+kenapa rolesnya hanya ada  control-plane,master   dan 1 node ya karena ini single node jadi hanya ada 1,misalkan 
+ada bare metal tambahan tinggal join menggunakan command 
+
+```
+curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken sh -
+```
+
+ganti url dengan alamat apiserver master atau ip dari node master lalu untuk node tokennya ambil dari master menggunakan command
+
+```
+sudo cat /var/lib/rancher/k3s/server/node-token
+
+```
+
+SELESAI SUDAH DEMO INSTALLASI SAYA MENGGUNAKAN BARE METAL INI MERUPAKAN LANGKAH PERTAMA SAYA
+MENGGUNAKAN BARE METAL KARENA SAYA SERING MENGGUNAKAN VM TERIMAKASIH SUDAH MENYIMAK DADAHH!!!
