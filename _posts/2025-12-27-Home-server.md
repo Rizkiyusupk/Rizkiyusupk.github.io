@@ -24,4 +24,47 @@ Alih-alih menjalankan Kubernetes di dalam beberapa VM—yang menambah beban reso
 ## Setup
 Dikarenakan ini menggunakan bare metal dan bukan vm disini tidak ada setup vm seperti biasanya,jadi saya menggunakan laptop lama saya yang 
 sudah jarang di gunakan sebagai single node dan kebetulan os dari laptop lama saya itu ubuntu jadinya saya bisa memanfaatkan laptop usang saya 
-sebagai bahan belajar,dan kenapa saya memilih untuk k3s bukan k8s 
+sebagai bahan belajar,dan kenapa saya memilih untuk k3s bukan k8s karena konsep saya itu single node jadi saya memakai k3s kenapa bukan k3d? 
+nanti di postingan selanjutnya saya akan menggunakan k3d,jadii langsung ke tutorialnya
+
+Pertama-tama karena laptop lama saya itu os ubuntu tapi GUI dan bukan CLI saya akan merubahnya terlebih dahulu 
+gunakan command 
+
+```
+sudo systemctl set-default multi-user.target
+sudo reboot
+```
+
+setelah itu os akan reboot dan akan masuk ke mode CLI 
+
+dari yang tadinya GUI 
+
+![logoo](/assets/images/home-server/WhatsApp Image 2025-12-28 at 18.56.59.jpeg)
+
+ke CLI
+
+![looo](/assets/images/home-server/Screenshot 2025-12-28 191127.png)
+
+jika ingin kembali ke tampilan GUI dari CLI ketik command
+
+```
+sudo systemctl set-default graphical.target
+sudo reboot
+```
+
+kenapa saya menggunakan CLi daripada GUI karena masalah beban pada laptop karena laptop ini laptop usang yang sudah lama jadinya saya menggunakan
+CLI untuk mengurangi beban dan ini hanya untuk pembelajaran semata untuk saya agar saya paham juga menggunakan bare metal tidak selalu vm,
+jika sudah langsung masuk ke terminal windowsnya lalu paste command ini
+
+```
+curl -sfL https://get.k3s.io | bash 
+```
+
+saya menggunakan install script jadinya buka yang binary biar lebih cepat dan praktis,
+jika sudah maka akan ada output yang mirip seperti ini
+
+![logoo](/assets/images/home-server/Screenshot 2025-12-28 192010.png)
+
+output diatas adalah output dari laptop saya yang sudah terinstall k3s jadinya banyak kata **SKIPPING** jika pertama kali
+install maka akan ada output **INFO**,jika sudah test cek nodes 
+
