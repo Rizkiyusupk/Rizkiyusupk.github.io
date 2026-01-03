@@ -524,7 +524,7 @@ jika sudah buat sebuah direktori untuk meyimpan file user jenkins
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-sudo mkdir -p /var/lib/jenkins/.kube
+sudo mkdir -p ~/.kube/
 ```
 
 jika sudah copy output tadi di masukan ke file di dalam direktori yang baru saja di buat
@@ -532,14 +532,15 @@ jika sudah copy output tadi di masukan ke file di dalam direktori yang baru saja
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-sudo vim /var/lib/jenkins/.kube/config
+sudo vim ~/.kube/config
 ```
+
 setelah itu ubah perizinan dari si filenya 
 
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-sudo chown -R jenkins:jenkins /var/lib/jenkins/.kube
+sudo chown -R $USER:$USER ~/.kube
 ```
 
 jika sudah di paste test untuk uji coba akses ke kube gunakan command 
