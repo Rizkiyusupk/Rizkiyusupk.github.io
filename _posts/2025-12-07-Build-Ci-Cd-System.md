@@ -47,9 +47,6 @@ disini saya akan menggunakan iso **ubuntu 24** [selengkapnya untuk iso ubuntu 24
 sekarang kamu tinggal melakukan installasi untuk vmnya.
 Pertama-tama kamu masuk terlebih dahulu ke menu dashboard dari virtual box
 
-**NOTE GAMBAR ADA SEDIKTI KESALAH MENGENAI RUANG SAYA BELUM MEMPERBAIKINYA GAMBAR INSTALLASI VM TIDAK SESUAI DENGAN SPESIFIKASI!!ABAIKAN SAJA**
-**NOTE INSTALLASI TIDAK HARUS MENGIKUTI SPESIFIKASI YANG ADA DI GAMBAR JADI IKUTI SAJA SESUAI BACAA NANTI SAYA AKAN PERBAIKI BEBERAPA GAMBAR
-YANG MEMANG ADA YANG RUSAK DAN TIDAK SESUAI TERIMAKASIH**
 
 ![vm](/assets/images/Screenshot 2026-01-07 211210.png)
 
@@ -65,28 +62,28 @@ akan digunakan di waktu yang akan mendatang untuk belajar maka persiapkan resour
 ![vm2](/assets/images/Screenshot 2026-01-07 211225.png)
 
 jika sudah maka akan terlihat seperti itu,setelah itu masuk ke bagian Hardisk,lalu set size sebesar 30gb
-karena ini emang untuk bahan pembelajaran selanjutnya,**note karena ini menenggunakan preallocate full size sebaiknya gunakan disk yang lebih kecil 
-bertujuan agar nantinya tidak ada beban disistem karena ini hanya untuk lab pembelajaran semata!!!!!**
+karena ini emang untuk bahan pembelajaran selanjutnya,karena ditutorial ini itu memang full size 30 gb 1 vm
 
-![vm3](/assets/images/Screenshot 2026-01-07 211235.png
+![vm3](/assets/images/Screenshot 2026-01-07 211246.png)
 
 jika sudah,klik finish setelah itu kamu klik kanan pada bagian machine lalu klik settings
 
-![vm3](/assets/images/kube_cluster/Screenshot 2025-08-16 213112.png)
+![vm3](/assets/images/Screenshot 2026-01-07 211331.png)
 
 setelah itu bakalan diarahkan ke menu general lalu masuk ke menu network,lalu kamu masuk ke menu adapter 2
 
-![vm1](/assets/images/kube_cluster/Screenshot 2025-08-17 195628.png)
+![vm1](/assets/images/Screenshot 2026-01-07 211341.png)
 
 setelah kamu masuk ke menu adapter 2 klik tombol enable 
-setelah kamu enable adapter networknya pilih host-only adapter
+setelah kamu enable adapter networknya pilih bridged adapter
 
-![vm](/assets/images/kube_cluster/Screenshot 2025-08-17 195638.png)
+![vm](/assets/images/Screenshot 2026-01-07 211358.png)
 
+dan untuk promiscuous modenya pilih allow all
 jangan edit adapter 1 biarkan default saja,setelah itu klik ok lalu klik pada bagian
 storage dan pilih bagian optical drive itu ada file iso yang akan digunakan,kamu bisa pilih search di file download dengan mengklik choose a disk file
 
-![vm4](/assets/images/kube_cluster/memek.png)
+![vm4](/assets/images/Screenshot 2026-01-07 211416.png)
 
 setelah kamu memilih file di disk berikutnya tinggal start si machine 
 setelah start beberapa saat kemudian akan muncul opsi **try or install ubuntu** pencet enter pada bagian itu
