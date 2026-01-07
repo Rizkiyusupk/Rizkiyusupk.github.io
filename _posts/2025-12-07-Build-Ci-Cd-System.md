@@ -51,24 +51,24 @@ Pertama-tama kamu masuk terlebih dahulu ke menu dashboard dari virtual box
 **NOTE INSTALLASI TIDAK HARUS MENGIKUTI SPESIFIKASI YANG ADA DI GAMBAR JADI IKUTI SAJA SESUAI BACAA NANTI SAYA AKAN PERBAIKI BEBERAPA GAMBAR
 YANG MEMANG ADA YANG RUSAK DAN TIDAK SESUAI TERIMAKASIH**
 
-![vm](/assets/images/kube_cluster/Screenshot 2025-08-16 212949.png)
+![vm](/assets/images/Screenshot 2026-01-07 211210.png)
 
 Terus lakukan seperti yang ada digambar,setelah kamu masuk ke menu **machine**  lalu klik tombol **new**
 setelah itu kamu akan diarahkan ke menu seperti ini
 
-![logovm1](/assets/images/kube_cluster/Screenshot 2025-08-16 213025.png)
+![logovm1](/assets/images/Screenshot 2026-01-07 211225.png)
 
 kamu isi dengan nama yang kamu inginkan,lalu setelah itu pilih linux dengan subtype ubuntu pilih saja ubuntu x64
-setelah itu klik bagian Hardware dan pilih 12288 untuk memory dan 8 cpu karena ini adalah sebuah cluster dari kubernetes yang nantinya
+setelah itu klik bagian Hardware dan pilih 7168 untuk memory dan 7 cpu karena ini adalah sebuah cluster dari kubernetes yang nantinya
 akan digunakan di waktu yang akan mendatang untuk belajar maka persiapkan resource yang memadai
 
-![vm2](/assets/images/kube_cluster/Screenshot 2025-08-16 213042.png)
+![vm2](/assets/images/Screenshot 2026-01-07 211225.png)
 
-jika sudah maka akan terlihat seperti itu,setelah itu masuk ke bagian Hardisk,lalu set size sebesar 130gb
+jika sudah maka akan terlihat seperti itu,setelah itu masuk ke bagian Hardisk,lalu set size sebesar 30gb
 karena ini emang untuk bahan pembelajaran selanjutnya,**note karena ini menenggunakan preallocate full size sebaiknya gunakan disk yang lebih kecil 
 bertujuan agar nantinya tidak ada beban disistem karena ini hanya untuk lab pembelajaran semata!!!!!**
 
-![vm3](/assets/images/kube_cluster/kontol.png)
+![vm3](/assets/images/Screenshot 2026-01-07 211235.png
 
 jika sudah,klik finish setelah itu kamu klik kanan pada bagian machine lalu klik settings
 
