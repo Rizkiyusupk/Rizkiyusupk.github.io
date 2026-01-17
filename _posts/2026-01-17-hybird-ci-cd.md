@@ -6,3 +6,5 @@ header:
   teaser: /assets/images/hybird-ci-cd/Untitled design (1).jpg
 categories: [DevOps, Kubernetes,linux,Linux,Server]
 ---
+
+![logo1](//assets/images/hybird-ci-cd/Untitled design (1).jpg)
