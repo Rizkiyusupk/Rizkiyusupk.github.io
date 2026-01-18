@@ -22,3 +22,32 @@ masih sama dengan yang sebelumnya jadi,cara kerja atau workflownya sama dengan p
 Berikut workflow dari project ini
 
 ![logoo1](/assets/images/ci-cd/2.png)
+
+untuk topologinya itu akan ada sedikit perubahan jadi seperti ini 
+
+![logoo1](/assets/images/hybird-ci-cd/d2de8764-f43f-4152-ba17-0de4a26c8166.jpg)
+
+untuk spesifikasi vm
+### **Virtual Machine Requirements:**
+
+| Node        | CPU     | RAM  | Storage | Network                            |
+|-------------|---------|------|---------|------------------------------------|
+| **Master**  | 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter) |
+| **Worker 1**| 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter) |
+| **Worker 2**| 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter) |
+| **Jenkins** | 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter) |
+
+dan untuk tools yang akan di pakai itu seperti
+
+### **Software Versions:**
+- **OS**: Ubuntu Server 24.04 LTS (Vm Kubernetes) 
+- **OS**: Ubuntu 25.04 (Bare Metal / Jenkins )
+- **Kubernetes**: v1.28.15
+- **Container Runtime**: containerd v1.27.7
+- **CNI Plugin**: Flannel
+- **VirtualBox**: 7.0.10
+- **Jenkins**: 2.528.2
+- **Java Open-jdk**: 17.0.17
+- **Ngrok**: 3.33.1
+- **Git Bash** : git version 2.51.1.windows.1
+
