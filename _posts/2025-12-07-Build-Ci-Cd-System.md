@@ -27,6 +27,7 @@ berikut topologi yang saya pakai
 ![logo3](/assets/images/ci-cd/2.png)
 dan
 ![logo4](/assets/images/ci-cd/WhatsApp Image 2025-11-16 at 20.37.31 (3).jpeg)
+
 ### **Software Versions:**
 - **OS**: Ubuntu Server 24.04 LTS
 - **Kubernetes**: v1.28.15
@@ -36,8 +37,7 @@ dan
 - **Jenkins**: 2.528.2
 - **Java Open-jdk**: 17.0.17
 - **Ngrok**: 3.33.1
-- **Git Bash**
-
+- **Git Bash** : git version 2.51.1.windows.1
 
 ##  **Step 1: Kubernetes Setup**
 **NOTE UNTUK SETUP KUBERNETES INI SAMA DENGAN SETUP KUBE DI POSTINGAN YANG SEBELUMNYA JADI INI SAMA TIDAKA DA BEDANYA UNTUK SETUP SI KUBERNETESNYA**
@@ -230,12 +230,11 @@ karena kubelet tidak akan berjalan jika ada swapp yang on
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-#ini itu untuk menonaktifkan swapnya tapi sementara
 sudo swapoff -a
 
-#dan masukan command ini untuk menonaktifkannya secara permanen
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ```
+
 nah selanjutnya ialah optimasi disk i/o agar tidak terlalu berat
 
 ```
@@ -256,11 +255,9 @@ tahap ini berfungsi untuk menulis modul-modul secara presistent agar nantinya bi
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-# Load modules
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
-# Buat persistent
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
@@ -281,7 +278,6 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
 EOF
 
-# Apply sysctl
 sudo sysctl --system
 ```
 
@@ -290,27 +286,20 @@ tahap selanjutnya ialah installasi untuk cri (container runtime interface) kita 
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-# Install dependencies
 sudo apt install -y apt-transport-https ca-certificates curl gnupg lsb-release
 
-# Add Docker GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-# Add Docker repository (Ubuntu 24.04 menggunakan noble)
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Install containerd
 sudo apt update
 sudo apt install -y containerd.io
 
-# Configure containerd
 sudo mkdir -p /etc/containerd
 containerd config default | sudo tee /etc/containerd/config.toml
 
-# Edit config untuk systemd cgroup (Ubuntu 24.04 sudah default systemd)
 sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
 
-# Restart containerd
 sudo systemctl restart containerd
 sudo systemctl enable containerd
 ```
@@ -320,20 +309,18 @@ jika sudah bisa kita langsung ke tahap selanjutnya
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-# Add Kubernetes GPG key dan repository
+
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-# Install Kubernetes tools
 sudo apt update
 sudo apt install -y kubelet kubeadm kubectl
 
-# Hold packages dari auto-update
 sudo apt-mark hold kubelet kubeadm kubectl
 
-# Enable kubelet
 sudo systemctl enable kubelet
 ```
+
 **lakukan semua step diatas disemua vm!!!!**
 **SELANJUTNYA INIT DI VM MASTER**
 untuk step selanjutnya ialah init dari vm master
@@ -376,6 +363,7 @@ diatas merupakan contoh yang saya ambil dari internet,diatas merupakan sebuah co
 kubernetes berhasil di buat
 
 ## **Step 2: Jenkins Setup**
+
 Pada tahap ini saya akan membuat kembali 1 vm baru untuk si jenkinsnya,sebenarnya bisa saja saya membuat versi containernya yang bisa di scale dikarenakan saya itu masih belajar untuk versi containernya akan saya tunda terlebih dahulu,untuk stepnya sama seperti membuat vm kube sebelumnya jadi bisa langsung skip ke installasi jenkinsnya
 pertama-tama update lalu buat install openjdk jika java belum terinstall,kenapa butuh java karena jenkins tidak akan berjalan tanpa java 
 [selengkapnya](https://www.jenkins.io/solutions/java/#:~:text=Jenkins%20supports%20building%20Java%20projects,the%20tool%20many%20years%20ago.)
