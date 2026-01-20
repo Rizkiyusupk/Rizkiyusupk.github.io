@@ -3,7 +3,7 @@ title: "Build Ci/Cd Hybrid System Full Infrastructure Setup(Vm + Bare Metal)"
 date: 2026-01-17
 tags: [kubernetes, linux, cli, devops, containerd,bare-metal,hybrid,ci,cd,ci/cd,system,infrastructure]
 header:
-  teaser: /assets/images/hybird-ci-cd/Untitled design (1).jpg
+  teaser: /assets/images/hybird-ci-cd/jembod.jpg
 categories: [DevOps, Kubernetes,linux,Linux,Server]
 ---
 
@@ -371,7 +371,21 @@ sudo kubeadm join 192.168.xxx.xxx:6443 --token <token> --discovery-token-ca-cert
 cari output itu diantara output **sudo kubedm init** tadi pastinya sudah sesuai dengan vm master mu,setelah itu copy lalu paste di vm worker 
 
 
-![vm16](/_posts/2025-12-07-Build-Ci-Cd-System.md)
+![vm16](/assets/images/hybird-ci-cd/join.png)
 
 diatas merupakan contoh yang saya ambil dari internet,diatas merupakan sebuah contoh utuk output join command,jika sudah semua maka
-kubernetes berhasil di buat
+kubernetes berhasil di buat,jika token expired atau tidak sengaja menghapus token join node kamu bisa langsung buat token yang baru dengan 
+mengetikan perintah
+
+```
+sudo kubeadm token create --print-join-command
+```
+
+dengan begitu kubeadm akan membuatkan token baru lalu jika sudah copy paste output dari command diatas
+contohnya akan menjadi seperti ini
+
+```
+kubeadm join 192.168.100.55:6443 --token nix6r6.i51fr4h4tqmfhuu4 --discovery-token-ca-cert-hash sha256:c2666d1adaf9016b8badff75ea04c395eea78ceb8babc5e1dfd0825b68c3f120
+```
+
+jika sudah copy paste di node pastikan menggunakan sudo diawal command
