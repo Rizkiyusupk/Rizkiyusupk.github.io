@@ -389,3 +389,39 @@ kubeadm join 192.168.100.55:6443 --token nix6r6.i51fr4h4tqmfhuu4 --discovery-tok
 ```
 
 jika sudah copy paste di node pastikan menggunakan sudo diawal command
+
+## SETUP BARE METAL
+
+## Setup
+Dikarenakan ini menggunakan bare metal dan bukan vm disini tidak ada setup vm seperti biasanya,jadi saya menggunakan laptop lama saya yang 
+sudah jarang di gunakan sebagai single node dan kebetulan os dari laptop lama saya itu ubuntu jadinya saya bisa memanfaatkan laptop usang saya 
+sebagai bahan belajar
+Pertama-tama karena laptop lama saya itu os ubuntu tapi GUI dan bukan CLI saya akan merubahnya terlebih dahulu 
+gunakan command 
+
+```
+sudo systemctl set-default multi-user.target
+sudo reboot
+```
+
+setelah itu os akan reboot dan akan masuk ke mode CLI 
+
+dari yang tadinya GUI 
+
+![logoo](/assets/images/home-server/WhatsApp Image 2025-12-28 at 18.56.59.jpeg)
+
+ke CLI
+
+![looo](/assets/images/home-server/Screenshot 2025-12-28 191127.png)
+
+jika ingin kembali ke tampilan GUI dari CLI ketik command
+
+```
+sudo systemctl set-default graphical.target
+sudo reboot
+```
+
+kenapa saya menggunakan CLi daripada GUI karena masalah beban pada laptop karena laptop ini laptop usang yang sudah lama jadinya saya menggunakan
+CLI untuk mengurangi beban dan ini hanya untuk pembelajaran semata untuk saya agar saya paham juga menggunakan bare metal tidak selalu vm,
+jika sudah langsung masuk ke terminal windowsnya lalu paste command ini
+
