@@ -392,7 +392,6 @@ jika sudah copy paste di node pastikan menggunakan sudo diawal command
 
 ## SETUP BARE METAL
 
-## Setup
 Dikarenakan ini menggunakan bare metal dan bukan vm disini tidak ada setup vm seperti biasanya,jadi saya menggunakan laptop lama saya yang 
 sudah jarang di gunakan sebagai single node dan kebetulan os dari laptop lama saya itu ubuntu jadinya saya bisa memanfaatkan laptop usang saya 
 sebagai bahan belajar
@@ -425,3 +424,463 @@ kenapa saya menggunakan CLi daripada GUI karena masalah beban pada laptop karena
 CLI untuk mengurangi beban dan ini hanya untuk pembelajaran semata untuk saya agar saya paham juga menggunakan bare metal tidak selalu vm,
 jika sudah langsung masuk ke terminal windowsnya lalu paste command ini
 
+## **Jenkins Setup**
+
+Pada tahap ini saya akan membuat kembali 1 vm baru untuk si jenkinsnya,sebenarnya bisa saja saya membuat versi containernya yang bisa di scale dikarenakan saya itu masih belajar untuk versi containernya akan saya tunda terlebih dahulu,untuk stepnya sama seperti membuat vm kube sebelumnya jadi bisa langsung skip ke installasi jenkinsnya
+pertama-tama update lalu buat install openjdk jika java belum terinstall,kenapa butuh java karena jenkins tidak akan berjalan tanpa java 
+[selengkapnya](https://www.jenkins.io/solutions/java/#:~:text=Jenkins%20supports%20building%20Java%20projects,the%20tool%20many%20years%20ago.)
+,kita skip langsung ke instalasinya update package terlebih dahulu
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo apt-get update
+```
+
+jika sudah bisa langsung install openjdknya 
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo apt install openjdk-17-jdk -y
+```
+
+jika sudah pastikan sudah terinstall untuk javanya
+
+```
+java --version
+```
+
+nah untuk outputnya seperti ini 
+![logo3](/assets/images/ci-cd/Screenshot 2025-12-07 202907.png)
+
+jika outputnya sudah seperti itu maka selamat java sudah terinstall di vmnya,next selanjutnya ialah instalasi jenkins karena java sudah terinstall maka untuk selanjutnya ialah jenkins,kita bisa langsung masuk ke installasinya 
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+```
+
+tambahkan repo jenkins resmi,setelah itu 
+
+```
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+```
+
+lalu install jika sudah menambahkan semua kebutuhannya
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo apt update
+sudo apt install jenkins
+```
+
+jika sudah dan tidak ada eror satupun itu berarti installasi berhasil dan cek apakah benar-benar berhasil dengan
+
+```
+jenkins --version
+```
+
+outputnya seharunya seperti ini
+
+![logo4](/assets/images/ci-cd/Screenshot 2025-12-07 205215.png)
+
+jika sudah sekarang bisa mulai jenkins dengan menggunakan command
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+```
+
+check status jenkinsnya dengan 
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo systemctl status jenkins
+```
+
+sekarang masuk tahap yang krusial tahap dimana installasi untuk kubectl,kenapa cuman kubectl engga sekalian aja kubeadm,kubelet? dikarenakan hanya
+kubectl yang akan berguna dan terpakai jadi pada saat penggunaan hanya kubectl saja yang akan mengakses ke clusternya tidak dengan kubeadm maupun kubelet,maka dari itu hanya kubectl yang akan di install,langsung saja tambahkan dependencies
+
+```
+sudo apt install -y apt-transport-https ca-certificates curl
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+```
+
+setelah itu 
+```
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
+
+setelah semua kebutuhan untuk installasi kubectl selesai bisa langsung masuk tahap installasi saja
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo apt-get update
+sudo apt install kubectl -y
+```
+
+jika proses sudah berhasil dan tidak ada eror pastikan apakah kubectl terinstall dengan command
+
+```
+kubectl version --client
+```
+
+outputnya akan seperti ini
+![logo1](/assets/images/ci-cd/Screenshot 2025-12-07 225158.png)
+
+jika outputnya sudah sesuai itu berarti kubectl terinstall dengan benar untuk tahap selanjutnya itu copy kubeconfig dari master ke jenkins vm
+saya akan melakukannya lewat terminal ssh,buka cmd di windows dengan menekan tombol 
+
+```
+windows + r
+lalu ketik cmd+enter
+```
+
+jika sudah maka kamu akan masuk ke tampilan terminal,ssh ke vm kube master dengan command
+
+```
+ssh host@ip-vm
+misal
+ssh rizki@192.168.56.167
+```
+
+jika sudah masuk ke terminal master ketik command
+
+```
+cat ~/.kube/config
+```
+
+output seharusnya seperti ini 
+
+![logo7](/assets/images/ci-cd/Screenshot 2025-12-07 225732.png)
+
+copy semua hasil dari output itu lalu ssh ke terminal jenkins dengan cara yang sama seperti ke kube master
+jika sudah buat sebuah direktori untuk meyimpan file user jenkins
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo mkdir -p ~/.kube/
+```
+
+jika sudah copy output tadi di masukan ke file di dalam direktori yang baru saja di buat
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo vim ~/.kube/config
+```
+
+setelah itu ubah perizinan dari si filenya 
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo chown -R $USER:$USER ~/.kube
+```
+
+jika sudah di paste test untuk uji coba akses ke kube gunakan command 
+
+> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
+
+```
+sudo -u jenkins kubectl get nodes
+```
+
+untuk test saja gunakan command diatas,output yang akan di keluar itu seperti ini
+
+![logo3](/assets/images/ci-cd/Screenshot 2025-12-07 232527.png)
+
+jika sudah keluar output nodesnya berarti sekarang jenkins bisa akses ke kubernetes cluster 
+
+## SSH SETUP
+untuk tahap selanjutnya generate ssh key 
+untuk commandnya seperti ini
+
+```
+ssh-keygen -t rsa
+```
+
+tekan enter terus sampai proses selesai agar ssh key dalam mode default,lakukan lagi di cluster kube,jika sudah 
+melakukannya ke semua node copy ssh-keygen ke semua node menggunakan command
+
+```
+ssh-copy -i -i /PATH/TO/FILE host@ip-vm
+atau
+ssh-copy- -i /home/rizki/.ssh/pub rizki@192.168.56.167
+```
+
+copy command diatas itu akan mengcopy dari vm jenkins ke master,tekan tab pada saat setelah mengetik flag -i agar mempercepat proses
+lakukan kesemua vm
+
+```
+jenkins -> master
+jenkins -> worker
+jenkins -> worker1
+---
+master -> jenkins
+master -> worker
+master -> worker1
+---
+worker -> master
+worker -> jenkins
+worker -> worker1
+---
+worker1 -> master
+worker1 -> jenkins
+worker1 -> worker
+
+```
+
+lakukan semua step diatas ke masing masing nodes dengan command yang sudah di tunjukan 
+
+## SETUP GITLAB
+Pada tahap ini saya akan mensetup atau configurasi gitlab untuk nantinya bisa terhubung dengan node,
+pertama-tama buat keybaru lalu simpan di direktori user yang sebelumnya sudah di buat 
+
+```
+sudo -u jenkins ssh-keygen -t rsa -b 4096 -C "jenkins@your-vm" -f /var/lib/jenkins/.ssh/id_rsa -N ""
+```
+
+jika ingin copy dari ssh-key sebelumnya juga tidak masalah atau malah ingin menimpa dengan yang ini tapi jika ingin menimpa maka
+harus mencopy ulang langkah sebelumnya,jika sudah buka id_rsa.pub file yang tersimpan lalu copy 
+
+![logo12](/assets/images/ci-cd/Screenshot 2025-12-08 183743.png)
+
+kurang lebih seperti ini nah jika sudah lalu copy semua outputnya lalu pergi ke browser lalu ketik gitlab,pastikan punya akun gitlabnya setelah 
+itu login lalu pergi ke edit profile setelah itu 
+masuk ke menu ssh-key di sebelah kiri
+
+![logo13](/assets/images/ci-cd/Screenshot 2025-12-08 183650.png)
+
+kurang lebih seperti diatas menu di bagian ssh-key,nah setelah itu klik add new key,paste yang sudah di copy tadi lalu 
+tambahkan title misal auth lalu set ke authentication & signing setelah itu set expiration datenya bebas terserah kamu
+
+![logo02](/assets/images/ci-cd/Screenshot 2025-12-08 183717.png)
+
+setelah itu test apakah jenkins sudah terhubung dengan gitlab dengan command 
+
+```
+sudo -u jenkins ssh -T git@gitlab.com
+```
+
+kurang lebih outputnya seperti ini
+
+![logo01](/assets/images/ci-cd/Screenshot 2025-12-08 190504.png)
+
+jika output sama seperti diatas selamat karena gitlab sudah berhasil terhubung dengan jenkins
+
+## CONFIG JENKINS
+untuk step selanjutnya masuk ke tahap config jenkins buka browser mu lalu masuk ke ui dari jenkins dengan mengetikan 
+
+```
+ip-vm:8080
+misal
+192.168.56.169:8080
+```
+
+jika sudah maka akan ada tampilan seperti ini diawal
+
+![logo](/assets/images/ci-cd/setup-jenkins-01-unlock-jenkins-page.jpg)
+
+buka saja file yang berisi passwordnya jadi untuk masuk ke jenkins perlu password admin dan passwordnya ada di direktori defaultnya
+lalu copy dan paste di kolom yang sudah disediakan,setelah itu akan diarahakan ke menu install plugin
+
+![logo011](/assets/images/ci-cd/customize_jenkins_screen_two.png)
+
+pilih suggested lalu akan diarahkan ke halaman seperti ini
+
+![logo022](/assets/images/ci-cd/jenkins_plugin_install_two.png)
+
+**NOTE** semua gambar diatas diambil dari internet jadi saya lupa untuk mengambil gambar dari proses installasi saya 
+untuk step selanjutnya,buat secret di jenkins dengan masuk ke menu ui dari jenkins dan masuk ke dashboardnya setelah itu klik icon atau logo gear
+disebelah kanan atas klik itu
+
+![logoo](/assets/images/ci-cd/Screenshot 2025-12-08 234431.png)
+
+jika sudah akan di bawa ke menu tampilan seperti dibawah ini,
+
+![logooo](/assets/images/ci-cd/Screenshot 2025-12-08 234445.png)
+
+jika sudah masuk ke menu settings cari credentials lalu klik menu credentials
+
+![logoop](/assets/images/ci-cd/Screenshot 2025-12-08 234505.png)
+
+diatas merupakan isi dari menu credentials,jika belum menambahkan credentials apapun klik domains global lalu add credentials
+
+![logooi](/assets/images/ci-cd/Screenshot 2025-12-08 234646.png)
+
+contohnya seperti diatas klik add credentials lalu kamu akan dibawa kemenu halaman seperti 
+
+![logoou](/assets/images/ci-cd/Screenshot 2025-12-08 235703.png)
+
+set credentials ke ssh userame with private key lalu di bagian private key klik enter directly lalu klik key dan setelah itu akan muncuk kolom dimana
+kamu bisa menaruh ssh key yang sudah di generate sebelumnya pada saat setup gitlab,gunakan key itu lagi untuk di jenkins,username bebas dan id bebas itu terserah kamu
+jika sudah save **NOTE** gambar diatas hanyalah contoh jadi key yang akans saya gunakan itu key yang berbeda dari contoh,
+
+## SETUP NGROK
+Dikarenakan gitlab yang saya pakai itu adalah gitlab web jadinya gitlab perlu mengakses ke ip vm saya sedangkan vm saya adalah local jadinya saya perlu sesuatu agar gitlab bisa mengakses vm saya maka saya akan menggunakan ngrok disini [install ngrok](https://ngrok.com/download/linux),jika sudah terinstall ambil token auth ngrok dengan masuk ke websitenya,jika sudah masuk dan login masuk ke your auth token 
+
+![logoo1](/assets/images/ci-cd/Screenshot 2025-12-10 172759.png)
+
+kurang lebih seperti ini tampilannya,copy lalu pergi ke terminal jenkins llau ketik command ini
+
+```
+ngrok config add-authtoken <token>
+```
+
+ganti token dengan auth token yang tadi di copy lalu jalankan ngrok dengan command
+
+```
+ngrok http 8080 
+```
+
+arahkan ke port dimana jenkins berjalan agar nantinya bisa melakukan webhook,jika sudah maka akan ada output seperti ini
+
+![logoo9](/assets/images/Screenshot 2025-12-10 170011.png)
+
+simpan link yang diberikan nantinya akan di pakai untuk webhook
+
+## SETUP BASH
+dikarenakan ini webhook jadi nantinya saya akan mendemokan bagaimana caranya sesuai dengan yang ada di gambar jadi ketika dev push dari laptop dev
+ke gitlab nantinya gitlab akan menerima webhook event lalu triger jenkinsnya lalu jenkins akan mendeploynya ke kubernetes,jadi saya akan menstup bash terlebih dahulu,install dulu bash di laptop masing masing jika tidak ada [link bash](https://git-scm.com/install/windows),nah jika sudah masuk ke bashnya lalu login atau bisa langsung clone repo dengan cara
+
+```
+git clone url-repo
+```
+
+dengan begitu akan otomatis mengclone repo jika sudah masuk ke direktori repo lalu buat sebuah Jenkinsfile simple karena hanya untuk test webhook saja
+berikut contoh Jenkinsnya
+
+```
+pipeline {
+    agent any
+    stages {
+        stage('Test Webhook') {
+            steps {
+                echo 'Webhook triggered successfully!'
+                sh 'ls -la'
+            }
+        }
+    }
+}
+```
+
+copy jenkins diatas dan paste kedalam file jenkins setelah itu simpan jangan dulu di masukan ke stagging mode simpan saja terlebih dahulu
+
+## SETUP WEBHOOK 
+jika setup bash sudah dilakukan kini masuk ketahap setup webhook masuk ke gitlab,masuk ke gitlab lalu masuk ke menu project dan 
+klik New project
+
+![logoou](/assets/images/ci-cd/Screenshot 2025-12-09 222155.png)
+
+jika sudah maka akan di bawa ke tampilan halam seperti di bawah ini
+
+![logoo8](/assets/images/ci-cd/Screenshot 2025-12-09 222207.png)
+
+setelah itu klik create blank project,jika sudah maka akan dibawa ke halaman seperti ini
+
+![logoo8p](/assets/images/ci-cd/Screenshot 2025-12-09 222226.png)
+
+untuk tahap selanjutnya isi nama projectnya sesuai dengan keinginan lalu isikan project url dengan username gitlab kamu
+pastikan project itu public jika tidak itu terserah kembali kepada diri masing-masing,setelah itu klik create project 
+untuk tahap selanjutnya 
+
+![logoo0](/assets/images/ci-cd/Screenshot 2025-12-09 222226.png)
+
+seperti contoh diatas jika sudah masuk ke tahap selanjutnya untuk pembuatan pipeline,
+masuk ke jenkins lalu klik new item pojok kanan atas lalu kamu bisa langsung memilih tipe jobsnya pilih pipeline lalu berinama
+
+![najay](/assets/images/ci-cd/Screenshot 2025-12-09 223903.png)
+
+seperti contoh diatas,jika sudah scroll ke bawah sampai bagian triggers jika sudah checklist bagian "Build when is pushed to gitlab "
+
+![logoo1](/assets/images/ci-cd/Screenshot 2025-12-09 224117.png)
+
+jika sudah kamu scroll ke bawah ke bagian advanced lalu kamu bisa generate secret token,ini penting sangat penting kamu copy dan simpan tokennya
+nantinya token itu akan di pakai untuk webhook di gitlab,
+
+![logoo112](/assets/images/ci-cd/Screenshot 2025-12-09 224128.png)
+
+jika sudah scroll lagi kebawah sampai di menu pipeline definition lalu ubah tipe pipelinenya dari pipeline script ke 
+ke pipeline scrip from scm 
+
+![logooo1](/assets/images/ci-cd/Screenshot 2025-12-09 224136.png)
+
+dari contoh diatas ke
+
+![kucai](/assets/images/ci-cd/Screenshot 2025-12-09 224326.png)
+
+jadi seperti contoh diatas ini masukan credentials yang sebelumnya sudah di buat jangan lupa atur branchnya ke main
+setelah itu save,**NOTE** catat url yang ada di menu "Build when is pushed to gitlab" di bagian itu ada path penting yang mengarah ke project
+
+```
+http://192.168.56.169:8080/project/test2
+```
+
+bagian **/project/test2/** itu bagian penting catat dan simpan,jika sudah maka save
+langkah selanjutnya ialah pergi ke gitlab lagi dan masuk ke repo yang tadi sudah di buat terus klik bagian 
+settings lalu ke webhook lalu add new webhook
+
+![logoo0812](/assets/images/ci-cd/result/Screenshot 2025-12-11 013403.png)
+
+setelah itu akan ada tampilan seperti ini isi kolom url dengan url yang ngrok kasih sebelumnya lalu tambahkan sedikit diujung path dari project yang tadi di simpan dari config jobs di jenkins,lalu gabungkan,lalu kolom secret token didapat dari generate secret token paste ke url secret token setelah itu scroll kebawah
+
+![logoii](/assets/images/ci-cd/result/Screenshot 2025-12-11 013418.png)
+
+checklist semua yang ada karena ini hanya untuk test deployment dan buka production real jadi ini hanya experiment,lalu uncheck di bagian ssl biar lebih memudahkan,jika sudah maka save,setelah itu masu kembali ke bash lalu coba masukan file jenkins nya ke mode stagging,
+
+```
+git add .
+git commit -m "commit"
+git push origin main
+```
+
+seperti ini 
+
+![logooo](/assets/images/ci-cd/result/Screenshot 2025-12-11 003826.png)
+
+jika sudah bisa langsung di cek di bagian job di pipeline test2 maka akan ada job yang muncul karena berhasil triger lewat webhooknya
+berikut beberapa tangkapan layar 
+
+![logooo1](/assets/images/ci-cd/result/Screenshot 2025-12-11 003934.png)
+
+![aoskd](/assets/images/ci-cd/result/Screenshot 2025-12-11 003949.png)
+
+dan
+
+![adi](/assets/images/ci-cd/result/Screenshot 2025-12-11 004010.png)
+
+lalu
+
+![iasabf](/assets/images/ci-cd/result/Screenshot 2025-12-11 004037.png)
+
+dan hasil akhir jenkins file terdeploy
+
+![tai](/assets/images/ci-cd/result/Screenshot 2025-12-11 012645.png)
+
+dan ini hasil dari push yang tadi saya lakukan terbukti jenkins file berhasil di push lalu gitlab menerima webhook dan triger jenkinsfile 
+setelah itu akan ada job yang jalan.Jadi selesai sudah saya menjelaskan workflow dari sistem deployment yang saya buat saya sistem ini merupakan 
+pembelajarn dan experimen bagi saya yang penasaran tentang Ci/Cd workflow untuk kedepannya saya akan membuat yang lainya entah itu nantinya akan 
+ada monitorng log atau menggunakan argo,tapi saya akan mendeploy nginx di postingan saya selanjutnya tunggu saja saya akan selalu membagikan 
+tips dan materi pembelajaran saya senang bisa berbagi,kedepanya juga saya ingin sekali untuk menggunkan bare metal ketimbang vm saja saya 
+meiliki laptop usang yang tidak terpakai saya memiliki niat untuk mengubah laptop itu menjadi home server nantinya,tunggu saja postingan selanjutnya dari saya tentang deployment menggunakan sistem ini,oh ya karena saya bukan dev jadi saya hanya deploy nginx karena simpel dan cepat 
+saya juga masih belajar mungkin kedepanya saya akan coba deploy php saya akan melakukan beberapa variasi deployment agar tidak bosan heheh 😆😆😆
+ohh ya saya menggunakan beberapa referensi jika kalian butuh 
+
+- [JENKINS](https://www.jenkins.io/doc/book/installing/linux/)
+- [NGROK](https://ngrok.com/download/linux)
+- [KUBERNETES](https://kubernetes.io/docs/tasks/tools/)
+
+TERIMAKASIH SUDAH MENYIMAK DAN MEMBACA SAMPAI AKHIR SEMOGA HARIMU MENYENANGKAN
