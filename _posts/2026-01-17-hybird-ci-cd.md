@@ -685,9 +685,9 @@ jika output sama seperti diatas selamat karena gitlab sudah berhasil terhubung d
 untuk step selanjutnya masuk ke tahap config jenkins buka browser mu lalu masuk ke ui dari jenkins dengan mengetikan 
 
 ```
-ip-vm:8080
+ip-node:port
 misal
-192.168.56.169:8080
+192.168.100.55:9091
 ```
 
 jika sudah maka akan ada tampilan seperti ini diawal
