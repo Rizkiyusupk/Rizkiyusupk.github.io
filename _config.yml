@@ -142,7 +142,7 @@ defaults:
       layout: single
       author_profile: true
   - scope:
-      path: ""
+      path: "_errors"
       type: errors
     values:
       layout: single
