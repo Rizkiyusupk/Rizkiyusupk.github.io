@@ -47,13 +47,14 @@ dan untuk tools yang akan di pakai itu seperti
 - **OS**: Ubuntu Server 24.04 LTS (Vm Kubernetes) 
 - **OS**: Ubuntu 25.04 (Bare Metal / Jenkins )
 - **Kubernetes**: v1.28.15
-- **Container Runtime**: containerd v2 2.1.3
+- **Container Runtime Interface**: containerd v2 2.1.3
 - **CNI Plugin**: Flannel
 - **VirtualBox**: 7.0.10
 - **Jenkins**: 2.528.2
 - **Java Open-jdk**: 17.0.17
 - **Ngrok**: 3.35.0
 - **Git Bash** : git version 2.51.1.windows.1
+- **Docker** : 28.2.2
 
 ##  **Step 1: Kubernetes Setup**
 **NOTE UNTUK SETUP KUBERNETES INI SAMA DENGAN SETUP KUBE DI POSTINGAN YANG SEBELUMNYA JADI INI SAMA TIDAKA DA BEDANYA UNTUK SETUP SI KUBERNETESNYA**
