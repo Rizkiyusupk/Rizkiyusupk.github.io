@@ -1,5 +1,5 @@
 ---
-title: "Error & Troubleshooting Log"
+title: "Troubleshooting & Debugging "
 permalink: /errors/
 layout: single
 toc: true
