@@ -30,12 +30,12 @@ untuk topologinya itu akan ada sedikit perubahan jadi seperti ini
 untuk spesifikasi vm
 ### **Virtual Machine Requirements:**
 
-| Node        | CPU     | RAM  | Storage | Network                            |
-|-------------|---------|------|---------|------------------------------------|
-| **Master**  | 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter) |
-| **Worker 1**| 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter) |
-| **Worker 2**| 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter) |
-| **Jenkins** | 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter) |
+| Node        | CPU     | RAM  | Storage | Network                             |
+|-------------|---------|------|---------|------------------------------------ |
+| **Master**  | 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter)  |
+| **Worker 1**| 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter)  |
+| **Worker 2**| 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter)  |
+| **Jenkins** | 2 cores | 7GB  | 230GB   |                Wlan                 |
 
 kenapa saya di projek ini merubah dari yang tadinya host-only menjadi bridged-adapter?
 karena saya di projek ini menggunakan bare metal tambahan jadinya saya perlu satu koneksi yang sama
@@ -550,7 +550,7 @@ lalu ketik cmd+enter
 jika sudah maka kamu akan masuk ke tampilan terminal,ssh ke vm kube master dengan command
 
 ```
-ssh host@ip-vm
+ssh host@ip-port
 misal
 ssh rizki@192.168.56.167
 ```
@@ -743,7 +743,7 @@ ngrok config add-authtoken <token>
 ganti token dengan auth token yang tadi di copy lalu jalankan ngrok dengan command
 
 ```
-ngrok http 8080 
+ngrok http 9091
 ```
 
 arahkan ke port dimana jenkins berjalan agar nantinya bisa melakukan webhook,jika sudah maka akan ada output seperti ini
