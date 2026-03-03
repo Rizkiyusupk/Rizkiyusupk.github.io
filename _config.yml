@@ -43,14 +43,7 @@ collections:
     output: true
     permalink: /errors/:name/
 
-defaults:
-  - scope:
-      path: ""
-      type: errors
-    values:
-      layout: single
-      toc: true
-      toc_sticky: true
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
