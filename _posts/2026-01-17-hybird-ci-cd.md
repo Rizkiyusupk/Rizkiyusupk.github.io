@@ -35,7 +35,7 @@ untuk spesifikasi vm
 | **Master**  | 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter)  |
 | **Worker 1**| 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter)  |
 | **Worker 2**| 7 cores | 7GB  | 30GB    | 2 Adapters (NAT + Bridged-Adapter)  |
-| **Jenkins** | 2 cores | 7GB  | 240GB   |                Wlan                 |
+| **Jenkins** | 7 cores | 7GB  | 240GB   |                Wlan                 |
 
 kenapa saya di projek ini merubah dari yang tadinya host-only menjadi bridged-adapter?
 karena saya di projek ini menggunakan bare metal tambahan jadinya saya perlu satu koneksi yang sama
