@@ -135,7 +135,7 @@ defaults:
       layout: single
       author_profile: true
   - scope:
-      path: "_errors"
+      path: ""
       type: errors
     values:
       layout: single
