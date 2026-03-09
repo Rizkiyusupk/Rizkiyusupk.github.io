@@ -55,7 +55,7 @@ dan untuk tools yang akan di pakai itu seperti
 - **Ngrok**: 3.35.0
 - **Git Bash** : git version 2.51.1.windows.1
 - **Docker** : 28.2.2
-
+- **Gitlab** : Web
 ##  **Step 1: Kubernetes Setup**
 **NOTE UNTUK SETUP KUBERNETES INI SAMA DENGAN SETUP KUBE DI POSTINGAN YANG SEBELUMNYA JADI INI SAMA TIDAKA DA BEDANYA UNTUK SETUP SI KUBERNETESNYA**
 Pertama-tama buat topologi dari cluster terlebih dahulu yaitu 1 master 2 worker,dengan ini
