@@ -1,5 +1,5 @@
 ---
-title: "Build Ci/Cd Hybrid System Full Infrastructure Setup(Vm + Bare Metal)"
+title: "Deploying PHP Guestbook application with Redis"
 date: 2026-01-17
 tags: [kubernetes, linux, Ci/Cd, devops, containerd,bare-metal,hybrid,ci,cd,ci/cd,system,infrastructure,php,database,]
 header:
