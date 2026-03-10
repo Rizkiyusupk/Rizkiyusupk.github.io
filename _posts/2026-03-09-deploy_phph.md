@@ -22,7 +22,7 @@ itu memang cuman deploy sebuah php guest book dan hanya untuk test deployment se
 
 ### Deploy
 pertama-tama kita harus memiliki repo gitlab terlebih dahulu agar nantinya bisa digunakan sebagai tempat untuk menyimpan semua configurasi dan bisa 
-menggunakan webhook dari gitlab,buat terlebih dahulu sebuah repository di gitlab setelah itu clone repo ke local laptop pakai apapun bebas disini saya pakai git bash, nah jika sudah di clone 
+menggunakan webhook dari gitlab,buat terlebih dahulu sebuah repository di gitlab disini saya menggunakan repo yang sebelumnya sudah dibuat setelah itu clone repo ke local laptop pakai apapun bebas disini saya pakai git bash, nah jika sudah di clone 
 saatnya membuat file configurasi,pertama-tama disini saya akan membuat file manifest untuk redis-leader-deployment dan servicenya terlebih dahulu
 
 ```
@@ -248,3 +248,39 @@ ip-node:portjenkins
 nah jika sudah maka akan ada tampilan seperti ini
 
 ![asdjaisf](/assets/images/errors/Screenshot 2026-03-02 195808.png)
+
+masuk ke pipeline yang sudah dibuat sebelumnya di [tutorial ini](https://rizkiyusupk.github.io/devops/kubernetes/linux/server/hybird-ci-cd/)
+masuk ke pipiline nya maka akan ada tampilan seperti ini 
+
+![uadh](/assets/images/php/Screenshot 2026-03-11 001907.png)
+
+jangan haraukan pipeline diatas karena itu pipeline yang lama sudah di buat dan sudah di pakai berkali-kali, lihat ke 
+salah satu build yang baru saja muncul dan lihat pada console output pada build test nya jika berhasil maka akan ada output seperti ini
+
+![asidhaw](/assets/images/php/Screenshot 2026-03-11 002206.png)
+
+nah jika sudah coba akses dari browser dengan mencari di node mana web nya terdeploy dengan cara ketik command ini di node master
+
+```
+kubectl get pods -o wide
+|
+kubectl describe pod name-pod | grep Node
+```
+
+jika sudah maka akan ada output semacam ini
+
+![asdka](/assets/images/php/Screenshot 2026-03-11 002928.png)
+
+dan akses dari ip node nya 
+
+```
+ip-node:port-service
+|
+192.168.100.56:30001
+```
+
+dan ini outputnya
+
+![aisdiad](/assets/images/php/Screenshot 2026-03-11 001228.png)
+
+selesaiii sudah!!!
