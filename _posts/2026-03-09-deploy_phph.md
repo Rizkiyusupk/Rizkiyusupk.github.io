@@ -12,7 +12,13 @@ Jadi di post kali ini saya akan mengetes deployment dari sistem yang sudah lama 
 [ada di sini](https://rizkiyusupk.github.io/devops/kubernetes/linux/server/hybird-ci-cd/) ,nah kurang lebih isi dari tutorial kali ini
 itu memang cuman deploy sebuah php guest book dan hanya untuk test deployment semata dan satu hal lagi ini semua non production ready jadi ini semua itu cuman tes saja dan deployment ini itu multi tier deployment web jadi nanti isinya itu bukan cuman satu beberapa frontend web dengan satu instance redis ,tanpa berlama-lama lagi gas langsung ke tutorialnya
 
-
+### **Software Versions:**
+- **Kubernetes**: v1.28.15
+- **Docker Desktop** : 28.2.2
+- **Git Bash** : git version 2.51.1.windows.1
+- **Jenkins**: 2.528.2
+- **Container Runtime Interface**: containerd v2 2.1.3
+- **Gitlab** : Web
 
 ### Deploy
 pertama-tama kita harus memiliki repo gitlab terlebih dahulu agar nantinya bisa digunakan sebagai tempat untuk menyimpan semua configurasi dan bisa 
