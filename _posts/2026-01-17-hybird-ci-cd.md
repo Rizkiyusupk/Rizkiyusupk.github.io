@@ -824,13 +824,13 @@ dari contoh diatas ke
 ![kucai](/assets/images/ci-cd/Screenshot 2025-12-09 224326.png)
 
 jadi seperti contoh diatas ini masukan credentials yang sebelumnya sudah di buat jangan lupa atur branchnya ke main
-setelah itu save,**NOTE** catat url yang ada di menu "Build when is pushed to gitlab" di bagian itu ada path penting yang mengarah ke project
+setelah itu save,**NOTE** catat url yang di berikan ngrok 
 
 ```
-http://192.168.56.169:8080/project/test2
+https://kody-blowzed-noneagerly.ngrok-free.dev 
 ```
 
-bagian **/project/test2/** itu bagian penting catat dan simpan,jika sudah maka save
+bagian **https://kody-blowzed-noneagerly.ngrok-free.dev** itu bagian penting catat dan simpan,jika sudah maka save
 langkah selanjutnya ialah pergi ke gitlab lagi dan masuk ke repo yang tadi sudah di buat terus klik bagian 
 settings lalu ke webhook lalu add new webhook
 
