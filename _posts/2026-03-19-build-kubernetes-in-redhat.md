@@ -25,4 +25,4 @@ Langsung saja masuk ke stepnya
 - **Docker** : 28.2.2
 
 ### Setup 
-pertama 
+pertama masuk ke Virtual Box terlebih dahulu lalu 
