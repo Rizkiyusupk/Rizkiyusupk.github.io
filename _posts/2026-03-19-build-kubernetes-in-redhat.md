@@ -24,6 +24,15 @@ Langsung saja masuk ke stepnya
 - **Vmware Workstation** : 25h2
 - **Docker** : 28.2.2
 
+  
+| Node        | CPU     | RAM  | Storage | Network                               |
+|-------------|---------|------|---------|---------------------------------------|
+| **Master**  | 5 cores | 8GB  | 25GB    | 2 Adapters (NAT + Host-Only-Adapter)  |
+| **Worker 1**| 5 cores | 6GB  | 25GB    | 2 Adapters (NAT + Host-Only-Adapter)  |
+| **Worker 2**| 5 cores | 6GB  | 25GB    | 2 Adapters (NAT + Host-Only-Adapter)  |
+
+
+
 ### Setup 
 pertama masuk ke Vmware terlebih dahulu lalu klik create virtual machine 
 
