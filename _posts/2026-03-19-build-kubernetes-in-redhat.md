@@ -76,3 +76,31 @@ dan untuk host only adapter itu agar virtual mesin bisa diakses dan berkomunikas
 
 nah diatas merupakan contoh pop up windows nya nanti,kenapa hanya satu nat saja? karena ini hanya sementara nanti 
 akan ditambahkan adapter baru ketika step installasi ini selesai 
+selanjutnya ialah bagian setup i/o 
+
+![asidha](/assets/images/redhatt/Screenshot 2026-03-23 005010.png)
+
+untuk bagian ini biarkan default saja,selanjutnya ialah tipe disk 
+
+![aishd](/assets/images/redhatt/Screenshot 2026-03-23 005015.png)
+
+sama bagian ini juga biarkan default saja,lalu selanjutnya 
+
+![aishd](/assets/images/redhatt/Screenshot 2026-03-23 005026.png)
+
+untuk membuat disk baru pilih saja create new disk setelah itu kamu akan diarahkan ke pop up selanjutnya 
+
+![asjd](/assets/images/redhatt/Screenshot 2026-03-23 005036.png)
+
+untuk ukuran dari disk di semua node itu sama 25gb jadi sama rata, dan pastika disk di satu folder jangan split
+
+![iahsd](/assets/images/redhatt/Screenshot 2026-03-23 005041.png)
+
+arahkan ke nama dari disk biarkan default saja nanti juga bisa di rename,
+
+![ajsbd](/assets/images/redhatt/Screenshot 2026-03-23 005045.png)
+
+dan tahap terakhir yaitu pembuatan virtual mesin klik finish dan vmware otomatis akan membuat virtual mesin nya,
+
+
+
