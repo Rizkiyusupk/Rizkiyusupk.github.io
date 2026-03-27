@@ -17,12 +17,62 @@ akan ada distro distro yang lain,tapi saya akan secara khusus menbahas distro in
 Langsung saja masuk ke stepnya
 
 ### Tools
-- **Rhel (0otpa)** : 8
-- **Kubernetes** : v1.28.15
-- **Container Runtime Interface** : containerd v2 2.1.3
+- **Rhel (plow)** : 9.6
+- **Kubernetes** : v1.30
+- **Container Runtime Interface** : crio 1.30.10
 - **CNI Plugin** : Flannel
-- **VirtualBox** : 7.0.10
+- **Vmware Workstation** : 25h2
 - **Docker** : 28.2.2
 
 ### Setup 
-pertama masuk ke Virtual Box terlebih dahulu lalu 
+pertama masuk ke Vmware terlebih dahulu lalu klik create virtual machine 
+
+![asdin](/assets/images/redhatt/Screenshot 2026-03-22 212852.png)
+
+kurang lebih seperti diatas tampilannya,lalu akan muncul tampilan pop up untuk opsi custom atau typical,
+
+![asidj](/assets/images/redhatt/Screenshot 2026-03-23 004932.png)
+
+pilih custom,karena kita akan membuat sebuah virtual machine yang mumpuni,jika sudah next
+kamu akan disuruh untuk memilih hardware compatibility 
+
+![asd](/assets/images/redhatt/Screenshot 2026-03-23 004936.png)
+
+biarkan saja itu default mengikuti versi dari si vmware nya 
+selanjutnya kamu akan disuruh untuk memasukan disc atau image yang dibutuhkan checklist bagian installer disc image file 
+
+![ausdb](/assets/images/redhatt/Screenshot 2026-03-23 004940.png)
+
+lalu pilih image yang sebelumnya sudah di download,tenang saja dengan warning yang ada di bawah nanti di tahap selannjutnya kita masukan versi
+dari rhel nya,next adalah untuk memilih versi dari rhel image yang sebelumnya sudah di masukan 
+
+![aishdasnd](/assets/images/redhatt/Screenshot 2026-03-23 004947.png)
+
+pilih **Red Hat Enterprise Linux 9 64-bit**  itulah versi yang akan digunakan dalam tutorial ini,
+selanjutnya adalah memilih seberapa banyak prosesor yang akan digunakan, 
+
+![asuda](/assets/images/redhatt/Screenshot 2026-03-23 004951.png)
+
+untuk prosesor sendiri gunakan 5 prosesor dengan cores per prosesornya itu 1
+masuk ke tahap selanjutnya yaitu memlilih seberapa besar memory yang akan digunakan dalam cluster 
+
+![asihd](/assets/images/redhatt/Screenshot 2026-03-23 004954.png)
+
+untuk node master akan menggunakan memori 8gb dan untuk node worker
+
+![asidh](/assets/images/redhatt/Screenshot 2026-03-27 210849.png)
+
+gunakan 6 gb untuk semua node worker,selanjutnya ialah tipe jaringan ,
+jaringan yang akan digunakan itu ada dua nantinya 
+
+```
+NAT & HOST ONLY ADAPTER
+```
+
+untuk yang pertama terlebih dahulu yaitu nat ,nat berfungsi agar virtual mesin nantinya bisa mengakses internet 
+dan untuk host only adapter itu agar virtual mesin bisa diakses dan berkomunikasi dengan host device yaitu laptop atau komputer
+
+![uasdb](/assets/images/redhatt/Screenshot 2026-03-23 005006.png)
+
+nah diatas merupakan contoh pop up windows nya nanti,kenapa hanya satu nat saja? karena ini hanya sementara nanti 
+akan ditambahkan adapter baru ketika step installasi ini selesai 
