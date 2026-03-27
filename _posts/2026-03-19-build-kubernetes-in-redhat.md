@@ -33,7 +33,7 @@ Langsung saja masuk ke stepnya
 
 
 
-### Setup 
+### Setup Rhel
 pertama masuk ke Vmware terlebih dahulu lalu klik create virtual machine 
 
 ![asdin](/assets/images/redhatt/Screenshot 2026-03-22 212852.png)
@@ -111,5 +111,8 @@ arahkan ke nama dari disk biarkan default saja nanti juga bisa di rename,
 
 dan tahap terakhir yaitu pembuatan virtual mesin klik finish dan vmware otomatis akan membuat virtual mesin nya,
 
+### Install Rhel
+
+Masuk ke tahap selanjutnya yaitu bagian installasi rhel , di step ini khusus membahas soal step by step installasi rhel
 
 
