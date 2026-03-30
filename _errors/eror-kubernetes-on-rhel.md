@@ -36,4 +36,15 @@ sudo nmcli connection up ensp08
 
 tinggal di check
 
+### Error Devices Allow 
+
+Untuk eror selanjutnya yaitu eror device allow ini berhubungan dengan konfigurasi dari cgroup dan kernel yang ada di virtualbox
+dikarenakan di postingan yang [ini](https://rizkiyusupk.github.io/devops/kubernetes/linux/server/deploy/deployment/build-kubernetes-in-redhat/) 
+nah dan juga untuk container runtime interface menggunakan crio yang dimana environment dari virtualbox tidak mendukung adanya crio,mulai dari
+cgroup rules ataupun kernel level configuration jadinya crio tidak bisa berjalan dengan baik di virtual box maka dari itu tools yang ada di gunakan pun berbeda dengan postingan yang lain 
+
+### Solve
+
+Untuk menyelesaikan masalah ini cukup sederhana tinggal ganti dari virtual box ke vmware bisa langsung cari saja vmware,atau [klik link ini](https://www.techspot.com/downloads/189-vmware-workstation-for-windows.html#google_vignette)
+sudah selesai deh 
 
