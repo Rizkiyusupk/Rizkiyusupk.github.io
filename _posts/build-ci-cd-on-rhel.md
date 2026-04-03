@@ -1,6 +1,6 @@
 ---
-title: "Build Kubernetes Cluster in Rhel"
-date: 2026-03-19
+title: "Build And Testing Ci/Cd Hybrid On Kubernetes (Bare Metal + Vm )"
+date: 2026-04/03
 tags: [kubernetes, linux, Ci/Cd, devops, containerd,ci,cd,ci/cd,system,infrastructure,Redhat,rhel]
 header:
   teaser: /assets/images/redhat-ci-cd/Untitled design (5).jpg
