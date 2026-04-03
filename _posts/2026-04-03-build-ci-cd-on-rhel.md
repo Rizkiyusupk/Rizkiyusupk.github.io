@@ -32,9 +32,9 @@ langsung saja ke pembahasannya
 
 | Node        | CPU     | RAM  | Storage | Network                               |
 |-------------|---------|------|---------|---------------------------------------|
-| **Master**  | 5 cores | 8GB  | 25GB    | 2 Adapters (NAT + Host-Only-Adapter)  |
-| **Worker 1**| 5 cores | 6GB  | 25GB    | 2 Adapters (NAT + Host-Only-Adapter)  |
-| **Worker 2**| 5 cores | 6GB  | 25GB    | 2 Adapters (NAT + Host-Only-Adapter)  |
+| **Master**  | 5 cores | 8GB  | 25GB    | 2 Adapters (NAT + Bridged-Adapter)    |
+| **Worker 1**| 5 cores | 6GB  | 25GB    | 2 Adapters (NAT + Bridged-Adapter)    |
+| **Worker 2**| 5 cores | 6GB  | 25GB    | 2 Adapters (NAT + Bridged-Adapter)    |
 | **Jenkins** | 7 cores | 7GB  | 240GB   |                Wlan                   |
 
 
