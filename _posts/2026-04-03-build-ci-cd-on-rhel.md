@@ -633,25 +633,32 @@ jika sudah buat sebuah direktori untuk meyimpan file user jenkins
 
 
 ```
-sudo mkdir -p ~/.kube/
+sudo mkdir -p ~/var/lib/jenkins/.kube/
 ```
 
 jika sudah copy output tadi di masukan ke file di dalam direktori yang baru saja di buat
 
 
 ```
-sudo vim ~/.kube/config
+sudo vim ~/var/lib/jenkins/.kube/config
 ```
 
 setelah itu ubah perizinan dari si filenya 
 
 
 ```
-sudo chown -R $USER:$USER ~/.kube
+sudo chown -R jenkins:jenkins ~/var/lib/jenkins/.kube
+```
+atau gunakan saja scp untuk melakukan transfer keseluruhan direktori gunakan perintah
+
+```
+scp -r ./kube/ username@ip-node:/full/path/
+|
+scp -r ./kube/ rizky@192.168.100.7:/home/rizky/var/lib/jenkins/
 ```
 
+lalu set ownershipnya seperti cara sebelumnya agar aman, 
 jika sudah di paste test untuk uji coba akses ke kube gunakan command 
-
 
 ```
 sudo -u jenkins kubectl get nodes
@@ -662,3 +669,4 @@ untuk test saja gunakan command diatas,output yang akan di keluar itu seperti in
 ![logo3](/assets/images/ci-cd/Screenshot 2025-12-07 232527.png)
 
 jika sudah keluar output nodesnya berarti sekarang jenkins bisa akses ke kubernetes cluster 
+
