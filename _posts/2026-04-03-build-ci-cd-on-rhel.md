@@ -626,7 +626,7 @@ cat ~/.kube/config
 
 output seharusnya seperti ini 
 
-![logo7](/assets/images/ci-cd/Screenshot 2025-12-07 225732.png)
+![logo7](/assets/images/redhat-ci-cd/Screenshot 2026-04-04 211409.png)
 
 copy semua hasil dari output itu lalu ssh ke terminal jenkins dengan cara yang sama seperti ke kube master
 jika sudah buat sebuah direktori untuk meyimpan file user jenkins
@@ -649,6 +649,7 @@ setelah itu ubah perizinan dari si filenya
 ```
 sudo chown -R jenkins:jenkins ~/var/lib/jenkins/.kube
 ```
+
 atau gunakan saja scp untuk melakukan transfer keseluruhan direktori gunakan perintah
 
 ```
@@ -666,7 +667,7 @@ sudo -u jenkins kubectl get nodes
 
 untuk test saja gunakan command diatas,output yang akan di keluar itu seperti ini
 
-![logo3](/assets/images/ci-cd/Screenshot 2025-12-07 232527.png)
+![logo3](/assets/images/redhat-ci-cd/Screenshot 2026-04-04 211542.png)
 
 jika sudah keluar output nodesnya berarti sekarang jenkins bisa akses ke kubernetes cluster 
 
