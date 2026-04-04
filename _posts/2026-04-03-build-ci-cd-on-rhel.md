@@ -452,3 +452,213 @@ kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/
 ```
 
 tunggu sampai tahap installasi selesai maka kubernetes sudah terinstall di RHEL
+jika token expire kamu bisa buat lagi dengan cara
+
+```
+sudo kubead create token create --prin-join-command
+```
+
+nah gunakan perintah diatas supaya token baru di buat
+
+## SETUP BARE METAL
+
+Dikarenakan ini menggunakan bare metal dan bukan vm disini tidak ada setup vm seperti biasanya,jadi saya menggunakan laptop lama saya yang 
+sudah jarang di gunakan sebagai single node dan kebetulan os dari laptop lama saya itu ubuntu jadinya saya bisa memanfaatkan laptop usang saya 
+sebagai bahan belajar
+Pertama-tama karena laptop lama saya itu os ubuntu tapi GUI dan bukan CLI saya akan merubahnya terlebih dahulu 
+gunakan command 
+
+```
+sudo systemctl set-default multi-user.target
+sudo reboot
+```
+
+setelah itu os akan reboot dan akan masuk ke mode CLI 
+
+dari yang tadinya GUI 
+
+![logoo](/assets/images/home-server/WhatsApp Image 2025-12-28 at 18.56.59.jpeg)
+
+ke CLI
+
+![looo](/assets/images/home-server/Screenshot 2025-12-28 191127.png)
+
+jika ingin kembali ke tampilan GUI dari CLI ketik command
+
+```
+sudo systemctl set-default graphical.target
+sudo reboot
+```
+
+kenapa saya menggunakan CLi daripada GUI karena masalah beban pada laptop karena laptop ini laptop usang yang sudah lama jadinya saya menggunakan
+CLI untuk mengurangi beban dan ini hanya untuk pembelajaran semata untuk saya agar saya paham juga menggunakan bare metal tidak selalu vm,
+jika sudah langsung masuk ke terminal windowsnya lalu paste command ini
+
+## **Jenkins Setup**
+
+Pada tahap ini saya akan membuat kembali 1 vm baru untuk si jenkinsnya,sebenarnya bisa saja saya membuat versi containernya yang bisa di scale dikarenakan saya itu masih belajar untuk versi containernya akan saya tunda terlebih dahulu,untuk stepnya sama seperti membuat vm kube sebelumnya jadi bisa langsung skip ke installasi jenkinsnya
+pertama-tama update lalu buat install openjdk jika java belum terinstall,kenapa butuh java karena jenkins tidak akan berjalan tanpa java 
+[selengkapnya](https://www.jenkins.io/solutions/java/#:~:text=Jenkins%20supports%20building%20Java%20projects,the%20tool%20many%20years%20ago.)
+,kita skip langsung ke instalasinya update package terlebih dahulu
+
+
+```
+sudo apt-get update
+```
+
+jika sudah bisa langsung install openjdknya 
+
+
+```
+sudo apt install openjdk-17-jdk -y
+```
+
+jika sudah pastikan sudah terinstall untuk javanya
+
+```
+java --version
+```
+
+nah untuk outputnya seperti ini 
+![logo3](/assets/images/ci-cd/Screenshot 2025-12-07 202907.png)
+
+jika outputnya sudah seperti itu maka selamat java sudah terinstall di vmnya,next selanjutnya ialah instalasi jenkins karena java sudah terinstall maka untuk selanjutnya ialah jenkins,kita bisa langsung masuk ke installasinya 
+
+
+```
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+```
+
+tambahkan repo jenkins resmi,setelah itu 
+
+```
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+```
+
+lalu install jika sudah menambahkan semua kebutuhannya
+
+
+```
+sudo apt update
+sudo apt install jenkins
+```
+
+jika sudah dan tidak ada eror satupun itu berarti installasi berhasil dan cek apakah benar-benar berhasil dengan
+
+```
+jenkins --version
+```
+
+outputnya seharunya seperti ini
+
+![logo4](/assets/images/ci-cd/Screenshot 2025-12-07 205215.png)
+
+jika sudah sekarang bisa mulai jenkins dengan menggunakan command
+
+
+```
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+```
+
+check status jenkinsnya dengan 
+
+
+```
+sudo systemctl status jenkins
+```
+
+sekarang masuk tahap yang krusial tahap dimana installasi untuk kubectl,kenapa cuman kubectl engga sekalian aja kubeadm,kubelet? dikarenakan hanya
+kubectl yang akan berguna dan terpakai jadi pada saat penggunaan hanya kubectl saja yang akan mengakses ke clusternya tidak dengan kubeadm maupun kubelet,maka dari itu hanya kubectl yang akan di install,langsung saja tambahkan dependencies
+
+```
+sudo apt install -y apt-transport-https ca-certificates curl
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+```
+
+setelah itu 
+```
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
+
+setelah semua kebutuhan untuk installasi kubectl selesai bisa langsung masuk tahap installasi saja
+
+
+```
+sudo apt-get update
+sudo apt install kubectl -y
+```
+
+jika proses sudah berhasil dan tidak ada eror pastikan apakah kubectl terinstall dengan command
+
+```
+kubectl version --client
+```
+
+outputnya akan seperti ini
+![logo1](/assets/images/ci-cd/Screenshot 2025-12-07 225158.png)
+
+jika outputnya sudah sesuai itu berarti kubectl terinstall dengan benar untuk tahap selanjutnya itu copy kubeconfig dari master ke jenkins vm
+saya akan melakukannya lewat terminal ssh,buka cmd di windows dengan menekan tombol 
+
+```
+windows + r
+lalu ketik cmd+enter
+```
+
+jika sudah maka kamu akan masuk ke tampilan terminal,ssh ke vm kube master dengan command
+
+```
+ssh host@ip-port
+misal
+ssh rizki@192.168.56.167
+```
+
+jika sudah masuk ke terminal master ketik command
+
+```
+cat ~/.kube/config
+```
+
+output seharusnya seperti ini 
+
+![logo7](/assets/images/ci-cd/Screenshot 2025-12-07 225732.png)
+
+copy semua hasil dari output itu lalu ssh ke terminal jenkins dengan cara yang sama seperti ke kube master
+jika sudah buat sebuah direktori untuk meyimpan file user jenkins
+
+
+```
+sudo mkdir -p ~/.kube/
+```
+
+jika sudah copy output tadi di masukan ke file di dalam direktori yang baru saja di buat
+
+
+```
+sudo vim ~/.kube/config
+```
+
+setelah itu ubah perizinan dari si filenya 
+
+
+```
+sudo chown -R $USER:$USER ~/.kube
+```
+
+jika sudah di paste test untuk uji coba akses ke kube gunakan command 
+
+
+```
+sudo -u jenkins kubectl get nodes
+```
+
+untuk test saja gunakan command diatas,output yang akan di keluar itu seperti ini
+
+![logo3](/assets/images/ci-cd/Screenshot 2025-12-07 232527.png)
+
+jika sudah keluar output nodesnya berarti sekarang jenkins bisa akses ke kubernetes cluster 
