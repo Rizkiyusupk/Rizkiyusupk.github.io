@@ -518,6 +518,7 @@ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --
 ```
 
 setelah itu 
+
 ```
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 ```
@@ -569,31 +570,35 @@ output seharusnya seperti ini
 copy semua hasil dari output itu lalu ssh ke terminal jenkins dengan cara yang sama seperti ke kube master
 jika sudah buat sebuah direktori untuk meyimpan file user jenkins
 
-> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-sudo mkdir -p ~/.kube/
+sudo mkdir -p ~/var/lib/jenkins/.kube/
 ```
 
 jika sudah copy output tadi di masukan ke file di dalam direktori yang baru saja di buat
 
-> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-sudo vim ~/.kube/config
+sudo vim ~/var/lib/jenkins/.kube/config
 ```
 
 setelah itu ubah perizinan dari si filenya 
 
-> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-sudo chown -R $USER:$USER ~/.kube
+sudo chown -R jenkins:jenkins ~/var/lib/jenkins/.kube
 ```
 
+atau gunakan saja scp untuk melakukan transfer keseluruhan direktori gunakan perintah
+
+```
+scp -r ./kube/ username@ip-node:/full/path/
+|
+scp -r ./kube/ rizky@192.168.100.7:/home/rizky/var/lib/jenkins/
+```
+
+lalu set ownershipnya seperti cara sebelumnya agar aman, 
 jika sudah di paste test untuk uji coba akses ke kube gunakan command 
-
-> 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
 sudo -u jenkins kubectl get nodes
