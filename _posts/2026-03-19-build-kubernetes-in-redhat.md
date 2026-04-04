@@ -447,3 +447,10 @@ kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/
 ```
 
 tunggu sampai tahap installasi selesai maka kubernetes sudah terinstall di RHEL
+jika token expire kamu bisa buat lagi dengan cara
+
+```
+sudo kubead create token create --prin-join-command
+```
+
+nah gunakan perintah diatas supaya token baru di buat
