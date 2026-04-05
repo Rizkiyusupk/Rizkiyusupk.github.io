@@ -29,6 +29,8 @@ langsung saja ke pembahasannya
 - **Java Open-jdk**: 17.0.17
 - **OS**: Ubuntu 25.04 (Bare Metal / Jenkins )
 - **Jenkins**: 2.528.2
+- - **Vscode** : 
+
 
 | Node        | CPU     | RAM  | Storage | Network                               |
 |-------------|---------|------|---------|---------------------------------------|
@@ -819,7 +821,10 @@ arahkan ke port dimana jenkins berjalan agar nantinya bisa melakukan webhook,jik
 
 simpan link yang diberikan nantinya akan di pakai untuk webhook
 
-jika setup bash sudah dilakukan kini masuk ketahap setup webhook masuk ke gitlab,masuk ke gitlab lalu masuk ke menu project dan 
+
+### Setup Webhook
+**NOTE!!!! UNTUK TAHAP SETUP WEBHOOK INI MESKIPUN GAMBAR SAMA DENGAN PROJEK-PROJEK SEBELUMNYA HIRAUKAN SAJA KARENA TAHAPANYA SAMA SAJA DENGAN PROJEK-PROJEK SEBELUNNYA KARENA WORKFLOW YANG SAMA DAN TIDAK BERUBAH**
+kini masuk ketahap setup webhook masuk ke gitlab,masuk ke gitlab lalu masuk ke menu project dan 
 klik New project
 
 ![logoou](/assets/images/ci-cd/Screenshot 2025-12-09 222155.png)
@@ -907,3 +912,305 @@ pipeline {
 ```
 
 copy jenkins diatas dan paste kedalam file jenkins setelah itu simpan lalu test push untuk memastikan apakah webhook apakah berkjalan atau tidak
+gunakan command
+
+```
+git add .
+git commit -m "add file"
+git push origin main
+```
+
+sekarang coba lihat output  
+
+![asdas](/assets/images/redhat-ci-cd/Screenshot 2026-04-05 221405.png)
+
+nah jika sudah berhasil maka masuk ke tahap selanjutnya
+
+### Test Deploy
+Nah untuk tahap ini khusus tahap deployment saya akan mengetest Ci/Cd yang sudah di bangun kali ini saya akan mendeploy  php
+dengan mysql sebagai databasenya, untuk structure folder detail nya seperti ini
+
+```
+php-app/
+├── Dockerfile
+├── index.php
+└── k8s/
+    ├── deployment.yaml
+    ├── service.yaml
+    ├── mysql-deployment.yaml
+    ├── mysql-service.yaml
+    └── configmap.yaml
+```
+
+tetap berada di temnial yang sama seperti sebelumnya untuk testing webhook,buka docker desktop agar nantinya kita bisa membuat sebuah image 
+
+![asidh](/assets/images/php1/Screenshot 2026-03-12 223807.png)
+
+jika sudah close saja dan buka vscode lalu buka folder yang sebelumnya sudah ada di bash,
+
+![asihd](/assets/images/php1/Screenshot 2026-03-12 224115.png)
+
+tampilannya akan seperti diatas,hiraukan saja tampilannya karena itu folder yang sudah jadi,hanya sebagai contoh saja
+nah untuk tahap selanjutnya buat sebuah file php dengan format **index.php**, jika sudah maka buat kode php seperti ini
+
+```
+<?php
+$host = getenv('DB_HOST') ?: 'mysql';
+$user = getenv('DB_USER') ?: 'root';
+$pass = getenv('DB_PASS') ?: 'secret';
+$db   = getenv('DB_NAME') ?: 'appdb';
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+echo "<h1>Hello dari PHP + MySQL di Kubernetes!</h1>";
+echo "<p>Connected to MySQL successfully!</p>";
+?>
+
+```
+
+diatas merupakan contoh kode php sederhana untuk testing deployment,copy lalu pastekan saja jika sudah masuk ke terminal vscode lalu buatlah
+container image,tapi sebelum itu buat Dockerfile terlebih dahulu, buat file **Dockerfile** dalam direktori yang sama dengan file php tadi,
+ini config dari dockerfile yang akan di pakai
+
+```
+FROM php:8.2-apache
+
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
+COPY index.php /var/www/html
+
+EXPOSE 80
+
+```
+
+disini saya menggunakan base image apache yang merupakan salah satu base image yang umum untuk deploy php,kenapa tidak alpine? karena saya hanya 
+melakukan sebuah testing untuk deployment jadinya saya tidak perlu mengunduh custom dependesi untuk php karena alpine tidak seperti apache yang siap
+deploy dan tidak harus ribet mengurus dependesi dan juga nginx sebagai webserver yang juga tentunya harus di config custom,jadi itulah
+alasan saya tidak menggunakan alpine sebagai base image meskipun alpine itu production ready dan ringan sekali namun disini karena hanya test
+deployment saya tidak mau yang ribet dan rumit, oke jika sudah di copy dan paste ke vscode tinggal buat imagenya dan karena itulah alasan tadi diawal kita membuka docker desktop karena dibutuhkan saat ini untuk bisa membuat sebuah image dan juga disini sudah harus memiliki akun docker hub karena kita akan push ke docker hub sebagai registry resmi docker, gunakan command 
+
+```
+docker build -t nama-akun-registry/nama-image .
+|
+docker build -t rizki736/php-test2 .
+```
+
+tunggu hingga proses pembuatan imagenya selesai
+
+![adgad](/assets/images/php1/Screenshot 2026-03-12 234103.png)
+
+nah jika sudah maka push langsung ke registry langsung gunakan command 
+
+```
+docker push name_image
+|
+docker push rizki736/php-test2
+```
+
+jika ada konfirmasi untuk login maka ikuti konfirmasi untuk login dan gunakan akun yang aktif,jika sudah kembali lagi ke terminal bash,
+di terminal bash,lalu di bash buat sebuah direktori bernama k8s, dan masuk ke direktori itu 
+
+```
+mkdir k8s
+|
+cd k8s
+```
+
+folder ini berfungsi sebagai tempat semua konfigurasi detail untuk deployment mulai dari configmap,mysql deployment & service, sampai ke deployment & service buat php,
+jadi semua file konfigurasi di simpan di direktori ini,langsung saja ke yang pertama yaitu pembuatan configmap,nah jadi configmap ini berfungsi sebagai tempat pemyimpanan untuk konfigurasi yang nantinya akan di gunakan seperti username mysql nama,database,cuman tidak untuk password karena ini merupakan hal penting,jadi harus tetap menjadi rahasia,
+langsung saja buat file bisa menggunakan editor vim atau nano, kenapa tidak buat di vscode?? bisa saja cuman saya lebih memilih bash sebagai tempat
+untuk mengedit file konfigurasi karena ini file **yaml** jadinya harus ada indentasi, dan sangan sensitif dengan indentasi,di vscode juga ada
+indentasi cuman saya nyaman di terminal heheh langsung saja 
+
+```
+vim configmap.yaml
+|
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: php-config
+data:
+  DB_HOST: "mysql"
+  DB_NAME: "appdb"
+  DB_USER: "root"
+```
+
+kurang lebiih seperti diatas untuk konfigurasinya seperti yang sudah saya bilang sebelumnya untuk configmap hanya menyimpan data data umum dan bukan password jadi jangan gunakan untuk menyimpan password,
+selanjutnya masuk ke bagian pembuatan mysql deployment dan service, langsung saja
+
+```
+vim mysql-deployment.yaml
+|
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: "secret"
+          - name: MYSQL_DATABASE
+            value: "appdb"
+          ports:
+            - containerPort: 3306
+```
+
+untuk password pastikan sama dengan yang ada di file php dan gunakan 3306 sebagai port karena memang itu default port untuk mysql
+masuk ke mysql-service.yaml
+
+```
+vim mysql-service.yaml
+|
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
+```
+
+disini pastikan kalau selectornya sama dengan yang ada di mysql-deployment karena jika ada typo maka tidak akan terkoneksi untuk service dan deploymentnya, dan masih menggunakan port 3306
+selanjutnya masuk ke php deployment dan service 
+
+```
+vim deployment.yaml
+|
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: php-app
+  template:
+    metadata:
+      labels:
+        app: php-app
+    spec:
+      containers:
+        - name: php-app
+          image: rizki736/php-test2
+          ports:
+          - containerPort: 80
+          envFrom:
+          - configMapRef:
+               name: php-config
+          env:
+           - name: DB_PASS
+             value: "secret"
+```
+
+kurang lebih begitu untuk env coba perhatikan ada envfrom dan env nah yang pertama itu mengambil keseluruhan value dari configmap tadi seperti
+hostname,user,dbname sedangkan untuk env itu hanya spesifik value misal password hanya password saja yang diambil,dan password tidak ada di dalam
+configmap,jadinya keamanan masih terjaga,selanjutnya service
+
+```
+vim deployment-service.yaml
+|
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-service
+spec:
+  selector:
+    app: php-app
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30002
+  type: NodePort
+```
+
+dikarenakan kita akan mengakses semuanya melalui browser jadinya dibutuhkan port forwarding dan disini saya menggunakan tipe NodePort
+dengan port 30002,saatnya  membuat jenkinsfilenya untuk melakukan deployment jika semua configurasi sudah ada
+
+```
+vim Jenkinsfile
+|
+pipeline {
+    agent any
+    stages {
+        stage ('Deployment') {
+            steps {
+             echo "deploy"
+             sh 'kubectl apply -f k8s/configmap.yaml'
+             sh 'kubectl apply -f k8s/mysql-deployment.yaml'
+             sh 'kubectl apply -f k8s/mysql-service.yaml'
+             sh 'kubectl apply -f k8s/deployment.yaml'
+             sh 'kubectl apply -f k8s/deployment-service.yaml'
+            }
+        }
+    }
+}
+
+```
+
+diatas merupakan contoh dari konfigurasi jenksinfile, sekarang tinggal push ke repository gitlab push seluruh file dan direktori yang ada
+
+```
+git add .
+|
+git commit -m "add file"
+|
+git push origin main
+```
+
+jika sudah tunggu sampai proses push selesai,lalu masuk ke dasboard jenkins di
+
+```
+ip-node:port-jenkins
+|
+192.168.100.7:9091
+```
+
+outputnya kurang lebih akan seperti ini
+
+![aisbd](/assets/images/redhat-ci-cd/Screenshot 2026-04-05 221812.png)
+
+jika sudah seperti itu coba cek ke dalam vm master gunakan command
+
+```
+kubectl get pods
+```
+
+outputnya akan menampilkan semua pods yang sudah terdeploy sebelumnya 
+
+![asd](/assets/images/redhat-ci-cd/Screenshot 2026-04-05 221950.png)
+
+jika status masih container creating tunggu saja itu proses dimana kubernetes sedang pull image dari docker registry 
+jika sudah menunggu beberapa saat coba sekarang cek di teminal master di node manakah pods berjalan gunakan command
+
+```
+kubectl get pods
+|
+kubectl describe pods-name | grep Node
+|
+```
+
+lalu cek ip dari node dan coba akses dari browser
+
+![asdasd](/![asidhasd](/assets/images/php1/Screenshot 2026-03-12 215953.png))
+
+nah sudah selesai.
