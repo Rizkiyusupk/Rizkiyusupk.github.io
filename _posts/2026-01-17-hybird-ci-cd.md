@@ -758,32 +758,7 @@ arahkan ke port dimana jenkins berjalan agar nantinya bisa melakukan webhook,jik
 
 simpan link yang diberikan nantinya akan di pakai untuk webhook
 
-## SETUP BASH
-dikarenakan ini webhook jadi nantinya saya akan mendemokan bagaimana caranya sesuai dengan yang ada di gambar jadi ketika dev push dari laptop dev
-ke gitlab nantinya gitlab akan menerima webhook event lalu triger jenkinsnya lalu jenkins akan mendeploynya ke kubernetes,jadi saya akan menstup bash terlebih dahulu,install dulu bash di laptop masing masing jika tidak ada [link bash](https://git-scm.com/install/windows),nah jika sudah masuk ke bashnya lalu login atau bisa langsung clone repo dengan cara
 
-```
-git clone url-repo
-```
-
-dengan begitu akan otomatis mengclone repo jika sudah masuk ke direktori repo lalu buat sebuah Jenkinsfile simple karena hanya untuk test webhook saja
-berikut contoh Jenkinsnya
-
-```
-pipeline {
-    agent any
-    stages {
-        stage('Test Webhook') {
-            steps {
-                echo 'Webhook triggered successfully!'
-                sh 'ls -la'
-            }
-        }
-    }
-}
-```
-
-copy jenkins diatas dan paste kedalam file jenkins setelah itu simpan jangan dulu di masukan ke stagging mode simpan saja terlebih dahulu
 
 ## SETUP WEBHOOK 
 jika setup bash sudah dilakukan kini masuk ketahap setup webhook masuk ke gitlab,masuk ke gitlab lalu masuk ke menu project dan 
@@ -845,7 +820,35 @@ setelah itu akan ada tampilan seperti ini isi kolom url dengan url yang ngrok ka
 
 ![logoii](/assets/images/ci-cd/result/Screenshot 2025-12-11 013418.png)
 
-checklist semua yang ada karena ini hanya untuk test deployment dan buka production real jadi ini hanya experiment,lalu uncheck di bagian ssl biar lebih memudahkan,jika sudah maka save,setelah itu masu kembali ke bash lalu coba masukan file jenkins nya ke mode stagging,
+checklist semua yang ada karena ini hanya untuk test deployment dan buka production real jadi ini hanya experiment,lalu uncheck di bagian ssl biar lebih memudahkan,jika sudah maka save
+
+## SETUP BASH
+dikarenakan ini webhook jadi saya akan mendemokan bagaimana caranya sesuai dengan yang ada di gambar jadi ketika dev push dari laptop dev
+ke gitlab nantinya gitlab akan menerima webhook event lalu triger jenkinsnya lalu jenkins akan mendeploynya ke kubernetes,jadi saya akan menstup bash terlebih dahulu,install dulu bash di laptop masing masing jika tidak ada [link bash](https://git-scm.com/install/windows),nah jika sudah masuk ke bashnya lalu login atau bisa langsung clone repo yang tadi sudah di buat sebelumnyaa dengan cara
+
+```
+git clone url-repo
+```
+
+dengan begitu akan otomatis mengclone repo jika sudah masuk ke direktori repo lalu buat sebuah Jenkinsfile simple karena hanya untuk test webhook saja
+berikut contoh Jenkinsnya
+
+```
+pipeline {
+    agent any
+    stages {
+        stage('Test Webhook') {
+            steps {
+                echo 'Webhook triggered successfully!'
+                sh 'ls -la'
+            }
+        }
+    }
+}
+```
+
+copy jenkins diatas dan paste kedalam file jenkins setelah itu simpan lalu test untuk webhook apakah berhasil atau tidak dengan menggunakan command
+
 
 ```
 git add .
