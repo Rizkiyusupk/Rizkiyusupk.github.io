@@ -1217,6 +1217,6 @@ kubectl describe pods-name | grep Node
 
 lalu cek ip dari node dan coba akses dari browser
 
-![asdasd](/![asidhasd](/assets/images/php1/Screenshot 2026-03-12 215953.png))
+![asdasd](/assets/images/php1/Screenshot 2026-03-12 215953.png)
 
 nah sudah selesai.
