@@ -14,7 +14,13 @@ categories: [DevOps, Kubernetes,linux,Linux,Server,Deploy,Deployment]
 Postingan kali ini akan membahas step by step membuat sebuah sistem Ci/Cd di rhel dengan kubernetes sebagai container orchestration,
 pada postingan sebelumnya membahas installasi cluster kubernetes di rhel nah postingan kali ini akan membahas kelanjutannya,yang 
 sebelumnya juga saya pernah membahas soal membuat Ci/Cd sistem di ubuntu karena saya penasaran jadinya saya ingin melanjutkan eksperimen saya
-langsung saja ke pembahasannya
+untuk workflownya sama saja seperti projek Ci/Cd sebelumnya 
+
+![asdas](/assets/images/redhat-ci-cd/2.jpg)
+
+dan untuk topologinya ada sedikit penyesuaian 
+
+![asdub](/assets/images/redhat-ci-cd/3.jpg)
 
 ### Tools
 - **Rhel (plow)** : 9.6
