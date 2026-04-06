@@ -37,7 +37,7 @@ langsung saja ke pembahasannya
 | **Master**  | 5 cores | 8GB  | 25GB    | 2 Adapters (NAT + Bridged-Adapter)    |
 | **Worker 1**| 5 cores | 6GB  | 25GB    | 2 Adapters (NAT + Bridged-Adapter)    |
 | **Worker 2**| 5 cores | 6GB  | 25GB    | 2 Adapters (NAT + Bridged-Adapter)    |
-| **Jenkins** | 7 cores | 7GB  | 240GB   |                Wlan                   |
+| **Jenkins** | 2 cores | 7GB  | 240GB   |                Wlan                   |
 
 
 ### Setup Rhel
