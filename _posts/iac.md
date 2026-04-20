@@ -11,3 +11,4 @@ categories: [DevOps, Kubernetes,linux,Linux,Server,iac,infrastructure]
 
 
 ### Overview
+Pada postingan kali ini saya akan membahas bagaimana penerapan infrastructure as code bekerja
