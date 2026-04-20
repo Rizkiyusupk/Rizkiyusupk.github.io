@@ -1,6 +1,6 @@
 ---
 title: "IaC: Building a Multi-Node Kubernetes Cluster from Scratch using Ansible"
-date: 2026-04-03
+date: 2026-04-20
 tags: [kubernetes, linux, devops, crio,cri-o,system,infrastructure,Redhat,rhel]
 header:
   teaser: /assets/images/iac/Untitled design (5).png
