@@ -31,11 +31,12 @@ dan untuk topologinya ada sedikit penyesuaian
 - **Docker** : 28.2.2
 - **Rhel Account**
 - **Gitlab** : Web
+- **Kubernetes** : v1.30
 - **Git Bash** : git version 2.51.1.windows.1
 - **Java Open-jdk**: 17.0.17
 - **OS**: Ubuntu 25.04 (Bare Metal / Jenkins )
 - **Jenkins**: 2.528.2
-- - **Vscode** : 
+- **Vscode** : 
 
 
 | Node        | CPU     | RAM  | Storage | Network                               |
