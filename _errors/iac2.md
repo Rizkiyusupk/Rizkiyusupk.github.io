@@ -82,3 +82,31 @@ baris itu jadinya akan menghilangkan interactive terminal yang akan membuatnya o
 ```
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor --batch --yes -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
+
+
+### Python3 Firewall 
+
+Ada case dimana salah satu playbook berfungsi sebagai penambah rule atau port dalam firewall dan dikarenakan tidak adanya library python3 firewalld tidak ada maka error akan keluar seperti ini
+
+
+```
+fatal: [node2]: FAILED! => {"changed": false, "msg": "Failed to import the required Python library (firewall) on node-02's Python /usr/bin/python3. Please read the module documentation and install it in the appropriate
+location. If the required library is installed, but Ansible is using the wrong Python interpreter, please consult the documentation on ansible_python_interpreter. Version 0.2.11 or newer required (0.3.9 or newer for
+offline operations)"}
+fatal: [node3]: FAILED! => {"changed": false, "msg": "Failed to import the required Python library (firewall) on node-03's Python /usr/bin/python3. Please read the module documentation and install it in the appropriate
+location. If the required library is installed, but Ansible is using the wrong Python interpreter, please consult the documentation on ansible_python_interpreter. Version 0.2.11 or newer required (0.3.9 or newer for
+offline operations)"}
+```
+
+jika saja output di atas keluar maka memang error yang sama terjadi 
+
+
+### Solve
+
+untuk solve nya di masing masing worker node install library untuk python3 firewalld gunakan command
+
+```
+sudo apt install python3-firewall -y
+```
+
+jika sudah tunggu hingga proses installasi selesai lalu jalankan kembali playbooknya
