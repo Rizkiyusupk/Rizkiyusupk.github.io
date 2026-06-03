@@ -535,7 +535,7 @@ jika outputnya sudah seperti itu maka selamat java sudah terinstall di vmnya,nex
 
 ```
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
-     /etc/apt/sources.list.d/jenkins.list > /dev/null
+     /etc/apt/keyrings/jenkins-keyring.asc  > /dev/null
 
 ```
 
