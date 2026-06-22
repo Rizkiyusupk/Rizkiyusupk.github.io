@@ -15,6 +15,6 @@ Topik berikutnya benar-benar menguras tenaga dan pikiran saya,sebelumnya saya su
 ataupun menggunakan proxmox karena laptop 2 saya itu tidak mumpuni secara spesifikasi,makanya saya dengan tekad dan semangat saya yang membara mencara cara agar saya bisa belajar terraform,
 akhirnya setelah beberapa hari kebingungan harus bagaimana saya menemunkan video lama dari adinusa di youtube membahas tentang Terraform dan QEMU/KVM,saya tonton videonya dan saya menemukan
 resource akun github dan docs di terraform blogspot,topik kali ini menggabungkan beberapa tools seperti kubernetes,ansible,terraform,jenkins,QEMU/KVM,libvirt sebagai api,dll. Tidak usah 
-berlama-lama lagi langsung gaskan
+berlama-lama lagi langsung gaskann
 
 ![aihvns](/assets/images/kvm/ChatGPT Image Jun 15, 2026, 08_56_46 PM.png)
