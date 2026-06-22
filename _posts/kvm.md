@@ -7,7 +7,7 @@ header:
 categories: [DevOps, Kubernetes,linux,Linux,Server,iac,infrastructure]
 ---
 
-![akshergd](/assets/images/kvm/INFRASTUCTURE.pn)
+![akshergd](/assets/images/kvm/INFRASTUCTURE.png)
 
 ### Overview
 
