@@ -86,3 +86,69 @@ ssh-add .ssh/id_rsa
 ```
 
 lalu enter nantinya akan menload ssh secara otomatis
+
+
+### Error TLS 
+
+Error kali ini disebabkan oleh tls yang issue karena tls issue jika menggunakan command
+
+```
+rizky@rizki:~$ sudo -u jenkins kubectl get nodes
+E0630 19:20:20.357565    7383 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://127.0.0.1:6443/api?timeout=32s\": tls: failed to verify
+certificate: x509: certificate is valid for 10.96.0.1, 10.10.10.55, not 127.0.0.1"
+E0630 19:20:20.371186    7383 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://127.0.0.1:6443/api?timeout=32s\": tls: failed to verify
+certificate: x509: certificate is valid for 10.96.0.1, 10.10.10.55, not 127.0.0.1"
+E0630 19:20:20.395473    7383 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://127.0.0.1:6443/api?timeout=32s\": tls: failed to verify
+certificate: x509: certificate is valid for 10.96.0.1, 10.10.10.55, not 127.0.0.1"
+E0630 19:20:20.441837    7383 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://127.0.0.1:6443/api?timeout=32s\": tls: failed to verify
+certificate: x509: certificate is valid for 10.96.0.1, 10.10.10.55, not 127.0.0.1"
+E0630 19:20:20.460680    7383 memcache.go:265] "Unhandled Error" err="couldn't get current server API group list: Get \"https://127.0.0.1:6443/api?timeout=32s\": tls: failed to verify
+certificate: x509: certificate is valid for 10.96.0.1, 10.10.10.55, not 127.0.0.1"
+Unable to connect to the server: tls: failed to verify certificate: x509: certificate is valid for 10.96.0.1, 10.10.10.55, not 127.0.0.1
+```
+
+akan keluar ouput error seperti diatas,kenapa bisa issue karena scope tls nya tidak mencakup ip dari 127 jadinya secara default tls hanya mencakup ip dari node dan ip dari cluster,ketika
+tls dieksekusi maka akan keluar error seperti itu,dan karena akses dari jenkins juga menggunakan tunnel yang mengarah ke ip 127 maka dari itu tls mengeluarkan issue karena 127 bukan scope
+dari tls
+
+
+### Solve
+
+oke karena sudah ketemu akar dari masalahnya yaitu scope tls yang tidak mencakup ip dari 127 langsung saja masuk ke bagian eskekusinya untuk solusi sementara gunakan command
+
+```
+sudo -u jenkins kubectl config set-cluster kubernetes --insecure-skip-tls-verify=true
+```
+
+tapi untuk solusi permanen tinggal tambahkan saja extra sans untuk menambahkan scope dari tls,tinggal tambahkan di baris init didalam playbook-join.yaml
+
+```
+- name: init kubernetes
+  hosts: masters
+  become: yes
+  tasks:
+    - name: pre-pull kubernetes images
+      ansible.builtin.command: kubeadm config images pull
+      register: pull_output
+    - name: init
+      ansible.builtin.command: kubeadm init --apiserver-advertise-address=192.168.2.35 --pod-network-cidr=10.244.0.0/16 --node-name=node1 --apiserver-cert-extra-sans=127.0.0.1,192.168.50.106 <----- ini
+      register: kube_output
+      async: 600
+      poll: 30
+      ignore_errors: yes
+
+    - name: ambil join command
+      ansible.builtin.shell: kubeadm token create --print-join-command
+      register: join_cmd_output
+
+    - name: set fact join command
+      set_fact:
+        join_command: "{{ join_cmd_output.stdout }}"
+
+- name: join worker ke master
+  hosts: workers
+  become: yes
+  tasks:
+    - name: join cluster
+      ansible.builtin.shell: "{{ hostvars[groups['masters'][0]]['join_command'] }}"
+```
