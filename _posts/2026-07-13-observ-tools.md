@@ -6,8 +6,7 @@ header:
   teaser: /assets/images/observ/INFRASTUCTURE (2).png
 categories: [DevOps, Kubernetes,linux,Linux,Server,iac,infrastructure]
 ---
-
-![sijdfy](/assets/images/observ/ChatGPT Image Jul 13, 2026, 06_53_45 PM.png)
+![adifjgby](/assets/images/observ/INFRASTUCTURE (2).png)
 
 ### Overview
 
@@ -23,7 +22,7 @@ itu masih sama saja dengan projek sebelumnya,oke langsung saja masuk ke pembahas
 | **Worker 2**| 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
 | **Jenkins** | 7 cores | 7GB  | 240GB   |                Wlan                 |
 
-![scdbijcf](/assets/images/observ/ChatGPT Image Jul 13, 2026, 10_36_56 AM.png)
+![scdbijcf](/assets/images/observ/ChatGPT Image Jul 13, 2026, 06_53_45 PM.png)
 
 
 ### Structure Folder 
