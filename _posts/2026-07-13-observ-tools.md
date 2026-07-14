@@ -114,4 +114,50 @@ k8s/
 
 playbook diatas melakukan installasi untuk helm dan untuk melakukan semua installasi dari plg stack yang akan kita gunakan nantinya,setelah melakukan installasi dari helm task selanjutnya 
 yaitu melakukan installasi dari node exporter untuk mengambil semua metrics dan data dari setiap node dan node exporter berlaku sebagai daemon set di semua node yang nantinya di 
-distribusikan oleh master node dan untuk task terakhir yaitu untuk helm installasi dan memnbuat sebuah namespace dengan nama monitoring 
+distribusikan oleh master node sekalian untuk installsi dari promeheues dan untuk task terakhir yaitu untuk helm installasi dan memnbuat sebuah namespace dengan nama 
+monitoring,selanjutnya yaitu instlaasi dari loki,grafana
+
+```
+vim observ_2.yaml
+|
+- name: install loki stack
+  hosts: masters
+  become: true
+  tasks:
+    - name: add repo grafana
+      ansible.builtin.shell: helm repo add grafana https://grafana.github.io/helm-charts
+    - name: update package
+      ansible.builtin.shell: helm repo update
+    - name: install loki monolithic
+      ansible.builtin.shell: >
+        helm install loki grafana/loki
+        --namespace monitoring
+        --kubeconfig /home/ubuntu/.kube/config
+        --set deploymentMode=SingleBinary
+        --set loki.commonConfig.replication_factor=1
+        --set loki.storage.type=filesystem
+        --set loki.schemaConfig.configs[0].from=2024-04-01
+        --set loki.schemaConfig.configs[0].store=tsdb
+        --set loki.schemaConfig.configs[0].object_store=filesystem
+        --set loki.schemaConfig.configs[0].schema=v13
+        --set loki.schemaConfig.configs[0].index.prefix=loki_index_
+        --set loki.schemaConfig.configs[0].index.period=24h
+        --set singleBinary.replicas=1
+        --set singleBinary.persistence.enabled=true
+        --set singleBinary.persistence.size=5Gi
+        --set read.replicas=0
+        --set write.replicas=0
+        --set backend.replicas=0
+
+    - name: install promtail
+      ansible.builtin.shell: >
+        helm install promtail grafana/promtail
+        --namespace monitoring
+        --kubeconfig /home/ubuntu/.kube/config
+        --set config.clients[0].url=http://loki:3100/loki/api/v1/push
+```
+
+untuk task pertama yaitu menambahkan repo resmi dari grafana lalu melakukan update repo menggunakan helm lalu,di task selanjutnya yaitu melakukan installasi loki menggunakan helm disini 
+saya menggunakan loki monolithic karena saya membuat infrastructure skala homelab dengan resource terbatas jadinya saya tidak ingin membuat beban terhadap laptop saya dengan menggunakan
+loki tipe lain jika saja saya meggunakan loki tipe scalable atau microservices saya akan membuat beban yang cukup besar dengan resource yang saya punya sekarang,tapi meskipun resource 
+saya terbatas saya tetap membangun sebuah infrastructure yang production grade, dan yang terakhir di task terakhir itu melakukan installasi dari promtail,agar nantinya bisa collect log
