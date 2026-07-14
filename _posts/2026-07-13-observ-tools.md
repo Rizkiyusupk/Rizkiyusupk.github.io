@@ -112,6 +112,14 @@ k8s/
       ansible.builtin.shell: helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring  --kubeconfig /home/ubuntu/.kube/config --create-namespace
   ```
 
+gunakan command
+
+```
+ansible-playbook playbook.yaml
+|
+ansible-playbook observ.yaml
+```
+
 playbook diatas melakukan installasi untuk helm dan untuk melakukan semua installasi dari plg stack yang akan kita gunakan nantinya,setelah melakukan installasi dari helm task selanjutnya 
 yaitu melakukan installasi dari node exporter untuk mengambil semua metrics dan data dari setiap node dan node exporter berlaku sebagai daemon set di semua node yang nantinya di 
 distribusikan oleh master node sekalian untuk installsi dari promeheues dan untuk task terakhir yaitu untuk helm installasi dan memnbuat sebuah namespace dengan nama 
@@ -157,7 +165,68 @@ vim observ_2.yaml
         --set config.clients[0].url=http://loki:3100/loki/api/v1/push
 ```
 
+gunakan command 
+
+```
+ansible-playbook
+|
+playbook observ_2.yaml
+```
+
 untuk task pertama yaitu menambahkan repo resmi dari grafana lalu melakukan update repo menggunakan helm lalu,di task selanjutnya yaitu melakukan installasi loki menggunakan helm disini 
 saya menggunakan loki monolithic karena saya membuat infrastructure skala homelab dengan resource terbatas jadinya saya tidak ingin membuat beban terhadap laptop saya dengan menggunakan
 loki tipe lain jika saja saya meggunakan loki tipe scalable atau microservices saya akan membuat beban yang cukup besar dengan resource yang saya punya sekarang,tapi meskipun resource 
-saya terbatas saya tetap membangun sebuah infrastructure yang production grade, dan yang terakhir di task terakhir itu melakukan installasi dari promtail,agar nantinya bisa collect log
+saya terbatas saya tetap membangun sebuah infrastructure yang production grade, dan yang terakhir di task terakhir itu melakukan installasi dari promtail,agar nantinya bisa collect log,
+tunggu hingga proses installasi selesai jika sudah jangan langsung masuk ke browser untuk mengakses si dashboard karena tidak bisa langsung mengakses dashboard dibutuhkan tunneling dan
+port fordward terlebih dahulu tapi sebelum itu buka wsl dan install socat terlebih dahulu gunakan command
+
+```
+apt-get install -y socat
+```
+
+oke karena socat sudah terinstall lalu selanjutnya gunakan command ini
+
+```
+di node-master
+|
+kubectl port-forward svc/prometheus-grafana 3001:80 -n monitoring --address=0.0.0.0 &
+```
+
+dan
+
+```
+di wsl
+|
+socat TCP-LISTEN:8884,bind=0.0.0.0,fork TCP:10.10.10.55:3001 &
+```
+
+nah kenapa harus sekali melakukan tunneling dan port forward seperti ini karena layer dari infrastructure kali ini itu benar benar cukup rumit untuk user agar langsung bisa mengakses 
+semua dashboard,jadinya disini perlu membypass semua network layer yang ada dan nantinya untuk memeriksa alertmanager juga perlu bypass sekali lagi oke jika sudah bisa langsung di cek 
+
+```
+http://localhost:8884
+```
+
+jika sudah seharusnya akan muncul untuk opsi login
+
+![asdosvfuh](/assets/images/observ/memek.png)
+
+oke jika sudah ada tampilan login seperti ini masukan 
+
+```
+username = admin
+```
+
+dan untuk passowrd nya gunakan output dari command berikut
+
+```
+kubectl get secret prometheus-grafana -n monitoring -o jsonpath="{.data.admin-password}" | base64 -d
+echo
+```
+
+jika sudah akan di bawa ke dashboard dari si prometheus seperti ini
+
+![sadsifjuh](/assets/images/observ/Screenshot 2026-07-14 193250.png)
+
+oke jika sudah berjalan dengan sempurna
+
