@@ -228,5 +228,29 @@ jika sudah akan di bawa ke dashboard dari si prometheus seperti ini
 
 ![sadsifjuh](/assets/images/observ/Screenshot 2026-07-14 193250.png)
 
-oke jika sudah berjalan dengan sempurna
+oke jika sudah berjalan dengan sempurna,tahap selanjutnya yaitu pembuatan dari tabel untuk menyajikan data pertama-tema pergi ke connection lalu data source setelah itu akan ada tampilan 
+seperti ini
 
+![asdoij](/assets/images/observ/Screenshot 2026-07-14 201243.png)
+
+tampilan diatas akan menunjukan berapa data source yang dimiliki misal ada prometheus default bawaan dari sistem lalu juga ada alter manager sama seperti prometheus default bawaan dari 
+sistem,selanjutnya klik add new data source tombol berwarna biru 
+
+![adfbh](/assets/images/observ/Screenshot 2026-07-14 201255.png)
+
+jika sudah akan diarahkan ke menu seperti diatas,isi url dari data source yang akan ditambahkan dengan url default dari prometheus dan port dari prometheus,atau bisa saja isi dengan 
+prometheus saja lalu tambahkan port dibelakangnya setelah itu scroll ke bawah
+
+![asldjfty](/assets/images/observ/Screenshot 2026-07-14 201319.png)
+
+sampai di bagian bawah klik tombol save and test jika sudah keluar ke menu data source lagi
+
+![ladsfhyg](/assets/images/observ/Screenshot 2026-07-14 201344.png)
+
+tambahkan data dari loki untuk collect semua metrics dan log dari node exporter
+untuk loki cukup isi url dengan loki:3100 setelah itu scroll ke bawah dan klik tombol save and test
+
+![loijuh](/assets/images/observ/Screenshot 2026-07-14 202502.png)
+
+jika sudah semua berarti proses menambahkan data source sudah selesai sekarang masuk ke bagian selanjutnya yaitu menampilkan data menjadi sebuah dashboard agar semua informasi bisa di 
+visualisasikan,
