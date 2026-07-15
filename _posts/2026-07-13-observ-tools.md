@@ -281,5 +281,22 @@ masukan query untuk si loki di bagian kolom masukan seperti ini
 {node_name="k8s-master"}
 ```
 
-query diatas memeriksa kondisi dari si node master
+query diatas memeriksa kondisi dari si node master,oke loki dan prometheus sudah berjalan dengan baik untuk selanjutnya bagian setup alertmanager dan disini saya akan menggunakan telegram 
+sebagai tools alertnya,oke buka telegram lalu masuk ke bagian search bar diatas lalu cari username dengan nama 
 
+```
+@BotFather
+```
+
+jika sudah masuk ke dalam username tersebut lalu masukan command
+
+```
+/newbot
+```
+
+jia sudah masukan nama dari si bot misalkan Test-alert jika sudah sekarang masukan username dari si bot misalkan aopsnsv_bot,ingat harus wajib diakhir nya ada **_bot** atau engga 
+**namaBot**,oke sudah selesai nantinya akan muncuk output pesan seperti ini
+
+![adfdju](/assets/images/observ/WhatsApp Image 2026-07-15 at 13.18.19 (1).jpeg)
+
+catat baik-baik token yang di generate oleh claude nantinya akan dipakai untuk mengakses chat itu dari api telegram
