@@ -307,3 +307,41 @@ sebelum itu coba chat terlebih dahulu bebas apa saja,jika sudah dengan chatnya b
 ```
 
 ganti dengan token yang tadi dikasih oleh telegram
+
+![kaisvuh](/assets/images/observ/Screenshot 2026-07-15 143238.png)
+
+coba lihat di bagian 
+
+```
+chat":{"id": xxxxxxx}
+```
+
+cari bagian chat id lalu simpan baik-baik sekarang buka terminal ssh ke node master 
+lalu buat file dengan nama alertmanager-telegram.yaml
+
+```
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+    route:
+      receiver: 'telegram-notif'
+      group_by: ['alertname']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      routes:
+        - matchers:
+            - alertname = "Watchdog"
+          receiver: 'null'
+    receivers:
+      - name: 'null'
+      - name: 'telegram-notif'
+        telegram_configs:
+          - bot_token: '8635725106:AAEpRez9VTdMim82_cwBu1ZncfNGI1IITkY'
+            chat_id: 1854226173
+            parse_mode: 'HTML'
+            send_resolved: true
+```
+
+lakukan helm upgrade 
