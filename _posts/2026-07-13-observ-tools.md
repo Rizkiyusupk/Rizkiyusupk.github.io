@@ -344,4 +344,66 @@ alertmanager:
             send_resolved: true
 ```
 
-lakukan helm upgrade 
+lakukan helm upgrade tapi sebelum itu tambahkan repository dari prometheus sebelum upgrade menggunakan helm 
+
+```
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+```
+
+jika sudah gunakan command 
+
+```
+helm upgrade prometheus prometheus-community/kube-prometheus-stack --namespace monitoring --kubeconfig /home/ubuntu/.kube/config --reuse-values -f alertmanager-telegram.yaml
+```
+
+oke jika sudah maka masuk ke dashboard alertmanager tapi sebelum itu lakukan bypass terlebih dahulu pertama-tama
+
+```
+Di Wsl2
+|
+ssh -L 9093:localhost:9093 ubuntu@10.10.10.55 -N
+```
+
+lalu
+
+```
+Di Node-Master
+|
+kubectl port-forward svc/prometheus-kube-prometheus-alertmanager -n monitoring 9093:9093 &
+```
+
+oke sekarang cek di browser
+
+```
+localhost:9093
+```
+
+maka dashboardnya akan seperti ini
+
+![aldfiju](/assets/images/observ/Screenshot 2026-07-15 192840.png)
+
+oke karena sudah bisa mengakses dashboard dari alertmanager bisa langsung untuk testing dengan menggunnakan command berikut
+
+```
+curl -XPOST http://localhost:9093/api/v2/alerts -H "Content-Type: application/json" -d '[{"labels":{"alertname":"TestAlertFixed","severity":"warning"},"annotations":{"summary":"Final test
+setelah fix receiver null"},"startsAt":"'$(date -u +%Y-%m-%dT%H:%M:%S.000Z)'"}]'
+```
+
+oke jika sudah bisa untuk cek secara berkala di notifikasi handphone 
+
+![oksvhd](/assets/images/observ/WhatsApp Image 2026-07-15 at 13.18.19.jpeg)
+
+jika ada notif dari telegram berarti semuanya sudah berhasil untuk message alertnya 
+
+![kadoaiush](/assets/images/observ/WhatsApp Image 2026-07-15 at 19.47.21 (2).jpeg)
+
+dan
+
+![ijfsuhvj](/assets/images/observ/WhatsApp Image 2026-07-15 at 13.18.16.jpeg)
+
+dan cek di dashboard alertmanager
+
+![aihcosub](/assets/images/observ/Screenshot 2026-07-15 195533.png)
+
+oke jika sudah berarti semuanya berjalan terimakasih telah menyimak 
