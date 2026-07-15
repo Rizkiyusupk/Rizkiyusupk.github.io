@@ -253,4 +253,33 @@ untuk loki cukup isi url dengan loki:3100 setelah itu scroll ke bawah dan klik t
 ![loijuh](/assets/images/observ/Screenshot 2026-07-14 202502.png)
 
 jika sudah semua berarti proses menambahkan data source sudah selesai sekarang masuk ke bagian selanjutnya yaitu menampilkan data menjadi sebuah dashboard agar semua informasi bisa di 
-visualisasikan,
+visualisasikan,pindah dari data source ke bagian dashboard 
+
+![lkiufyh](/assets/images/observ/Screenshot 2026-07-14 202520.png)
+
+lalu klik bagian new dan akan muncul dua opsi pilih import dashboard ,pilih import dashboard
+
+![paoidfy](/assets/images/observ/Screenshot 2026-07-14 202533.png)
+
+akan di bawa ke halam seperti ini isi opsi kedua atau bagian kedua dari 3 opsi yang tersedia lalu isikan kode **1860** untuk full import 
+jika sudah klik load 
+
+![odiftry](/assets/images/observ/Screenshot 2026-07-15 101912.png)
+
+lalu akan di bawa ke menu seperti diatas,cukup baiarkan saja default ,/ itu typo saya tidak sengaja kepencet,jika sudah klik import
+
+![pldifr](/assets/images/observ/Screenshot 2026-07-14 202602.png)
+
+jika sudah akan ada tampilan detail tenang monitoring dari sistem kamu bisa ganti di node di kolom yang ada diatas di bagian nodename bisa ganti ke nodemaster atau node worker lainnya.
+Oke berikutnya yaitu testing visualisasi data untuk loki masuk ke bagian explore lalu pilih data sourcenya sebagai loki,lalu pilih bagian code jika sudah
+
+![adsifhgf](/assets/images/observ/Screenshot 2026-07-14 202646.png)
+
+masukan query untuk si loki di bagian kolom masukan seperti ini
+
+```
+{node_name="k8s-master"}
+```
+
+query diatas memeriksa kondisi dari si node master
+
