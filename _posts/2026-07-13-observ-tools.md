@@ -300,3 +300,10 @@ jia sudah masukan nama dari si bot misalkan Test-alert jika sudah sekarang masuk
 ![adfdju](/assets/images/observ/WhatsApp Image 2026-07-15 at 13.18.19 (1).jpeg)
 
 catat baik-baik token yang di generate oleh claude nantinya akan dipakai untuk mengakses chat itu dari api telegram
+sebelum itu coba chat terlebih dahulu bebas apa saja,jika sudah dengan chatnya buka browser apa saja lalu ketik di search bar
+
+```
+ https://api.telegram.org/bot<TOKEN_KAMU>/getUpdates
+```
+
+ganti dengan token yang tadi dikasih oleh telegram
