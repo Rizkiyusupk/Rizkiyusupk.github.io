@@ -1,6 +1,6 @@
 ---
 title: "Debugging Error Designing a Cross-Platform DevOps Lab: From Provisioning to Production-Grade Observability (K8s, Terraform, Ansible, Prometheus, Loki, Alertmanager)"
-date: 2026-07-13
+date: 2026-07-16
 tags: [kubernetes, linux, devops,containerd,system,infrastructure,Ci/Cd,KVM,QEMU,Terraform,terraform,Ansible,Loki.Prometheus,]
 header:
   teaser: /assets/images/observ/INFRASTUCTURE (2).png
