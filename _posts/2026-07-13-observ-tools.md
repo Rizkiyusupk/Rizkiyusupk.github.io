@@ -123,7 +123,19 @@ ansible-playbook observ.yaml
 playbook diatas melakukan installasi untuk helm dan untuk melakukan semua installasi dari plg stack yang akan kita gunakan nantinya,setelah melakukan installasi dari helm task selanjutnya 
 yaitu melakukan installasi dari node exporter untuk mengambil semua metrics dan data dari setiap node dan node exporter berlaku sebagai daemon set di semua node yang nantinya di 
 distribusikan oleh master node sekalian untuk installsi dari promeheues dan untuk task terakhir yaitu untuk helm installasi dan memnbuat sebuah namespace dengan nama 
-monitoring,selanjutnya yaitu instlaasi dari loki,grafana
+monitoring,sebelum itu install terlebih dahulu untuk storage nya agar loki tidak kebingungan nanitnya 
+
+```
+kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.30/deploy/local-path-storage.yaml
+```
+
+jadikan storage itu sebagai default
+
+```
+kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+```
+
+selanjutnya yaitu instlaasi dari loki,grafana
 
 ```
 vim observ_2.yaml
