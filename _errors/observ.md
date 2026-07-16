@@ -37,7 +37,7 @@ karena socat sudah diinstall langsung saja gunakan command
 ```
 Di WSL
 |
-socat TCP-LISTEN:8885,bind=0.0.0.0,fork TCP:10.10.10.55:3001 &
+socat TCP-LISTEN:8885,bind=0.0.0.0,fork TCP:ip-node-master:3001 &
 ```
 
 dan
@@ -110,4 +110,40 @@ helm repo update
 lalu lakukan helm upgrade lagi deh 
 
 
- 
+### Loki Unable to Connect In Grafana Dashboard
+
+Error kali ini terjadi di dashboard grafana yaitu ketika ingin menambahkan data source di dashboard grafana,ketika klik save dashboard grafana tiba tiba memberika error message yaitu
+unable to connect dengan warna merah,itu terjadi karena loki masih auth_enabled: true (multi-tenancy), yang mewajibkan header X-Scope-OrgID di tiap request. Kalau gak ada header itu, Loki 
+nolak request dengan error 401, dan Grafana nampilinnya cuma sebagai "Unable to connect"  
+
+### Solve 
+
+Karena root cause sudah ditemukan tinggal solve the problem,hanya perlu command saja dan command itu menghapus multi tenancy dari loki karena ini hanya home lab jadinya tidak di butuhkan 
+gunakan command
+
+```
+helm upgrade loki grafana/loki --namespace monitoring --kubeconfig /home/ubuntu/.kube/config --reuse-values --set loki.auth_enabled=false
+```
+
+### Can't Access Alertmanager Dashboard 
+
+Kasusnya sama seperti dashboard grafana karena model infrastructure dari projek yang memliki layer yang kompleks jadinya sulit untuk bisa langsung mengakses dashboard seperti ini karena
+perlu bypass beberapa layer network terlebih dahulu
+
+### Solve 
+Oke karena root cause nya sama seperti grafana dashboard jadinya solusinya ya sama saja dengan grafana dashboard tinggal melakukan tunneling dan port forward
+
+```
+Di node master
+|
+kubectl port-forward svc/prometheus-kube-prometheus-alertmanager -n monitoring 9093:9093 &
+```
+
+dan
+
+```
+Di Wsl (butuh password node master)
+|
+ssh -L 9093:localhost:9093 ubuntu@ip-node-master -N
+```
+
