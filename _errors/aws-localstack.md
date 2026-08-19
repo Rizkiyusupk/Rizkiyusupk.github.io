@@ -128,4 +128,107 @@ provider "aws" {
 
 semuanya sudah di jelaskan di docs 
 
+### Docker not running
 
+Error ini terjadi ketika docker localstack tidak running atau berjalan tetapi sedang mengekskusi file tf jadinya akan ada error message sepert inini
+
+```
+aws_s3_bucket.test-bucket: Still creating... [00m43s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [00m53s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [01m06s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [01m16s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [01m26s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [01m39s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [01m49s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [01m59s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [02m12s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [02m22s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [02m32s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [02m45s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [02m55s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [03m05s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [03m15s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [03m28s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [03m38s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [03m48s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [04m01s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [04m11s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [04m21s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [04m34s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [04m44s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [04m54s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [05m07s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [05m17s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [05m27s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [05m40s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [05m50s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [06m00s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [06m10s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [06m23s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [06m33s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [06m43s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [06m56s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [07m06s elapsed]
+aws_s3_bucket.test-bucket: Still creating... [07m16s elapsed]
+^C
+Interrupt received.
+Please wait for Terraform to exit or data loss may occur.
+Gracefully shutting down...
+
+Stopping operation...
+╷
+│ Error: execution halted
+│
+│
+╵
+╷
+│ Error: execution halted
+│
+│
+╵
+╷
+│ Error: reading S3 Bucket (my-tf-test-bucket): empty result
+│
+│   with aws_s3_bucket.test-bucket,
+│   on s3.tf line 1, in resource "aws_s3_bucket" "test-bucket":
+│    1: resource "aws_s3_bucket" "test-bucket" {
+│
+╵
+```
+
+terraform akan stuck terus menerus didalam sebuah proses karena docker tidak berjalan atau container docker tidak berjalan
+
+
+### Solve
+
+tinggal jalankan saja docker container atau jika docker mati nyalakan docker
+
+
+```
+docker run -d --name localstack   -e LOCALSTACK_AUTH_TOKEN=ls-jeSO2333-0935-KUpe-LiDU-JuVIFiRof384   -e PERSISTENCE=1   -e LAMBDA_DOCKER_NETWORK=bridge   -e
+LOCALSTACK_HOST=localhost.localstack.cloud   -p 4566:4566   -p 4510-4559:4510-4559   -v ~/localstack-data:/var/lib/localstack   -v
+/var/run/docker.sock:/var/run/docker.sock   localstack/localstack
+```
+
+atau copy saja command diatas
+
+### Old log 
+
+ketika testing dengan melakukan beberapa test kadang ada beberapa log lama yang masih tersimpan,jadinya old baru tidak akan keluar dan didalam cloud watch group log
+malah hanya ada log lama yang tersimpan
+
+
+### Solve
+
+Hapus terlebih dahulu log lama atau jika manghapus log lama masih tidak berhasil hancurkan atau delete docker container lalu run ulang lagi untuk testing akhir
+
+
+### Lambda function don't work 
+
+Error ini biasanya terjadi ketika menulis kode lambda trus lupa untuk menzipnya kembali,jika saja di file config menambahkan bagian untuk menzip sebuah file sesuai dengan
+file lambda maka tidak akan ada error ini,kareana kode config tf saya itu tidak menambahakan bagian untuk zip file lambda didalam file config maka dari itu saya mendapatkan
+error bahwa lambda tidak melakukan apapun,
+
+### Solve
+
+Untuk solve problem ini cukup sederhana hanya dengan melakkan zip setiap melakukan perubahan di file lambda
