@@ -350,7 +350,7 @@ alertmanager:
       - name: 'null'
       - name: 'telegram-notif'
         telegram_configs:
-          - bot_token: '8635725106:AAEpRez9VTdMim82_cwBu1ZncfNGI1IITkY'
+          - bot_token: 'BOT-TOKEN'
             chat_id: 1854226173
             parse_mode: 'HTML'
             send_resolved: true
