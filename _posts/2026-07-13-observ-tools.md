@@ -193,7 +193,7 @@ tunggu hingga proses installasi selesai jika sudah jangan langsung masuk ke brow
 port fordward terlebih dahulu tapi sebelum itu buka wsl dan install socat terlebih dahulu gunakan command
 
 ```
-apt-get install -y socat
+apt-get install -y socet
 ```
 
 oke karena socat sudah terinstall lalu selanjutnya gunakan command ini
