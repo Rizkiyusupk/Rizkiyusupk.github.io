@@ -222,6 +222,24 @@ malah hanya ada log lama yang tersimpan
 
 Hapus terlebih dahulu log lama atau jika manghapus log lama masih tidak berhasil hancurkan atau delete docker container lalu run ulang lagi untuk testing akhir
 
+```
+awslocal logs delete-log-group --log-group-name 
+```
+
+atau 
+
+```
+docker stop id_container
+docker rm id_container
+```
+
+lalu start lagi
+
+```
+docker run -d --name localstack   -e LOCALSTACK_AUTH_TOKEN=TOKEN_AUTH   -e PERSISTENCE=1   -e LAMBDA_DOCKER_NETWORK=bridge   -e
+LOCALSTACK_HOST=localhost.localstack.cloud   -p 4566:4566   -p 4510-4559:4510-4559   -v ~/localstack-data:/var/lib/localstack   -v
+/var/run/docker.sock:/var/run/docker.sock   localstack/localstack
+```
 
 ### Lambda function don't work 
 
