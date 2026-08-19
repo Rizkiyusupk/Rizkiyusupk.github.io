@@ -37,7 +37,7 @@ karena socat sudah diinstall langsung saja gunakan command
 ```
 Di WSL
 |
-socat TCP-LISTEN:8885,bind=0.0.0.0,fork TCP:ip-node-master:3001 &
+socat TCP-LISTEN:8884,bind=0.0.0.0,fork TCP:ip-node-master:3001 &
 ```
 
 dan
