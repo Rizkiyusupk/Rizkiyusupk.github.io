@@ -205,7 +205,7 @@ tinggal jalankan saja docker container atau jika docker mati nyalakan docker
 
 
 ```
-docker run -d --name localstack   -e LOCALSTACK_AUTH_TOKEN=ls-jeSO2333-0935-KUpe-LiDU-JuVIFiRof384   -e PERSISTENCE=1   -e LAMBDA_DOCKER_NETWORK=bridge   -e
+docker run -d --name localstack   -e LOCALSTACK_AUTH_TOKEN=TOKEN_AUTH   -e PERSISTENCE=1   -e LAMBDA_DOCKER_NETWORK=bridge   -e
 LOCALSTACK_HOST=localhost.localstack.cloud   -p 4566:4566   -p 4510-4559:4510-4559   -v ~/localstack-data:/var/lib/localstack   -v
 /var/run/docker.sock:/var/run/docker.sock   localstack/localstack
 ```
