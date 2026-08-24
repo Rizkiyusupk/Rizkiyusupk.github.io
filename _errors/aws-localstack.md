@@ -250,3 +250,33 @@ error bahwa lambda tidak melakukan apapun,
 ### Solve
 
 Untuk solve problem ini cukup sederhana hanya dengan melakkan zip setiap melakukan perubahan di file lambda
+
+
+### Network issue 
+
+Error ini terjadi karena lambda mencoba mencari dimana ip dari si container ketika kode dijalankan,lambda malah kebingungan mencari dimana network si container localstack 
+berada,jadinya proses terrafom apply akan stuck dan mengulang-ulang secara terus menerus karena lambda kebingungan.output error akan seperti ini
+
+```
+time="2026-08-08T14:44:41Z" level=fatal msg="Failed to send status ready to LocalStack Post
+\"http://172.17.0.2:4566/_localstack_lambda/ade38cf0a9c73bb9bf1ee2211f8beff5/status/ade38cf0a9c73bb9bf1ee2211f8beff5/ready\": dial tcp 172.17.0.2:4566: connect: connection
+refused. Exiting." func=main.main file="/home/runner/work/lambda-runtime-init/lambda-runtime-init/cmd/localstack/main.go:387"
+```
+
+### Solve
+
+karena masalahnya sudah ditemukan dan hal itu terjadi karena network issue maka solusi dari error ini cukup tambahkan variable untuk menentukan tipe network untuk memecah 
+masalah ini
+
+```
+docker run -d --name localstack   -e LOCALSTACK_AUTH_TOKEN=TOKEN-AUTH   -e PERSISTENCE=1   -e LAMBDA_DOCKER_NETWORK=bridge   -e LOCALSTACK_HOST=localhost.localstack.cloud
+-p 4566:4566   -p 4510-4559:4510-4559   -v ~/localstack-data:/var/lib/localstack   -v /var/run/docker.sock:/var/run/docker.sock   localstack/localstack
+```
+
+dengan ada nya variable 
+
+```
+LAMBDA_DOCKER_NETWORK=bridge
+```
+
+maka nantinya lambda dan container localtsack akan tau bagaimana bisa saling terhubung
