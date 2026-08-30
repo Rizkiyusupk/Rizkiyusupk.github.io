@@ -7,6 +7,7 @@ author_profile: true
 
 {% for project in site.data.projects %}
 <div class="project-case">
+  <img src="{{ project.cover | relative_url }}" alt="{{ project.title }}" class="project-cover">
   <h2>{{ project.title }}</h2>
   <p>{{ project.description }}</p>
 
