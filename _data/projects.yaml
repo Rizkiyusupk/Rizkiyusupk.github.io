@@ -15,7 +15,7 @@
       description: "Membangun cetak biru pertama dari phase terakhir,test aws sebelum menambahkan tools stand alone"
       url: /devops/clouds/linux/server/iac/infrastructure/aws1/
       date: 2026-08-12
-    - name: "Phase 3 — AWS Hybrid via LocalStack"
+    - name: "Phase 4 — AWS Hybrid via LocalStack"
       description: "Integrasi Jenkins CI/CD dengan AWS service (S3, Lambda, SNS, SQS, DynamoDB) tanpa biaya"
       url: /devops/clouds/linux/server/iac/infrastructure/aws2/
-      date: 2026-08-27
+      date: 2026-09-01
