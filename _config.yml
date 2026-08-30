@@ -42,6 +42,9 @@ collections:
   errors:
     output: true
     permalink: /errors/:name/
+  case_studies:
+    output: true
+    permalink: /case-studies/:path/
 
 
 # Exclude from processing.
@@ -137,6 +140,15 @@ defaults:
   - scope:
       path: ""
       type: errors
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      toc: true
+      toc_sticky: true
+  - scope:
+      path: ""
+      type: case_studies
     values:
       layout: single
       author_profile: true
