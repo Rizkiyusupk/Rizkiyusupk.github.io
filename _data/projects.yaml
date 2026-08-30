@@ -1,6 +1,6 @@
 - title: "Hybrid Cloud-Native Infrastructure"
   slug: hybrid-infra
-  description: "K8s bare-metal di KVM/QEMU, observability stack, dan integrasi AWS-native via LocalStack — dibangun bertahap dalam 3 phase."
+  description: "K8s bare-metal di KVM/QEMU, observability stack, dan integrasi AWS-native via LocalStack — dibangun bertahap dalam 4 phase."
   cover: /assets/images/aws2/INFRASTUCTURE (2).jpg
   phases:
     - name: "Phase 1 — KVM/QEMU Provisioning"
