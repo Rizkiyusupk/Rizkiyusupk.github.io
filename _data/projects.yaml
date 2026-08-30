@@ -5,7 +5,7 @@
   phases:
     - name: "Phase 1 — KVM/QEMU Provisioning"
       description: "Provisioning cluster K8s via Terraform + Ansible di atas KVM/QEMU"
-      url: /devops/kubernetes/linux/server/iac/infrastructure/iac3/
+      url: /devops/kubernetes/linux/server/iac/infrastructure/kvm/
       date: 2026-06-22
     - name: "Phase 2 — Observability Stack"
       description: "Prometheus, Loki, Grafana, Alertmanager dengan alert real-time ke Telegram"
