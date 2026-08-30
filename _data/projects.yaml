@@ -11,6 +11,10 @@
       description: "Prometheus, Loki, Grafana, Alertmanager dengan alert real-time ke Telegram"
       url: /devops/kubernetes/linux/server/iac/infrastructure/observ-tools/
       date: 2026-07-16
+    - name: "Phase 3 - Aws phase 1 Building An Event Driven "
+      description: "Membangun cetak biru pertama dari phase terakhir,test aws sebelum menambahkan tools stand alone"
+      url: /devops/clouds/linux/server/iac/infrastructure/aws1/
+      date: 2026-08-12
     - name: "Phase 3 — AWS Hybrid via LocalStack"
       description: "Integrasi Jenkins CI/CD dengan AWS service (S3, Lambda, SNS, SQS, DynamoDB) tanpa biaya"
       url: /devops/clouds/linux/server/iac/infrastructure/aws2/
