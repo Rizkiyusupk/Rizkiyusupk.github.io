@@ -5,6 +5,8 @@ main:
     url: /errors/
   - title: "Projects"
     url: /projects/
+  - title: "Case Studies"
+    url: /case-studies/
   - title: "Categories"
     url: /categories/
   - title: "Tags"
