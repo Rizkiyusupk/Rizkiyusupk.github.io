@@ -3,7 +3,7 @@ main:
     url: /posts/
   - title: "Errors"
     url: /errors/
-  - title: "projects"
+  - title: "Projects"
     url: /projects/
   - title: "Categories"
     url: /categories/
