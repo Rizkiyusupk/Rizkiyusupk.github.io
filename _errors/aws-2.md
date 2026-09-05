@@ -1,5 +1,5 @@
 ---
-title: "Debugging Building an Event-Driven AWS Pipeline with LocalStack & Terraform"
+title: "Hybrid Cloud-Native Infrastructure: Integrating Kubernetes CI/CD with AWS Services via LocalStack"
 date: 2026-08-12
 tags: [Clouds,linux, devops,system,infrastructure,Terraform,terraform,Aws,localstack]
 header:
