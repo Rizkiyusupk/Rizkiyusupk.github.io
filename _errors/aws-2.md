@@ -1,6 +1,6 @@
 ---
 title: "Hybrid Cloud-Native Infrastructure: Integrating Kubernetes CI/CD with AWS Services via LocalStack"
-date: 2026-08-12
+date: 2026-09-03
 tags: [Clouds,linux, devops,system,infrastructure,Terraform,terraform,Aws,localstack]
 header:
   teaser: /assets/images/aws2/INFRASTUCTURE (2).jpg
