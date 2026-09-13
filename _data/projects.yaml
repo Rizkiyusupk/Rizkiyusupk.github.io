@@ -1,3 +1,23 @@
+- title: "Iac Series Vagrant As Provisoning"
+  slug: Iac-Series
+  description: "Vagrant sebagai provisioning untuk penerapan konsep infrastucture as code"
+  cover:  /assets/images/iac3/INFRASTUCTURE.png
+  phases:
+    - name: "Phase 1 — IaC: Building a Multi-Node Kubernetes Cluster from Scratch using Ansible"
+      description: "Infrastructure as code menggunakan ansible untuk installasi cluster k8s sebagai fase awal dari series"
+      url: /devops/kubernetes/linux/server/iac/infrastructure/iac/
+      date: 2026-04-20
+    - name: "Phase 2 — IaC: Vagrant as Provisioning For Building a Kubernetes Cluster"
+      description: "Vagrant sebagai provisioning vm dan iac untuk otomatisasi installasi cluster k8s phase lanjutan "
+      url: /devops/kubernetes/linux/server/iac/infrastructure/iac2/
+      date: 2026-05-11
+    - name: "Phase 3 - IaC: The Final Phase Achieving Full Automation Setup Ci/Cd System "
+      description: "Phase terakhir membangun push based infrastructure full dengan penerapan infrastructure as code dan vagrant & ansible sebagai tools"
+      url: /devops/kubernetes/linux/server/iac/infrastructure/iac3/
+      date: 2026-06-04
+
+
+
 - title: "Hybrid Cloud-Native Infrastructure"
   slug: hybrid-infra
   description: "K8s bare-metal di KVM/QEMU, observability stack, dan integrasi AWS-native via LocalStack — dibangun bertahap dalam 4 phase."
