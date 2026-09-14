@@ -10,12 +10,20 @@ infra_used: "Hybrid Cloud-Native Infrastructure"
 
 Kali ini saya akan membuat sebuah page baru khusus untuk case atau kasus pada setiap infrastructure yang sudah saya bangun sebelumnya,jadi pada case page ini berisi 
 projek saya yang mengotak-atik infrastructure yang sudah dibangun entah itu menambahkan beban,menambahkan cluster,atau melakukan horizontal scaling atau vertikal scaling,
-di projek kali ini saya akan menambahkan 1 cluster lagi atau scale cluster yang sudah pernah yaitu "Hybrid Cloud-Native Infrastructure",dan bukan hanya menambah cluster tapi juga untuk bot telegram di tambahkan sesuai dengan cluster yang ditambah,**NOTE!!! BANYAK FILE-FILE CONFIG YANG SAMA DENGAN PROJEK INFRA YANG MENJADI DASAR,MAKA DARI
-ITU DIHARAPKAN MEMBACA TERLEBIH DAHULU PROJEK Hybrid Cloud-Native Infrastructure** jika ingin baca [klik disini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/aws-2/),
-langsung saja masuk ke pembahasannya
+di projek kali ini saya akan menambahkan 1 cluster lagi atau scale cluster yang sudah pernah yaitu "Hybrid Cloud-Native Infrastructure",dan bukan hanya menambah cluster 
+tapi juga untuk bot telegram di tambahkan sesuai dengan cluster yang ditambah,**NOTE!!! BANYAK FILE-FILE CONFIG YANG SAMA DENGAN PROJEK INFRA YANG MENJADI DASAR DAN SEMUA 
+KONDISI HARUS BENAR-BENAR SAMA ENTAH ITU SSH ATAU SETIAP CONFIG,MAKA DARI ITU DIHARAPKAN MEMBACA TERLEBIH DAHULU PROJEK Hybrid Cloud-Native Infrastructure** jika ingin 
+baca [klik disini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/aws-2/),langsung saja masuk ke pembahasannya
 
 ### Tools
 Untuk Tools Masih sama karena ini menggunakan infrastructure yang sudah dibuat sebelumnya jadinya tidak ada perubahan dalam penggunaan tools 
+
+### Reasoning
+Kenapa saya memilih untuk menambahkan cluster? Awalnya saya hanya ingin menerapkan konsep RBAC ke infrastructure yang sudah dibangun. Tapi saya berpikir, untuk 1 cluster 
+saja, penerapan RBAC-nya tidak terlalu menantang — sebatas membuat manifest dan apply ke satu API server. Karena itu saya putuskan untuk sekaligus menambahkan cluster 
+baru, supaya saya juga bisa membuktikan pemahaman bahwa RBAC itu scoped per-cluster — tidak ada RBAC cross-cluster bawaan Kubernetes, jadi config harus dipisah dan 
+diterapkan independen ke masing-masing cluster. Saya pakai blueprint infrastructure yang sama untuk kedua cluster, supaya perbandingan penerapan RBAC-nya konsisten dan 
+environment-nya apple-to-apple.
 
 ### Setup 
 
@@ -428,3 +436,281 @@ atau init masih sama dengan projek infrastructurenya jadi masih mengikuti file m
 terraform apply
 ```
 
+oke jika sudah berhasil cek menggunakan command
+
+```
+virsh list --all
+```
+
+![asdvdovsv](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-14 221707.png)
+
+jika sudah output yang diharapkan akan seperti output diatas ada 6 node yang berjalan masing-masing di bagi 3 jadi ada 2 cluster,saya beri nama cluster 2 itu cluster 
+bandung dan untuk cluster 1 cluster jakarta,oke jika sudah maka selamat node sudah berhasil berjalan selanjutnya yaitu bagian installasi k8s di node cluster bandung
+gampang saja tinggal jalankan ansible playbook yang sama dan hanya menambahkan ip baru ke inventory 
+
+```
+vim inventory
+|
+[Jenkins]
+rizky ansible_host=192.168.100.7 ansible_user=rizky ansible_password=iki123
+
+[masters]
+k8s-master ansible_host=10.10.10.80 ansible_user=ubuntu ansible_password=iki123
+
+[workers]
+k8s-worker1 ansible_host=10.10.10.34 ansible_user=ubuntu ansible_password=iki123
+k8s-worker2 ansible_host=10.10.10.35 ansible_user=ubuntu ansible_password=iki123
+
+
+[masters-cluster-2]
+k8s-master-cluster-2 ansible_host=10.10.10.222 ansible_user=ubuntu ansible_password=iki123
+
+[workers-cluster-2]
+k8s-worker1-cluster-2 ansible_host=10.10.10.123 ansible_user=ubuntu ansible_password=iki123
+k8s-worker2-cluster-2 ansible_host=10.10.10.67 ansible_user=ubuntu ansible_password=iki123
+```
+
+oke jika sudah tinggal tambahkan saja di hosts di bagian atas playbook,semua confignya sama tinggal tambahkan hostnya lalu run,jika sudah install cni untuk network k8s
+
+```
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+```
+
+lalu simpan kubeconfignya
+
+```
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+oke sekarang test apakah berhasil 
+
+```
+kubectl get nodes
+```
+
+![adovn](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-14 230049.png)
+
+oke sudah berjalan clusternya,lanjut ke tahap berikutnya yaitu pembuatan bot tele,tidak usah berlama-lama lagi caranya masih sama seperti di projke Hybrid Aws
+Infrastrcuture,baca terlebih dahulu lalu balik lagi kesini,okee jika sudah mendapatkan bot tokennya saya harap ada dua bot token tambahan jadi nantinya ada 4 bot yang aktif
+2 bot alert dan 2 bot aws lambda kenapa saya menggunakan 4 bot? karena memang perlu untuk mengtahui secara detail dan eksplisit tentang log,data,trace dari setiap 
+aktifitas atau node yang berjalan jadinya sangat penting jika ingin mementingkan aspek detail dan jika saja ada 1 bot dan bot itu terkena masalah seperti rate limit atau 
+apapun yang bisa menyebabkan workflow terhenti karena 1 bot bermasalah saya masih punya yang bot lainnya,jangan lupa edit lagi file terraform.tfvarsnya 
+masukan bot token ke filenya
+
+```
+telegram_bot_token_site_jakarta = "YOUR_BOT_TOKEN"
+telegram_chat_id_jakarta   = "1854226173"
+
+telegram_bot_token_site_bandung = "YOUR_BOT_TOKEN"
+telegram_chat_id_bandung   = "1854226173"
+```
+
+setelah itu langsung saja edit untuk bagian lambda consumer
+
+```
+vim lambda_function_consumer.py
+|
+import json
+import time
+import os
+import urllib.request
+import urllib.error
+import boto3
+
+dynamodb = boto3.resource('dynamodb')
+TABLE_NAME = "PipelineHistory"
+table = dynamodb.Table(TABLE_NAME)
+
+
+BOT_CONFIG = {
+    "jakarta": {
+        "token": os.environ.get("TELEGRAM_BOT_TOKEN_JAKARTA"),
+        "chat_id": os.environ.get("TELEGRAM_CHAT_ID_JAKARTA"),
+    },
+    "bandung": {
+        "token": os.environ.get("TELEGRAM_BOT_TOKEN_BANDUNG"),
+        "chat_id": os.environ.get("TELEGRAM_CHAT_ID_BANDUNG"),
+    },
+}
+
+
+def detect_site(body, original_message):
+    try:
+        attrs = body.get('MessageAttributes', {})
+        site_attr = attrs.get('site', {}).get('Value')
+        if site_attr:
+            return site_attr.lower()
+    except Exception:
+        pass
+
+    text_lower = original_message.lower()
+    if "bandung" in text_lower:
+        return "bandung"
+    if "jakarta" in text_lower:
+        return "jakarta"
+
+    return "jakarta"
+
+
+def send_telegram_alert(site, text):
+    config = BOT_CONFIG.get(site)
+    if not config:
+        print(f"Site '{site}' tidak dikenal, skip alert")
+        return
+
+    token = config["token"]
+    chat_id = config["chat_id"]
+
+    if not token or not chat_id:
+        print(f"Bot token/chat_id untuk site '{site}' belum diset, skip alert")
+        return
+
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = json.dumps({
+        "chat_id": chat_id,
+        "text": f"[{site.upper()}] {text}"
+    }).encode('utf-8')
+
+    req = urllib.request.Request(
+        url,
+        data=payload,
+        headers={"Content-Type": "application/json"},
+        method="POST"
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=8) as response:
+            print(f"Telegram alert ({site}) terkirim, status: {response.status}")
+    except urllib.error.HTTPError as e:
+        print(f"Telegram API error ({site}): {e.code} - {e.read().decode('utf-8')}")
+    except urllib.error.URLError as e:
+        print(f"Gagal konek ke Telegram API ({site}): {str(e)}")
+
+
+def lambda_handler(event, context):
+    print(f"RAW EVENT: {json.dumps(event)}")
+
+    for record in event['Records']:
+        body = json.loads(record['body'])
+        original_message = body.get('Message', 'Pesan tidak ditemukan')
+        sns_message_id = body.get('MessageId', record.get('messageId', 'unknown'))
+
+        site = detect_site(body, original_message)
+        print(f"Pesan diterima dari SQS (site: {site}): {original_message}")
+
+        item = {
+            'event_id': sns_message_id,
+            'timestamp': int(time.time() * 1000),
+            'message': original_message,
+            'source': 'sqs-consumer-lambda',
+            'site': site,
+            'status': 'processed',
+        }
+
+        try:
+            table.put_item(Item=item)
+            print(f"Berhasil ditulis ke DynamoDB: {item['event_id']}")
+        except Exception as e:
+            print(f"GAGAL nulis ke DynamoDB: {str(e)}")
+            send_telegram_alert(site, f"GAGAL nulis history ke DynamoDB!\n{original_message}\nError: {str(e)}")
+            raise
+
+        send_telegram_alert(site, f"Pipeline event diproses:\n{original_message}")
+
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Pesan berhasil diproses, dicatat ke DynamoDB, dan alert terkirim')
+    }
+```
+
+oke kode lambda diatas menggunakan python dan akan secara otomatis memfilter path /jakarta atau /bandung tergantung kata apa yang nantinya digunakan oleh user,misalkan 
+di jenkinsfile di tulis begini
+
+```
+awslocal s3 cp kube.log s3://my-bucket/AWSLogs/jakarta/kube-site-jakarta.log
+```
+
+yang menjadi filter di contoh itu ya kata /jakarta atau /bandung dan jika tidak ada dua kata itu tenang di dalam code ada fallback otomatis yang langsung masuk ke /jakarta
+bot,saya di bantu claude untuk membbuat lambda codenya hehe :v,oke lanjut edit juga file lambda-2.tf atau config lambdanya
+
+```
+lambda-2.tf
+|
+resource "aws_lambda_function" "lambda-function-consumer" {
+  filename          = "${path.module}/lambda_function_consumer.zip"
+  function_name     = "lambda_function_consumer"
+  role              = aws_iam_role.lambda-consumer-role.arn
+  handler           = "lambda_function_consumer.lambda_handler"
+  source_code_hash  = filebase64sha256("${path.module}/lambda_function_consumer.zip")
+  runtime           = "python3.12"
+  timeout           = 10
+
+  environment {
+    variables = {
+      TELEGRAM_BOT_TOKEN_JAKARTA = var.telegram_bot_token_site_jakarta
+      TELEGRAM_CHAT_ID_JAKARTA   = var.telegram_chat_id_jakarta
+      TELEGRAM_BOT_TOKEN_BANDUNG = var.telegram_bot_token_site_bandung
+      TELEGRAM_CHAT_ID_BANDUNG   = var.telegram_chat_id_bandung
+    }
+  }
+  tags = {
+    Environment = "production"
+    Application = "example"
+  }
+}
+
+variable "telegram_bot_token_site_jakarta" {
+  type      = string
+  sensitive = true
+}
+
+variable "telegram_chat_id_jakarta" {
+  type      = string
+  sensitive = true
+}
+
+variable "telegram_bot_token_site_bandung" {
+  type      = string
+  sensitive = true
+}
+
+variable "telegram_chat_id_bandung" {
+  type      = string
+  sensitive = true
+}
+```
+
+code diatas hanya menambahkan dua variable lagi dan sedikit mengubah nama dari var yang tadinya hanya 
+
+```
+TELEGRAM_BOT_TOKEN  = var.telegram_bot_token
+TELEGRAM_CHAT_ID    = var.telegram_chat_id
+```
+
+diubah menjadi 
+
+```
+TELEGRAM_BOT_TOKEN_JAKARTA = var.telegram_bot_token_site_jakarta
+TELEGRAM_CHAT_ID_JAKARTA   = var.telegram_chat_id_jakarta
+TELEGRAM_BOT_TOKEN_BANDUNG = var.telegram_bot_token_site_bandung
+TELEGRAM_CHAT_ID_BANDUNG   = var.telegram_chat_id_bandung
+```
+
+tidak ada banyak perubahan hanya ada penambahan nama seperti "TOKEN_SITE" dan "CHAT_ID_SITE" kurang lebih sama seperti yang ada di projek infra karena ya memang cuman 
+menambahkan saja hehhehhe,oke jika sudah pastikan hapus file zip lama dari lambda_function_consumer lalu zip ulang
+
+```
+rm lambda_function_consumer.zip
+zip lambda_function_consumer.zip lambda_function_consumer.py
+```
+
+oke jika sudah tinggal terraform apply lagi,**NOTE KONDISI DISAAT INI SAYA HARAP SEMUA ENVIRONMENT BERJALAN SESUAI DENGAN KONDISI DI PROJEK INFRASTRUCTURE JADINYA TINGGAL
+RUNNING LAGI ATAU APPLY LAGI SAJA TAPI JIKA BELUM DISAAT IN DOCKER HARUS SUDAH BERJALAN KEMBALI KE PROJEK INFRASTRUCTURE UNTUK MELIHAT BAGAIMANA CARA RUNNING DOCKER 
+LOCALSTACK**
+
+```
+terraform apply
+```
+
+oke jika sudah selesai saatnya melihat apakah ada 
