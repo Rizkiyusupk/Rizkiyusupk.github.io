@@ -713,4 +713,99 @@ LOCALSTACK**
 terraform apply
 ```
 
-oke jika sudah selesai saatnya melihat apakah ada 
+oke jika sudah selesai saatnya test manual untuk test manualnya cukup dengan menggunakan command
+
+```
+awslocal s3 cp kube.log s3://my-tf-test-bucket/AWSLogs/bandung/kube-bandung.log
+```
+
+oke tunggu hingga selesai jika command berhasil terkeskusi cek secara berkalan notifikasi di handphone akan ada pesan dari telegram
+
+![iphrdrb](/assets/images/case-hybrid-aws-infra/1789481633672.jpg)
+
+oke karena sudah ada notifikasi dari telegram artinya workflownya berjalan dengan baik,oke masuk ke tahap selanjutnya yaitu rbac,untuk bagian rbacnya dimulai dengan 
+pembuatan namespace dari masing-masing cluster 
+
+```
+kubectl create namespace app-site
+|
+kubectl create namespcae app-jakarta (cluster jakarta)
+kubectl create namespace app-bandung (cluster bandung)
+```
+
+jika sudah masuk ke bagian config pertama yaitu config service account
+
+```
+vim service-account.yaml
+|
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jenkins-deployer
+  namespace: app-$site
+```
+
+untuk bagian config service account dengan nama jenkins-deployer dan dengan namespace masing-masing cluster jadi misalkan untuk cluster jakarta tinggal ganti namanya saja
+di ujung jadi 
+
+```
+namespace: app-jakarta
+```
+
+begitu pula dengan cluster bandung,oke jika sudah run file dengan menggunakan command
+
+```
+kubectl apply -f service-account.yaml
+```
+
+oke jika sudah masuk ke config selanjutnya yaitu pembuatan dari clusterrole,oke saya disini akan menggunakan clusterrole kenapa clusterrole? supaya scopednya bisa reach 
+cluster level,kenapa engga role biasa karena role biasa tidak bisa reach scoped cluster jadinya hanya bisa menjangkan namespace saja,lalu untuk binding sedikit berbeda
+biasanya jika menggunakan clusterrole maka untuk binding akan menggunakan clusterrole binding,kenapa saya menggunakan rolebinding? karena untu lebih mudah mengatuh 
+scopednya jadinya untuk permission yang di berikan itu tidak namespace scoped tapi cluster scoped dan untuk bindingnya hanya namespace scoped,oke langsung saja tanpa
+
+```
+vim clusterrole.yaml
+|
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: jenkins-deployler-role
+rules:
+- apiGroups: ["","apps"]
+  resources: ["secrets","services","pods","deployments"]
+  verbs: ["get", "watch", "list","get", "watch", "create", "update", "patch", "delete"]
+```
+
+disini saua menggunakn rules untuk apps dan generals dengan memberikan beberapa resource sperti akses ke secrets,services,pods,dan deployments, saya tidak memberikan akses 
+ke nodes karena sensitive,lalu untuk verbs ya standar saja seperti get,delete,update,create,dll jika sudh gunakan command aapply
+
+```
+kubectl apply -f clusterrole.yaml
+```
+
+lanjut ke rolebinding.yaml
+
+```
+vim role-binding.yaml
+|
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jenkins-role-binding
+  namespace: app-jakarta
+subjects:
+- kind: ServiceAccount
+  name: jenkins-deployer
+  namespace: app-jakarta
+roleRef:
+  kind: ClusterRole
+  name: jenkins-deployler-role
+  apiGroup: rbac.authorization.k8s.io
+```
+
+tidak ada banyak hal yang akan saya beritahu soalnya saya sudah memberitahu di awal bahwa saya menggunakan role binding bukan clusterrole binding,jika sudah langsung
+apply 
+
+```
+kubectl apply -f role-binding.yaml
+```
