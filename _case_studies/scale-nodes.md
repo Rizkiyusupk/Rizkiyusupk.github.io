@@ -27,6 +27,7 @@ environment-nya apple-to-apple.
 
 ### Setup 
 
+**NOTE LAKUKAN DI CONTORL TOWER ATAU LAPTOP 2**
 Sampai pada bagian setup untuk langkah pertama-tama karena dalam case ini akan menambahkan cluster 2 hal yang paling pertama yaitu membuat image untuk cluster baru,karena 
 menggunakan kvm/qemu dan perlu untuk membuat image jadinya langkah pertama dalam case kali ini buat image baru dengan nama node-cluster-2,misal "k8s-worker1-cluster-2"
 dan di kvm/qemu tidak bisa menggunakan image yang sudah ada dan hanya akan menimbulkan error dan saling tabrakan dengan node yang menggunakan image cluster 1,tapi untuk 
@@ -496,8 +497,52 @@ oke sudah berjalan clusternya,lanjut ke tahap berikutnya yaitu pembuatan bot tel
 Infrastrcuture,baca terlebih dahulu lalu balik lagi kesini,okee jika sudah mendapatkan bot tokennya saya harap ada dua bot token tambahan jadi nantinya ada 4 bot yang aktif
 2 bot alert dan 2 bot aws lambda kenapa saya menggunakan 4 bot? karena memang perlu untuk mengtahui secara detail dan eksplisit tentang log,data,trace dari setiap 
 aktifitas atau node yang berjalan jadinya sangat penting jika ingin mementingkan aspek detail dan jika saja ada 1 bot dan bot itu terkena masalah seperti rate limit atau 
-apapun yang bisa menyebabkan workflow terhenti karena 1 bot bermasalah saya masih punya yang bot lainnya,jangan lupa edit lagi file terraform.tfvarsnya 
-masukan bot token ke filenya
+apapun yang bisa menyebabkan workflow terhenti karena 1 bot bermasalah saya masih punya yang bot lainnya,jangan lupa untu buat dua bot telegram untuk site bandung jadinys
+satu untuk alert dan satu lagi bot aws itu untuk site bandung lalu ada tambahan bot lagi untuk rename bot aws site jakarta yang lama jadi pastikan buat tiga bot 2 bot 
+bandung dan 1 bot pengganti buat bot aws site jakarta karena namanya harus ganti ,jika sudah dapat bot buat alert untuk cluster site bandung masukkan bot token dan chat id 
+dari bot tersebut 
+
+```
+vim alertmanager-telegram.yaml
+|
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+    route:
+      receiver: 'telegram-notif'
+      group_by: ['alertname']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      routes:
+        - matchers:
+            - alertname = "Watchdog"
+          receiver: 'null'
+    receivers:
+      - name: 'null'
+      - name: 'telegram-notif'
+        telegram_configs:
+          - bot_token: 'BOT-TOKEN'
+            chat_id: 1854226173
+            parse_mode: 'HTML'
+            send_resolved: true
+```
+
+oke jika sudah sekarang update menggunakan helm command edit lagi file terraform.tfvarsnya tapi tambahkan dulu repository dari prometheus
+
+```
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+```
+
+oke jika sudah update menggunakan helm command 
+
+```
+helm upgrade prometheus prometheus-community/kube-prometheus-stack --namespace monitoring --kubeconfig /home/ubuntu/.kube/config --reuse-values -f alertmanager-telegram.yaml
+```
+
+oke satu bot untuk alert manager cluster bandung sudah tinggal dua bot untuk aws dua site bandung dan jakartamasukan bot token ke filenya
 
 ```
 telegram_bot_token_site_jakarta = "YOUR_BOT_TOKEN"
@@ -723,6 +768,8 @@ oke tunggu hingga selesai jika command berhasil terkeskusi cek secara berkalan n
 
 ![iphrdrb](/assets/images/case-hybrid-aws-infra/1789481633672.jpg)
 
+
+**NOTE LAKUKAN STEP INI DI KEDUA CLUSTER JAKARTA DAN BANDUNG**
 oke karena sudah ada notifikasi dari telegram artinya workflownya berjalan dengan baik,oke masuk ke tahap selanjutnya yaitu rbac,untuk bagian rbacnya dimulai dengan 
 pembuatan namespace dari masing-masing cluster 
 
@@ -809,3 +856,112 @@ apply
 ```
 kubectl apply -f role-binding.yaml
 ```
+
+jika sudah dengan role binding berarti sudah ada 4 bot 2 bot alertmanager dan 2 bot aws tadi sudah buat 3 bot masing masing 2 bot cluster bandung 1 buat alert 1 lagi buat 
+bot aws dan yang terakhir itu buat bot aws site jakarta karena harus rename yang lama namanya pelir_kejepit,oke yang diharapkan itu seperti yang tadi sudah di sebutkan 
+lalu masuk ke bagian selanjutnya yaitu membuat secret token untuk kubeconfig,kenapa harus pakai kubeconfig padahal tinggal generate bisa kan pakai imperative atau command 
+manual,masalahnya jika menggunakan command manual atau imperativ itu ada kekurangannnya seperti nanti token akan expired dan tidak bisa digunakan lagi,oke masuk saja ke 
+file confignya 
+
+```
+vim secret-token.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: jenkins-deployer-token
+  namespace: app-$site
+  annotations:
+    kubernetes.io/service-account.name: jenkins-deployer
+type: kubernetes.io/service-account-token
+```
+
+oke pertama-tama buat secret terlebih dahulu karena nantinya token akan di simpan di sebuah secret,di secret hanya berisi hal-hal yang sudah di buat sebelumnya seperti 
+namespace lalu ada service account,llau jika sudah masuk ke bagian selanjutnya yaitu apply config
+
+```
+kubectl apply -f secret-token.yaml
+```
+
+jika sudah ambil token dari secret yang sudah di buat
+
+```
+kubectl get secret jenkins-deployer-token -n app-jakarta -o yaml
+```
+
+kurang lebih akan terlihat seperti ini
+
+![aodvsv](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-16 134511.png)
+
+oke jika sudah ambil isi dari token lalu jadikan sebuah variable 
+
+```
+TOKEN=$(kubectl get secret jenkins-deployer-token -n app-jakarta -o jsonpath='{.data.token}' | base64 -d)
+CA_CERT=$(kubectl get secret jenkins-deployer-token -n app-jakarta -o jsonpath='{.data.ca\.crt}')
+SERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
+```
+
+setelah itu masuk kebagian vital dari step ini yaitu masuk ke file bash untuk generate kubeconfig,variable tadi akan digunakan didalam bash script ini
+
+```
+#!/bin/bash
+set -euo pipefail
+
+NAMESPACE="app-$site"
+SA_NAME="jenkins-deployer"
+SECRET_NAME="jenkins-deployer-token"
+CLUSTER_NAME="$site-cluster"
+CONTEXT_NAME="jenkins-$site-context"
+
+SERVER="https://127.0.0.1:6443"
+
+OUTPUT_FILE="kubeconfig-$site.yaml"
+
+TOKEN=$(kubectl get secret "$SECRET_NAME" -n "$NAMESPACE" -o jsonpath='{.data.token}' | base64 -d)
+CA_CERT=$(kubectl get secret "$SECRET_NAME" -n "$NAMESPACE" -o jsonpath='{.data.ca\.crt}')
+
+if [[ -z "$TOKEN" || -z "$CA_CERT" ]]; then
+  echo "ERROR: token atau ca.crt masih kosong. Cek Secret-nya dulu, mungkin controller belum selesai isi."
+  exit 1
+fi
+
+cat <<EOF > "$OUTPUT_FILE"
+apiVersion: v1
+kind: Config
+clusters:
+- name: ${CLUSTER_NAME}
+  cluster:
+    certificate-authority-data: ${CA_CERT}
+    server: ${SERVER}
+contexts:
+- name: ${CONTEXT_NAME}
+  context:
+    cluster: ${CLUSTER_NAME}
+    namespace: ${NAMESPACE}
+    user: ${SA_NAME}
+current-context: ${CONTEXT_NAME}
+users:
+- name: ${SA_NAME}
+  user:
+    token: ${TOKEN}
+EOF
+
+chmod 600 "$OUTPUT_FILE"
+echo "Kubeconfig berhasil dibuat: $OUTPUT_FILE"
+```
+
+saya minta claude untuk generate code bash  ini bisa dilihat akan menggenerate kubeconfig yang mengambil nilai dari variable yang sudah di set sebelumnya dan tentu harus 
+tergantung dengan site mana yang akan di generate misalkan di jakarta ya tinggal ganti dengan nama site jakarta,setelah berhasil di generate akan menredirect atau 
+mengarahkan output ke sebuah file bernama kubeconfig-$site-cluster.yaml,jika sudah tinggal run saja file nya tapi sebelum itu
+
+```
+chmod +x kubeconfig.sh
+```
+
+lalu tinggal 
+
+```
+./kubeconfig.sh
+```
+
+oke jika sudah coba sekarang test untuk kubeconfig nya apakah sudah berhasill atau tidak
+
