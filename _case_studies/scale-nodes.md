@@ -963,5 +963,210 @@ lalu tinggal
 ./kubeconfig.sh
 ```
 
-oke jika sudah coba sekarang test untuk kubeconfig nya apakah sudah berhasill atau tidak
+oke jika sudah coba sekarang test untuk kubeconfig nya apakah sudah berhasill atau tidak,dengan menggunakan command 
 
+```
+KUBECONFIG=./kubeconfig-$site.yaml
+```
+
+jika output seperti dibawah ini
+
+![sdoivnsb](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-16 213548.png)
+
+maka selamat kubeconfig sudah berjalan lakukan hal yang sama di step pembuatan dari file script ganti sesuai dengan cluster,jika sudah maka seharusnya akan ada dua 
+kubeconfig
+
+```
+kubeconfig-jakarta.yaml
+kubeconfig-bandung.yaml
+```
+setelah itu buat repository terpisah di github terserah namanya,lalu clone repositorynya disin saya sudah clone ke laptop 2 karena memang saya sudah clone repositorynya
+sejak lama,lalu cat semua file kubeconfig lalu buat file dengan nama yang sama di laptop 2 didalam repository tentunya lalu push,setelah itu git clone di laptop 1 dan 
+simpan di folder /Documents,lanjut ke tahap selanjutnya yaitu installasi plugin kub cli di jenkins 
+
+![piahvev](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-16 214346.png)
+
+pertama-tama masuk ke jenkins di browser terlebih dahulu,kenapa tidak masuk ke browser laptop 2? karena laptop 2 itu bener bener ngelag jadinya masuk ke firefox aja ga bisa
+jadinya untuk akses dashboard jenkins harus lewat browser laptop 1 maka dari itu saya push ke repo lalu clone reponya lagi di laptop 1 karena jika lewat browser di laptop 2
+niscaya tidak akan pernah selesai soalnya laptop 2 itu super duper lagggg,oke masuk ke dashboard jenkins sudah lalu klik logo settings di pojok kanan atas,setelah itu cari 
+pluggin 
+
+![sidvnsr](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-16 214408.png)
+
+jika sudah scroll kebawah atau gunakan menu pencarian,saya scroll ke bawah lalu cari bagian pluggin seperti diatas,klik bagian pluggin tersebut
+
+![svjsbr](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-16 215954.png)
+
+lalu cari bagian avaible pluggins dan cari nama seperti pluggins diatas kenapa saya ada di bagian installed plugins karena saya sudah install pluginsnya,oke jika sudah kembali lagi
+ke menu settings lalu sekarang cari bagian credentials,jika sudah masuk ke bagian credentials
+
+![adivhrb](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-16 221752.png)
+
+lalu add credentials lalu ganti jenis dari credentialsnya menjadi secret file lalu tambahkan file kubeconfig yang dari repository tadi yang sudah di clone
+
+![subvdnrfn](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-16 221811.png)
+
+lalu isi id dengan 
+
+```
+$site-site
+|
+jakarta-site
+bandung-site
+```
+
+oke jika id dan file sudah ada klik create lalu buat lagi untuk cluster selanjutnya,jika sudah masuk ke terminal laptop 2 lalu masuk lagi ke directory yang sebelumnya sudah di test di 
+projek infra,**NOTE INGAT SAYA SUDAH BERKALI-KALI MEMBERITAHU BAHWA SEMUA STATE ATAU KONDISI DISAAT INI ITU SAMA SEPERTI DI PROJEK INFRA JADINYA MULAI DARI NGROK,SSH PROXY JUMP,KONDISI
+REPOSITORY MASIH BENAR BENAR SAMA DENGAN YANG SEBELUMNYA**,jika sudah masuk ke repository lalu buat file html sederhana dengan isi
+
+```
+vim site-jakarta.html
+|
+<h1>HALO DARI SITE JAKARTA</h1>
+```
+
+jika sudah buat lagi dengan nama site-bandung.html dengan isi yang sama,lalu buat Dockerfile dengan isi base menggunakan nginx,lalu copy setiap file html dengan yang pertama itu 
+site-jakarta.html 
+
+```
+FROM nginx:latest
+
+COPY ./site-jakarta.html /usr/share/nginx/html/index.html
+```
+
+lalu buat image dari dockerfile yang sudah di buat
+
+```
+docker build -t rizki736/site-jakarta
+```
+lalu push ke repository,jangan lupa ulangin langkah tadi untuk cluster bandung ,lalu edit untuk bagian kube.yaml menjadi seperti ini
+
+```
+cp kube.yaml kube-site-$site.yaml
+|
+kube-site-jakarta.yaml
+kube-site-bandung.yaml
+```
+
+jika sudah masuk ke file pertama
+
+```
+vim kube-site-jakarta.yaml
+|
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apps1
+  labels:
+    apps1: test
+  namespace: app-jakarta
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      apps1: test
+  template:
+    metadata:
+      labels:
+        apps1: test
+    spec:
+      containers:
+        - name: nginx
+          image: rizki736/site-jakarta-image
+          ports:
+            - containerPort: 80
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apps1-service
+  namespace: app-jakarta
+spec:
+  selector:
+    apps1: test
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30000
+      protocol: TCP
+  type: NodePort
+```
+
+apa yang beda,disni terdapat sedikit perbedaan seperti penambahan namespcae di deployments maupun  service  lalu image diganti dengan image yang sudah dipush sebelumnya,untuk kube-site-
+bandung.yaml lakukan hal yang sama tambahkan namespace di deployments maupun  di service, lalu edit Jenkinsfile  menjadi seperti ini
+
+```
+pipeline {
+    agent any
+    stages {
+        stage('Deploy Site Jakarta') {
+            steps {
+                withKubeConfig([credentialsId: 'jakarta-site']) {
+                    sh 'echo "test dari site cluster jakarta"'
+                    sh 'kubectl apply -f kube-site-jakarta.yaml'
+                    sh 'kubectl get deployments -n app-jakarta'
+                    sh 'awslocal s3 cp kube.log s3://my-tf-test-bucket/AWSLogs/jakarta/kube-jakarta.log'
+                }
+            }
+        }
+        stage('Deploy Site Bandung') {
+            steps {
+                withKubeConfig([credentialsId: 'bandung-site']) {
+                    sh 'echo "test dari site cluster bandung"'
+                    sh 'kubectl apply -f kube-site-bandung.yaml'
+                    sh 'kubectl get deployments -n app-bandung'
+                    sh 'awslocal s3 cp kube.log s3://my-tf-test-bucket/AWSLogs/bandung/kube-bandung.log'
+                }
+            }
+        }
+    }
+}
+```
+
+perbedaan yang ditambahkan sekarang menggunakan withKubeConfig dan variable dari credentials id yang sudah ditulis jadi tidak menggunakan admin.conf dan ini merupakah penerapan konsep 
+rbac,jadinya kini jenkins tidak mengakses menggunakan admin.conf,oke tinggal push ke repository gitlab dengan satu kondisi bahwa semua state atau kondisi environment sama dengan projek
+infra jadinya harus membaca projek infranya terlebih dahulu
+
+```
+git add .
+git commit -m "deploy"
+git push origin main
+```
+
+masuk ke dashboard untuk cek secara berkala  apakah ada pipeline yang sedang berjalan atau tidak
+
+![siubvjnrb](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-16 225910.png)
+
+oke dan ternyata berjalan dengan sempurna lalu cek secara berkala untuk bot telegram apakah ada notifikasi dari telegram atau tidak
+
+![aivugrs](/assets/images/case-hybrid-aws-infra/1789574620986.jpg)
+
+oke masuk ternyata sudah ada notifikasi,lalu jika ingin cek apakah ada untuk deploymentnya bisa gunakan port forward di kubectl dan socat untuk akses pods di browser tinggal gunakan 
+command
+
+```
+di cluster  bisa di cluster jakarta atau bandung bebas (sesuaikan dengan port service di cluster)
+|
+kubectl port-forward svc/apps1-service 30000:80 -n default --address=0.0.0.0 &
+```
+
+lalu 
+
+```
+di wsl (sesuaikan dengan port service di cluster)
+|
+socat TCP-LISTEN:30000,bind=0.0.0.0,fork TCP:10.10.10.80:30000 -n app-$site &
+```
+
+jika sudah tinggal masuk ke browser lalu akses ke 
+
+
+```
+localhost:30000
+```
+
+### Result
+
+hasilny akan ada dua deployments 
