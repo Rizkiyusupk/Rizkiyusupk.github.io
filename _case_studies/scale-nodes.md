@@ -949,6 +949,10 @@ chmod 600 "$OUTPUT_FILE"
 echo "Kubeconfig berhasil dibuat: $OUTPUT_FILE"
 ```
 
+**NOTEEEE!!! UNTUK KUBECONFIG BANDUNG HARUS ADA DUA JADINYA CP OUTPUT FILE DARI BASH SCRIPT YANG SATU DENGAN PORT 6444 & SATUNYA LAGI 6443,KENAPA HARUS DUA KARENA DI WSL NANTINYA UNTUK
+MELAKUKAN APPLY MENGGUNAKN KUBECONFIG TERSEBUH HARUS DI SERTAI DENGAN SSH ATAU TUNNELING NAH UNTUK TUNNELING KE PORT 6443 DI WSL SUDAH ADA CLUSTER JAKARTA DAN UNTUK CLUSTER BANDUNG
+ADA DI 644.JADINYA CONFIG YANG DI PAKAI DI DASHBOARD JENKINS ITU YANG 6444 SEMENTARA UNTUK TESTING MANUAL MENGGUNAKAN 6443**
+
 saya minta claude untuk generate code bash  ini bisa dilihat akan menggenerate kubeconfig yang mengambil nilai dari variable yang sudah di set sebelumnya dan tentu harus 
 tergantung dengan site mana yang akan di generate misalkan di jakarta ya tinggal ganti dengan nama site jakarta,setelah berhasil di generate akan menredirect atau 
 mengarahkan output ke sebuah file bernama kubeconfig-$site-cluster.yaml,jika sudah tinggal run saja file nya tapi sebelum itu
@@ -1146,6 +1150,8 @@ oke dan ternyata berjalan dengan sempurna lalu cek secara berkala untuk bot tele
 oke masuk ternyata sudah ada notifikasi,lalu jika ingin cek apakah ada untuk deploymentnya bisa gunakan port forward di kubectl dan socat untuk akses pods di browser tinggal gunakan 
 command
 
+**LALUKAN DI DUA CLUSTER**
+
 ```
 di cluster  bisa di cluster jakarta atau bandung bebas (sesuaikan dengan port service di cluster)
 |
@@ -1165,8 +1171,23 @@ jika sudah tinggal masuk ke browser lalu akses ke
 
 ```
 localhost:30000
+localhost:30001
 ```
 
 ### Result
 
 hasilny akan ada dua deployments 
+
+![aidfubeurb](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-17 204713.png)
+
+jika sudah sekarang cek untuk bagian deployments di cluster menggunakan command
+
+```
+KUBECONFIG=./kubeconfig-$site.yaml kubectl get deployments -n app-$site
+```
+
+maka hasilnya akan seperti ini
+
+![adovns](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-17 205956.png)
+
+baik sudah selesai terimakasih telah menyimak 
