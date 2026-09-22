@@ -15,6 +15,65 @@ tapi juga untuk bot telegram di tambahkan sesuai dengan cluster yang ditambah,**
 KONDISI HARUS BENAR-BENAR SAMA ENTAH ITU SSH ATAU SETIAP CONFIG,MAKA DARI ITU DIHARAPKAN MEMBACA TERLEBIH DAHULU PROJEK Hybrid Cloud-Native Infrastructure** jika ingin 
 baca [klik disini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/aws-2/),langsung saja masuk ke pembahasannya
 
+| Node        | CPU     | RAM  | Storage | Network                                             |
+|-------------|---------|------|---------|---------------------------------------------------- |
+| **Master-cluster-Jakarta**  | 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Worker 1-cluster-Jakarta**| 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Worker 2-cluster-Jakarta**| 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Master-cluster-Bandung**  | 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Worker 1-cluster-Bandung**| 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Worker 2-Cluster-Bandung**| 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Jenkins**                 | 7 cores | 7GB  | 240GB   |                Wlan                 |
+
+### STRUCTURE FOLDER 
+
+Ada dua config folder yang pertama untuk provisioning node dan aws service di localstack dan yang kedua itu untuk provsioning k8s dan observ tools,yang pertama terlebih dahulu
+
+```
+terraform-setup/
+├── .terraform/
+├── compute.tf
+├── main.tf
+├── prep-vm.tf
+├── terraform.tfstate
+├── terraform.tfstate.backup
+├── s3.tf
+├── sns.tf
+├── sqs.tf
+├── sqs-trigger-lambda.tf
+├── iam-attachment-role.tf
+├── iam-attachment-role-consumer.tf
+├── lambda_function_consumer.py
+├── lambda_function.py
+├── lambda-permission.tf
+├── lambda.tf
+├── lambda-2.tf
+├── cloud-watch.tf
+├── cloud-watch-metrics.tf
+├── dynamodb.tf
+├── terraform.tfvars
+├── compute-cluster-2.tf
+├── prep-2.tf
+```
+
+lalu yang kedua
+
+```
+k8s/
+├── ansible.cfg
+├── inventory
+├── playbook-allow-port.yaml
+├── playbook-enable-service-baremetal.yaml
+├── playbook-ip.yaml
+├── playbook-install-java-baremetal.yaml
+├── playbook-install-jenkins-baremetal.yaml
+├── playbook-install-kubectl-baremetal.yaml
+├── playbook-join.yaml
+├── playbook-kubernetes.yaml
+├── playbook-pkg.yaml
+|__ playbook-swap.yaml
+```
+
 ### Tools
 Untuk Tools Masih sama karena ini menggunakan infrastructure yang sudah dibuat sebelumnya jadinya tidak ada perubahan dalam penggunaan tools 
 
