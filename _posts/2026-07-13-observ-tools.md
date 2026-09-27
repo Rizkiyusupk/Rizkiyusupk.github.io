@@ -27,7 +27,7 @@ itu masih sama saja dengan projek sebelumnya,oke langsung saja masuk ke pembahas
 
 ### Structure Folder 
 
-Untuk structure folder yang digunakan dalam projek ini ada dua yang pertama itu untuk terraform dan yang kedua itu ansible
+Untuk structure folder yang digunakan dalam projek ini ada tiga yang pertama itu untuk terraform dan yang kedua itu ansible terakhir itu ada di cluster,
 
 ```
 terraform-setup/
@@ -59,6 +59,13 @@ k8s/
 ├── playbook-install-terraform-bare-metal.yaml
 ├── observ.yaml
 ├── observ_2.yaml
+```
+
+yang terakhir di cluster
+
+```
+cluster-side/
+├── alertmanager-telegram.yaml
 ```
 
 ### Tools
