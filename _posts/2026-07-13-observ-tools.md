@@ -334,6 +334,8 @@ cari bagian chat id lalu simpan baik-baik sekarang buka terminal ssh ke node mas
 lalu buat file dengan nama alertmanager-telegram.yaml
 
 ```
+vim alertmanager-telegram.yaml
+|
 alertmanager:
   config:
     global:
