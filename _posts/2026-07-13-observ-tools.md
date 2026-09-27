@@ -55,6 +55,8 @@ k8s/
 ├── playbook-kubernetes.yaml
 ├── playbook-pkg.yaml
 ├── playbook-swap.yaml
+├── playbook-config.yaml
+├── playbook-install-terraform-bare-metal.yaml
 ├── observ.yaml
 ├── observ_2.yaml
 ```
