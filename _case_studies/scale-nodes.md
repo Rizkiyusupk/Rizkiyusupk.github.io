@@ -17,12 +17,12 @@ baca [klik disini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/
 
 | Node        | CPU     | RAM  | Storage | Network                                             |
 |-------------|---------|------|---------|---------------------------------------------------- |
-| **Master-cluster-Jakarta**  | 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Worker 1-cluster-Jakarta**| 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Worker 2-cluster-Jakarta**| 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Master-cluster-Bandung**  | 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Worker 1-cluster-Bandung**| 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Worker 2-Cluster-Bandung**| 1 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Master-cluster-Jakarta**  | 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Worker 1-cluster-Jakarta**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Worker 2-cluster-Jakarta**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Master-cluster-Bandung**  | 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Worker 1-cluster-Bandung**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Worker 2-Cluster-Bandung**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
 | **Jenkins**                 | 7 cores | 7GB  | 240GB   |                Wlan                 |
 
 ### STRUCTURE FOLDER 
