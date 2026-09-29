@@ -931,6 +931,7 @@ file confignya
 
 ```
 vim secret-token.yaml
+|
 apiVersion: v1
 kind: Secret
 metadata:
@@ -969,6 +970,8 @@ SERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}
 setelah itu masuk kebagian vital dari step ini yaitu masuk ke file bash untuk generate kubeconfig,variable tadi akan digunakan didalam bash script ini
 
 ```
+kubeconfig.sh
+|
 #!/bin/bash
 set -euo pipefail
 
