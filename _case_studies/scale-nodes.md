@@ -923,7 +923,7 @@ apply
 kubectl apply -f role-binding.yaml
 ```
 
-jika sudah dengan role binding berarti sudah ada 4 bot 2 bot alertmanager dan 2 bot aws tadi sudah buat 3 bot masing masing 2 bot cluster bandung 1 buat alert 1 lagi buat 
+jika sudah dengan role binding berarti sudah ada 4 bot,2 bot alertmanager dan 2 bot aws,tadi sudah buat 3 bot masing masing 2 bot cluster bandung,1 buat alert 1 lagi buat 
 bot aws dan yang terakhir itu buat bot aws site jakarta karena harus rename yang lama namanya pelir_kejepit,oke yang diharapkan itu seperti yang tadi sudah di sebutkan 
 lalu masuk ke bagian selanjutnya yaitu membuat secret token untuk kubeconfig,kenapa harus pakai kubeconfig padahal tinggal generate bisa kan pakai imperative atau command 
 manual,masalahnya jika menggunakan command manual atau imperativ itu ada kekurangannnya seperti nanti token akan expired dan tidak bisa digunakan lagi,oke masuk saja ke 
