@@ -27,7 +27,7 @@ baca [klik disini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/
 
 ### STRUCTURE FOLDER 
 
-Ada dua config folder yang pertama untuk provisioning node dan aws service di localstack dan yang kedua itu untuk provsioning k8s dan observ tools,yang pertama terlebih dahulu
+Untuk structure folder yang digunakan dalam projek ini ada tiga yang pertama itu untuk terraform dan yang kedua itu ansible,terakhir itu ada di cluster,
 
 ```
 terraform-setup/
@@ -72,6 +72,13 @@ k8s/
 ├── playbook-kubernetes.yaml
 ├── playbook-pkg.yaml
 |__ playbook-swap.yaml
+```
+
+dan yang terakhir yang ketiga di cluster 
+
+```
+cluster-side/
+├── alertmanager-telegram.yaml
 ```
 
 ### Tools
