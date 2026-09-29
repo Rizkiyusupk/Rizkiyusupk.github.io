@@ -31,12 +31,9 @@ Untuk structure folder yang digunakan dalam projek ini ada tiga yang pertama itu
 
 ```
 terraform-setup/
-├── .terraform/
 ├── compute.tf
 ├── main.tf
 ├── prep-vm.tf
-├── terraform.tfstate
-├── terraform.tfstate.backup
 ├── s3.tf
 ├── sns.tf
 ├── sqs.tf
@@ -51,7 +48,6 @@ terraform-setup/
 ├── cloud-watch.tf
 ├── cloud-watch-metrics.tf
 ├── dynamodb.tf
-├── terraform.tfvars
 ├── compute-cluster-2.tf
 ├── prep-2.tf
 ```
@@ -71,7 +67,16 @@ k8s/
 ├── playbook-join.yaml
 ├── playbook-kubernetes.yaml
 ├── playbook-pkg.yaml
-|__ playbook-swap.yaml
+├── playbook-swap.yaml
+├── playbook-config.yaml
+├── playbook-install-terraform-bare-metal.yaml
+├── observ.yaml
+├── observ_2.yaml
+├── service-account.yaml
+├── clusterrole.yaml
+├── role-binding.yaml
+├── secret-token.yaml
+├── kubeconfig.sh
 ```
 
 dan yang terakhir yang ketiga di cluster 
