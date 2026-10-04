@@ -1264,4 +1264,8 @@ maka hasilnya akan seperti ini
 
 ![adovns](/assets/images/case-hybrid-aws-infra/Screenshot 2026-09-17 205956.png)
 
+lalu jika mencoba untuk mengakses namespace lain selain dari namepspace yang sudah di set maka akan keluar output seperti ini
+
+![ascijsdv](/assets/images/case-hybrid-aws-infra/Screenshot 2026-10-04 204321.png)
+
 baik sudah selesai terimakasih telah menyimak 
