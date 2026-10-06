@@ -7,4 +7,5 @@ header:
 categories: [DevOps, Clouds,linux,Linux,Server,iac,infrastructure]
 ---
 
-![aihvsdv](/assets/images/pull-based/INFRASTUCTURE (3).jpg)
+![aihvsdv](/assets/images/pull-based/Neon DevOps Architecture Blueprint.png)
+
