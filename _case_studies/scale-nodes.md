@@ -59,17 +59,12 @@ k8s/
 ├── ansible.cfg
 ├── inventory
 ├── playbook-allow-port.yaml
-├── playbook-enable-service-baremetal.yaml
 ├── playbook-ip.yaml
-├── playbook-install-java-baremetal.yaml
-├── playbook-install-jenkins-baremetal.yaml
-├── playbook-install-kubectl-baremetal.yaml
 ├── playbook-join.yaml
 ├── playbook-kubernetes.yaml
 ├── playbook-pkg.yaml
 ├── playbook-swap.yaml
 ├── playbook-config.yaml
-├── playbook-install-terraform-bare-metal.yaml
 ├── observ.yaml
 ├── observ_2.yaml
 ├── service-account.yaml
