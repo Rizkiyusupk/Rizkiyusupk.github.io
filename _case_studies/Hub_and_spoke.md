@@ -62,4 +62,76 @@ pada satu cluster dan kurangnya aspek keamanan atau security aspect,dan juga gam
 Oke untuk langkah pertama cek apakah masih ada application di dalam argocd  di cluster bandung,jika ada hapus terlebih dahulu,lalu untuk langkah selanjutnya bisa di pilih 
 apakah mau di uninstall atau tidak untuk argocd cluster bandung,meskipun argocd cluster bandung masih ada dan tidak di hapus tidak apa apa tidak berpengaruh,karena
 application yang ada di dashboard ui argocd bandung sudah di hapus,jadinya hanya akan ada satu argocd yang akan mengarah ke app config bandung yang di projek infra awal
-sebelumnya di buat,oke jadi yang harus di pastikan di tahap ini adalah tidak ada application di dashboard argocd  2
+sebelumnya di buat,oke jadi yang harus di pastikan di tahap ini adalah tidak ada application di dashboard argocd bandung,oke jika sudah masuk ketahap selanjutnya yaitu
+merging kubeconfig files,yaitu agar si cluster jakarta punya 2 context dalam satu cluster,pertama tama buat tunnling dari argocd server ke dalam localhost gunakan command
+
+```
+kubectl port-forward svc/argocd-server open-port:80 --address=0.0.0.0 -n argocd &
+```
+
+selanjutnya saya ingin menjelaskan terlebih dahulu apa itu context dalam k8s,jadi agar kamu bisa mengoperasikan kubernetes lewat cli kamu perlu yang namanya kubectl,nah 
+kubectl atau kubecontrol ini lah yang dipakai oleh kamu nantinya kubectl bicara lewat kubeconfig yang sudah tersimpan di 
+
+```
+$HOME/user/.kube/config
+```
+
+nah kubconfig itu tersimpan disana di dalam kubeconfig itu salahs atunya ialah context biasanya seperti ini
+
+```
+contexts:
+- context:
+    cluster: kubernetes
+    user: kubernetes-admin
+  name: kubernetes-admin@kubernetes
+current-context: kubernetes-admin@kubernetes
+kind: Config
+preferences: {}
+users:
+- name: kubernetes-admin
+  user:
+```
+
+nah kurang lebih isinya context seperti diatas ada cluster,user,nama dari context kubernetes,lalu ada current context sama dengan nama context,lalu yang terakhir ada nama 
+untuk user atau client yang biasanya nanti di ujung kubconfig ada certnya sendiri,nah perlu dicatat bahwa ketika akan merging dengan kubeconfig lainnya yaitu perlu 
+ganti nama dan sesesuaikan dengan nama cluster,oke masuk ke step kembali cat kubeconfig cluster bandung lalu copy isinya jika sudah masuk ke terminal di cluster jakarta,
+lalu buat copy kubeconfig cluster jakarta
+
+```
+cp .kube/config .kube/config.bak-jakarta
+```
+
+oke jika sudah buat file untuk kubeconfig dari cluster bandung
+
+```
+vim .kube/config-bandung
+```
+
+lalu paste semua isi dari copy kubeconfig bandung,jika sudah edit bagian context tadi 
+
+```
+contexts:
+- context:
+    cluster: kubernetes
+    user: kubernetes-admin <- ganti
+  name: kubernetes-admin@kubernetes <- ganti
+current-context: kubernetes-admin@kubernetes <- ganti
+kind: Config
+preferences: {}
+users:
+- name: kubernetes-admin <- ganti
+  user:
+```
+
+tujuan dari mengganti ini supaya tidak terjadi tabrakan dengan cluster jakarta dan kubernetes tidak kebingungan dengan dua context yang sama,lalu jika sudah masuk ke tahap
+merging selanjutnya yaitu tahap flatten,tahap dimana kubeconfig bandung akan di ratakan lalu di satukan dengan kubeconfig
+
+```
+KUBECONFIG=$HOME/.kube/config:$HOME/.kube/config-surabaya kubectl config view --flatten > /tmp/merged
+mv /tmp/merged ~/.kube/config && chmod 600 ~/.kube/config
+```
+
+oke jika sudah sekarang cek untuk isi dari file config di cluster jakarta 
+sharusnya ada dua context,jika sudah ada dua context selanjutnya login session agar nanitnya argocd bisa tau bahwa ada cluster lain yang ingin bergabung dengan nah masih
+ingat tadi sudah melakukan kubectl port forward fungsi dari port forward itu ialah untuk login session ini agar argocd bisa menambahkan kubeconfig cluster bandung ke 
+cluster jakarta,
