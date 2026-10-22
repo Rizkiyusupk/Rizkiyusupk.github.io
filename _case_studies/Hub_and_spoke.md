@@ -134,4 +134,27 @@ mv /tmp/merged ~/.kube/config && chmod 600 ~/.kube/config
 oke jika sudah sekarang cek untuk isi dari file config di cluster jakarta 
 sharusnya ada dua context,jika sudah ada dua context selanjutnya login session agar nanitnya argocd bisa tau bahwa ada cluster lain yang ingin bergabung dengan nah masih
 ingat tadi sudah melakukan kubectl port forward fungsi dari port forward itu ialah untuk login session ini agar argocd bisa menambahkan kubeconfig cluster bandung ke 
-cluster jakarta,
+cluster jakarta
+
+```
+aargocd login localhost:localport --username admin --password default-password --insecure
+```
+
+nah untuk default password sudah di bicarakan sebelumnya jadinya harus tau password buat masuk ke dashboard argocd itu loh,lalu untuk localport itu adalah port dimana
+kubectl port forward tadi di buka,oke jika sudah login gunakan command tinggal add deh gunakan command
+
+```
+argocd cluster add name of your context --name name
+```
+
+ganti jadi nama context mu lalu nama buat context mu itu jika sudah tunggu hingga prosesnya selesai,jika sudah selesai sekarang cek dengan menggunakan command
+
+```
+argocd cluster list
+```
+
+maka seharusnya akan ada dua cluster yang muncul 
+
+![asdkaudvs](/assets/images/hub_and_spoke/Screenshot 2026-10-22 234037.png)
+
+oke selamat sudah berhasil menggabungkan cluster bandung ke cluster jakarta jadinya jakarta sebagai hub dan bandung sebagi spoke
