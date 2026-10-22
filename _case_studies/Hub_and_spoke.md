@@ -157,4 +157,4 @@ maka seharusnya akan ada dua cluster yang muncul
 
 ![asdkaudvs](/assets/images/hub_and_spoke/Screenshot 2026-10-22 234037.png)
 
-oke selamat sudah berhasil menggabungkan cluster bandung ke cluster jakarta jadinya jakarta sebagai hub dan bandung sebagi spoke
+oke selamat sudah berhasil menggabungkan cluster bandung ke cluster jakarta jadinya jakarta sebagai hub dan bandung sebagi spokee
