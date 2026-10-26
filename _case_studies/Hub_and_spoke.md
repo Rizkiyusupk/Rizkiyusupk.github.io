@@ -158,4 +158,33 @@ maka seharusnya akan ada dua cluster yang muncul
 ![asdkaudvs](/assets/images/hub_and_spoke/Screenshot 2026-10-22 234037.png)
 
 oke selamat sudah berhasil menggabungkan cluster bandung ke cluster jakarta jadinya jakarta sebagai hub dan bandung sebagi spokee,test apakah benar-benar ada di dashboard
-argocd,
+argocd,masuk ke argocd lalu klik create application setelah itu scroll ke bawah sampai ke bagian destination
+
+![ascsdubc](/assets/images/hub_and_spoke/Screenshot 2026-10-26 205532.png)
+
+klik bagian kosong di bar destination akan ada section yang muncul dan menampilkan cluster apa saja yang ada jika tahap tadi benar maka seharusnya akan muncul ip dari 
+cluster badung seperti diatas lalu coba ganti ke name dari url seharusny akan menjadi seperti ini
+
+![as8awodh](/assets/images/hub_and_spoke/Screenshot 2026-10-26 205545.png)
+
+**NOTE ABAIKAN CLUSTER SURABAYA!!**
+nah untuk bagian name ini sebenarnya sama saja cuman bedanya context yang diambil itu adalah name dari cluster yang tertulis di config yang ini loh
+
+```
+argocd cluster add name of your context --name name <--- tuh berdasarkan name ini
+```
+
+jadi bisa di sesuaikan dengan nama yang di inputkan cancel pembuatan application,oke karena sudah melakukan penggabungan config dari kedua cluster masuk ke tahapan 
+selanjutnya yaitu pembuatan projects nah kenapa sih project itu penting?? itu karena project yang membuat sebuah deployment tetap terdeploy di mana seharusnya jadinya
+misalkan ada apps1-jakarta-frontend dan apps2-jakarta-backend lalu ada app2-jakarta-frontend dan apps2-jakarta-backend nah itukan harus masing masing memang sama sama
+cluster site jakarta tapi untuk apps beda project makanya projects itu penting untuk isolasi tambahan agar ketika melakukan deployment semua deployment terdeploy dimana
+seharusnya jadinya tdak bisa sembarangan terdeploy,oke masuk langsung ke pembuatannya pergi ke settings di bagian kiri 
+
+![asdoijs](/assets/images/hub_and_spoke/Screenshot 2026-10-26 211133.png)
+
+masuk ke section project lalu akan di bawa ke menu seperti ini 
+
+![asdubac](/assets/images/hub_and_spoke/Screenshot 2026-10-26 211836.png)
+
+lalu buat sebuah project dengan nama bebas sesuai dengan setelah itu akan 
+dan arahkan endpoint dari projects ke repo config yang di miliki oleh repo jakarta,
