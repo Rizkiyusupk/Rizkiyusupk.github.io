@@ -73,7 +73,7 @@ selanjutnya saya ingin menjelaskan terlebih dahulu apa itu context dalam k8s,jad
 kubectl atau kubecontrol ini lah yang dipakai oleh kamu nantinya kubectl bicara lewat kubeconfig yang sudah tersimpan di 
 
 ```
-$HOME/user/.kube/config
+~/.kube/config
 ```
 
 nah kubconfig itu tersimpan disana di dalam kubeconfig itu salahs atunya ialah context biasanya seperti ini
