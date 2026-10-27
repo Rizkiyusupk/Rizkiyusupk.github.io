@@ -59,6 +59,7 @@ Kenapa saya memutuskan untuk membuat hub and spoke infra?? karena saya melihat b
 pada satu cluster dan kurangnya aspek keamanan atau security aspect,dan juga gampang untuk di scale up jika saja ada cluster baru 
 
 ### Setup 
+**NOTE!!!HUB AND SPOKE HANYA AKAN BERHASIL JIKA SAJA KEDUA CLUSTER BISA REACH SATU SAMA LAIN!!**
 Oke untuk langkah pertama cek apakah masih ada application di dalam argocd  di cluster bandung,jika ada hapus terlebih dahulu,lalu untuk langkah selanjutnya bisa di pilih 
 apakah mau di uninstall atau tidak untuk argocd cluster bandung,meskipun argocd cluster bandung masih ada dan tidak di hapus tidak apa apa tidak berpengaruh,karena
 application yang ada di dashboard ui argocd bandung sudah di hapus,jadinya hanya akan ada satu argocd yang akan mengarah ke app config bandung yang di projek infra awal
@@ -176,9 +177,8 @@ argocd cluster add name of your context --name name <--- tuh berdasarkan name in
 
 jadi bisa di sesuaikan dengan nama yang di inputkan cancel pembuatan application,oke karena sudah melakukan penggabungan config dari kedua cluster masuk ke tahapan 
 selanjutnya yaitu pembuatan projects nah kenapa sih project itu penting?? itu karena project yang membuat sebuah deployment tetap terdeploy di mana seharusnya jadinya
-misalkan ada apps1-jakarta-frontend dan apps2-jakarta-backend lalu ada app2-jakarta-frontend dan apps2-jakarta-backend nah itukan harus masing masing memang sama sama
-cluster site jakarta tapi untuk apps beda project makanya projects itu penting untuk isolasi tambahan agar ketika melakukan deployment semua deployment terdeploy dimana
-seharusnya jadinya tdak bisa sembarangan terdeploy,oke masuk langsung ke pembuatannya pergi ke settings di bagian kiri 
+misalkan project apps-bandung tidak akan terdeploy ke cluster jakarta karena menggunakan project app-bandung ,oke masuk langsung ke pembuatannya pergi ke settings di 
+bagian kiri 
 
 ![asdoijs](/assets/images/hub_and_spoke/Screenshot 2026-10-26 211133.png)
 
@@ -202,4 +202,6 @@ untuk section ini berisi destinations isinya tidak lain dari server lalu nama se
 nah pada foto di bagian pertama itu destinations service account dan isinya service account,namespace dan cluster mana service account itu berada,oke masuk ke bagian
 selanjutnya yang cukup menarik,di bagian ini terdapat semacam rules atau permission yang akan di berikan ke deployment yang menggunakan projects ini,masuk ke bagian
 pertama dari permission atau rules ini saya isi untuk  cluster resource deny list saya isi semua atau "*" kenapa? karena projects kan mengisolasi agar deployment tetap
-berada di tempatnya dan service account diarahkan ke projects lalu bagian mana yang isolasi jika saja service account di projects bisa akses ke cluster resource,
+berada di tempatnya dan service account diarahkan ke projects lalu bagian mana yang isolasi jika saja service account di projects bisa akses ke cluster resource,**NOTE!!! 
+SECARA TEORI INI AKAN BERJALAN DAN TIDAK AKAN ADA ERROR SYNC KARENA KONDISI DISINI HANYA TEST HOMELAB JADI ARGOCD TIDAK MEMBUAT SEBUAH RESOURCE DARI MANIFEST,TEST HANYA
+BERUPA DEPLOYMENT DAN SERVICE!!!!**
