@@ -127,7 +127,7 @@ tujuan dari mengganti ini supaya tidak terjadi tabrakan dengan cluster jakarta d
 merging selanjutnya yaitu tahap flatten,tahap dimana kubeconfig bandung akan di ratakan lalu di satukan dengan kubeconfig
 
 ```
-KUBECONFIG=$HOME/.kube/config:$HOME/.kube/config-surabaya kubectl config view --flatten > /tmp/merged
+KUBECONFIG=$HOME/.kube/config:$HOME/.kube/config-bandung kubectl config view --flatten > /tmp/merged
 mv /tmp/merged ~/.kube/config && chmod 600 ~/.kube/config
 ```
 
