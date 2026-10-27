@@ -213,7 +213,8 @@ untuk section ini berisi destinations isinya tidak lain dari server lalu nama se
 
 ![asdiubdav](/assets/images/hub_and_spoke/Screenshot 2026-10-26 204920.png)
 
-nah pada foto di bagian pertama itu destinations service account dan isinya service account,namespace dan cluster mana service account itu berada,oke masuk ke bagian
+nah pada foto di bagian pertama itu destinations service account dan isinya service account,namespace dan cluster mana service account itu berada dan nantinya
+argocd akan bertindak deploy manifest dengan bertindak sebagai service account tersebut,oke masuk ke bagian
 selanjutnya yang cukup menarik,di bagian ini terdapat semacam rules atau permission yang akan di berikan ke deployment yang menggunakan projects ini,masuk ke bagian
 pertama dari permission atau rules ini saya isi untuk  cluster resource deny list saya isi semua atau "*" kenapa? karena projects kan mengisolasi agar deployment tetap
 berada di tempatnya dan service account diarahkan ke projects lalu bagian mana yang isolasi jika saja service account di projects bisa akses ke cluster resource,**NOTE!!! 
