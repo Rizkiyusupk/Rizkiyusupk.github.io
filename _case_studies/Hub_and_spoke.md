@@ -68,6 +68,8 @@ merging kubeconfig files,yaitu agar si cluster jakarta punya 2 context dalam sat
 
 ```
 kubectl port-forward svc/argocd-server open-port:80 --address=0.0.0.0 -n argocd &
+|
+kubectl port-forward svc/argocd-server 8888:80 --address=0.0.0.0 -n argocd &
 ```
 
 selanjutnya saya ingin menjelaskan terlebih dahulu apa itu context dalam k8s,jadi agar kamu bisa mengoperasikan kubernetes lewat cli kamu perlu yang namanya kubectl,nah 
@@ -141,8 +143,20 @@ cluster jakarta
 aargocd login localhost:localport --username admin --password default-password --insecure
 ```
 
-nah untuk default password sudah di bicarakan sebelumnya jadinya harus tau password buat masuk ke dashboard argocd itu loh,lalu untuk localport itu adalah port dimana
-kubectl port forward tadi di buka,oke jika sudah login gunakan command tinggal add deh gunakan command
+untuk cara mendapatkan default passowrd nya tinggal run command ini saya ingat kan lagi 
+
+```
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+```
+
+nah untuk default password sudah di bicarakan sebelumnya ,lalu untuk localport itu adalah port dimana
+kubectl port forward tadi di buka contohnya akan menjadi seperti ini
+
+```
+argocd login localhost:8888 --username admin --password contohpassword --insecure
+```
+
+oke jika sudah login gunakan command tinggal add deh gunakan command
 
 ```
 argocd cluster add name of your context --name name
