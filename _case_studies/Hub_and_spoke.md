@@ -191,3 +191,12 @@ lalu buat sebuah project dengan nama bebas sesuai dengan cluster nah bisa diisi 
 ![asduh9uds](/assets/images/hub_and_spoke/Screenshot 2026-10-26 204845.png)
 
 lalu setelah itu masuk ke informasi general bisa di biarkan default saja karena tidak akan terlalu berpengengaruh,lalu masuk ke section selanjutnya yaitu bagian
+source untuk repo,nah pada bagian ini diisi dengan config repo ya sesuai dengan namanya source repo berarti sumber repo yang akan di ambil,oke masuk ke section selanjutnya
+
+![asduadbv](/assets/images/hub_and_spoke/Screenshot 2026-10-26 204855.png)
+
+untuk section ini berisi destinations isinya tidak lain dari server lalu nama server dan namespace dimana projek akan terdeploy,masuk ke section selanjutnya
+
+![asdiubdav](/assets/images/hub_and_spoke/Screenshot 2026-10-26 204920.png)
+
+
