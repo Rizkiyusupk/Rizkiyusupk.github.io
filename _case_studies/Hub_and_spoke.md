@@ -186,5 +186,8 @@ masuk ke section project lalu akan di bawa ke menu seperti ini
 
 ![asdubac](/assets/images/hub_and_spoke/Screenshot 2026-10-26 211836.png)
 
-lalu buat sebuah project dengan nama bebas sesuai dengan setelah itu akan 
-dan arahkan endpoint dari projects ke repo config yang di miliki oleh repo jakarta,
+lalu buat sebuah project dengan nama bebas sesuai dengan cluster nah bisa diisi juga untuk deskripsinya
+
+![asduh9uds](/assets/images/hub_and_spoke/Screenshot 2026-10-26 204845.png)
+
+lalu setelah itu masuk ke informasi general bisa di biarkan default saja karena tidak akan terlalu berpengengaruh,lalu masuk ke section selanjutnya yaitu bagian
