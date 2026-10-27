@@ -112,7 +112,7 @@ lalu paste semua isi dari copy kubeconfig bandung,jika sudah edit bagian context
 ```
 contexts:
 - context:
-    cluster: kubernetes
+    cluster: kubernetes <- ganti
     user: kubernetes-admin <- ganti
   name: kubernetes-admin@kubernetes <- ganti
 current-context: kubernetes-admin@kubernetes <- ganti
