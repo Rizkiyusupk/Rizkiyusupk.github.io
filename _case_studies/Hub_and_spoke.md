@@ -167,7 +167,7 @@ cluster badung seperti diatas lalu coba ganti ke name dari url seharusny akan me
 
 ![as8awodh](/assets/images/hub_and_spoke/Screenshot 2026-10-26 205545.png)
 
-**NOTE ABAIKAN CLUSTER SURABAYA!!**
+**NOTE ABAIKAN CLUSTER SURABAYA!!KARENA SUDAH DI HAPUS DARI DESAIN INFRASTRUCTURE DENGAN ALASAN WSL TIDAK SANGGUP MENAMPUNG BANYAK CPU THREADS!!!**
 nah untuk bagian name ini sebenarnya sama saja cuman bedanya context yang diambil itu adalah name dari cluster yang tertulis di config yang ini loh
 
 ```
