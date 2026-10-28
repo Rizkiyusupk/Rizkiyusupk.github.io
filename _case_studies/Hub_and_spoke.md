@@ -67,7 +67,7 @@ Oke sebelum masuk ke setup saya harapkan anda semua membaca ini,semua kondisi ha
 - **NETWORK**  : Laptop 1 bisa reach ke laptop 2 begitupun sebaliknya
 - **WSL**      : Di wsl sudah terinstall KVM/QEMU
 
-untuk step lebih rincinya lagi ada disini baca sampai installasi k8s selesai!![link](https://rizkiyusupk.github.io/devops/kubernetes/linux/server/iac/infrastructure/kvm/)
+untuk step lebih rincinya lagi ada disini baca sampai installasi k8s selesai!! [link](https://rizkiyusupk.github.io/devops/kubernetes/linux/server/iac/infrastructure/kvm/)
 
 ### Setup 
 
