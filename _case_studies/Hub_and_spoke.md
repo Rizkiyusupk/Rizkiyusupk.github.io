@@ -61,14 +61,15 @@ pada satu cluster dan kurangnya aspek keamanan atau security aspect,dan juga gam
 ### prerequisites 
 Oke sebelum masuk ke setup saya harapkan anda semua membaca ini,semua kondisi harus memenuhi 
 - **CLUSTER**  : 2 (Jakarta & Bandung)
-- **NODE**     : 6 (Untuk masing-masing cluster 3)
+- **NODE**     : 6 (Untuk masing-masing cluster 3 node)
 - **K8S**      : Terinstall di semua cluster
 - **LAPTOP 2** : Laptop 2 wajib terinstall Jenkins (jenkins bertugas sebagai ci tools) dan Terraform
 - **NETWORK**  : Laptop 1 bisa reach ke laptop 2 begitupun sebaliknya
 - **WSL**      : Di wsl sudah terinstall KVM/QEMU
+- **ARGOCD**   : Di cluster jakart yang akan menjadi hub wajib ada argocd
 
-untuk step lebih rincinya lagi ada disini baca sampai installasi k8s selesai!! [link](https://rizkiyusupk.github.io/devops/kubernetes/linux/server/iac/infrastructure/kvm/)
-
+untuk step lebih rincinya lagi ada disini baca sampai installasi k8s selesai!! [link](https://rizkiyusupk.github.io/devops/kubernetes/linux/server/iac/infrastructure/kvm/),
+lalu untuk melihat setup argocd bisa baca di [sini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/pull-based1/)
 ### Setup 
 
 Oke untuk langkah pertama cek apakah masih ada application di dalam argocd  di cluster bandung,jika ada hapus terlebih dahulu,lalu untuk langkah selanjutnya bisa di pilih 
