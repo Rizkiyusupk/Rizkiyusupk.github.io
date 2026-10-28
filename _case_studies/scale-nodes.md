@@ -91,6 +91,16 @@ baru, supaya saya juga bisa membuktikan pemahaman bahwa RBAC itu scoped per-clus
 diterapkan independen ke masing-masing cluster. Saya pakai blueprint infrastructure yang sama untuk kedua cluster, supaya perbandingan penerapan RBAC-nya konsisten dan 
 environment-nya apple-to-apple.
 
+### prerequisites
+Ada beberapa hal sebelum memulai,hal yang perlu di check dan di verfikasi bahwa sudah ada sebelum masuk ke bagian setup
+- **LAPTOP 2**   : Di laptop 2 harus sudah terinstall jenkins(jenkins bertindak full sebagai Ci/Cd) dan terraform
+- **LOCALSTACK** : Localstack sudah harus terinstall di laptop 2
+- **MANIFEST**   : Ada banyak file disini seperti .tf , .yaml ,dan file helm jadinya harus sudah ada manifest dari project dasarnya
+- **WSL**        : Di wsl yang berjalan di laptop 1 sudah harus terinstall KVM/QEMU
+
+Untuk project dasarnya ada disini [link](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/aws-2/),baca sampai selesai!!! karena
+keseluruhan proses penting
+
 ### Setup 
 
 **NOTE LAKUKAN DI CONTORL TOWER ATAU LAPTOP 2**
