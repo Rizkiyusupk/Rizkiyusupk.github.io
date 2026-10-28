@@ -58,8 +58,17 @@ k8s/
 Kenapa saya memutuskan untuk membuat hub and spoke infra?? karena saya melihat bahwa infra stand alone itu tidak tersentralisasi atau terpusat 
 pada satu cluster dan kurangnya aspek keamanan atau security aspect,dan juga gampang untuk di scale up jika saja ada cluster baru 
 
+### prerequisites 
+Oke sebelum masuk ke setup saya harapkan anda semua membaca ini,semua kondisi harus memenuhi 
+- **CLUSTER**  : 2 (Jakarta & Bandung)
+- **NODE**     : 6 (Untuk masing-masing cluster 3)
+- **K8S**      : Terinstall di semua cluster
+- **LAPTOP 2** : Laptop 2 wajib terinstall Jenkins dan Terraform
+- **NETWORK**  : Laptop 1 bisa reach ke laptop 2 begitupun sebaliknya
+- **WSL**      : Di wsl sudah terinstall KVM/QEMU
+
 ### Setup 
-**NOTE!!!HUB AND SPOKE HANYA AKAN BERHASIL JIKA SAJA KEDUA CLUSTER BISA REACH SATU SAMA LAIN!!**
+
 Oke untuk langkah pertama cek apakah masih ada application di dalam argocd  di cluster bandung,jika ada hapus terlebih dahulu,lalu untuk langkah selanjutnya bisa di pilih 
 apakah mau di uninstall atau tidak untuk argocd cluster bandung,meskipun argocd cluster bandung masih ada dan tidak di hapus tidak apa apa tidak berpengaruh,karena
 application yang ada di dashboard ui argocd bandung sudah di hapus,jadinya hanya akan ada satu argocd yang akan mengarah ke app config bandung yang di projek infra awal
