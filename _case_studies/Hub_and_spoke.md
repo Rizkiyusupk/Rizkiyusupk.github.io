@@ -63,9 +63,11 @@ Oke sebelum masuk ke setup saya harapkan anda semua membaca ini,semua kondisi ha
 - **CLUSTER**  : 2 (Jakarta & Bandung)
 - **NODE**     : 6 (Untuk masing-masing cluster 3)
 - **K8S**      : Terinstall di semua cluster
-- **LAPTOP 2** : Laptop 2 wajib terinstall Jenkins dan Terraform
+- **LAPTOP 2** : Laptop 2 wajib terinstall Jenkins (jenkins bertugas sebagai ci tools) dan Terraform
 - **NETWORK**  : Laptop 1 bisa reach ke laptop 2 begitupun sebaliknya
 - **WSL**      : Di wsl sudah terinstall KVM/QEMU
+
+untuk step lebih rincinya lagi ada disini baca sampai installasi k8s selesai!![link](https://rizkiyusupk.github.io/devops/kubernetes/linux/server/iac/infrastructure/kvm/)
 
 ### Setup 
 
