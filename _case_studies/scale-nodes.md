@@ -11,9 +11,7 @@ infra_used: "Hybrid Cloud-Native Infrastructure"
 Kali ini saya akan membuat sebuah page baru khusus untuk case atau kasus pada setiap infrastructure yang sudah saya bangun sebelumnya,jadi pada case page ini berisi 
 projek saya yang mengotak-atik infrastructure yang sudah dibangun entah itu menambahkan beban,menambahkan cluster,atau melakukan horizontal scaling atau vertikal scaling,
 di projek kali ini saya akan menambahkan 1 cluster lagi atau scale cluster yang sudah pernah yaitu "Hybrid Cloud-Native Infrastructure",dan bukan hanya menambah cluster 
-tapi juga untuk bot telegram di tambahkan sesuai dengan cluster yang ditambah,**NOTE!!! BANYAK FILE-FILE CONFIG YANG SAMA DENGAN PROJEK INFRA YANG MENJADI DASAR DAN SEMUA 
-KONDISI HARUS BENAR-BENAR SAMA ENTAH ITU SSH ATAU SETIAP CONFIG,MAKA DARI ITU DIHARAPKAN MEMBACA TERLEBIH DAHULU PROJEK Hybrid Cloud-Native Infrastructure** jika ingin 
-baca [klik disini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/aws-2/),langsung saja masuk ke pembahasannya
+tapi juga untuk bot telegram di tambahkan sesuai dengan cluster yang ditambah,langsung saja masuk ke pembahasannya
 
 | Node        | CPU     | RAM  | Storage | Network                                             |
 |-------------|---------|------|---------|---------------------------------------------------- |
@@ -92,6 +90,8 @@ diterapkan independen ke masing-masing cluster. Saya pakai blueprint infrastruct
 environment-nya apple-to-apple.
 
 ### prerequisites
+**NOTE!!! BANYAK FILE-FILE CONFIG YANG SAMA DENGAN PROJEK INFRA YANG MENJADI DASAR DAN SEMUA 
+KONDISI HARUS BENAR-BENAR SAMA ENTAH ITU SSH ATAU SETIAP CONFIG**
 Ada beberapa hal sebelum memulai,hal yang perlu di check dan di verfikasi bahwa sudah ada sebelum masuk ke bagian setup
 - **LAPTOP 2**   : Di laptop 2 harus sudah terinstall jenkins(jenkins bertindak full sebagai Ci/Cd) dan terraform
 - **LOCALSTACK** : Localstack sudah harus terinstall di laptop 2
