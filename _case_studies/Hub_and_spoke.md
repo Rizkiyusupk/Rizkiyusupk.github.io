@@ -233,4 +233,4 @@ berada di tempatnya dan service account diarahkan ke projects lalu bagian mana y
 SECARA TEORI INI AKAN BERJALAN DAN TIDAK AKAN ADA ERROR SYNC KARENA KONDISI DISINI HANYA TEST HOMELAB JADI ARGOCD TIDAK MEMBUAT SEBUAH RESOURCE DARI MANIFEST,TEST HANYA
 BERUPA DEPLOYMENT DAN SERVICE!!!!**,lalu jika sudah tinggal save semua config tadi lalu masuk ke dahboard utama dari argocd dan buat sebuah application seperti biasa 
 
-![asdoiadv](/)
+![asdoiadv](/assets/images/hub_and_spoke/Screenshot 2026-10-28 001605.png)
