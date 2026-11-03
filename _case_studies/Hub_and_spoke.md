@@ -232,7 +232,7 @@ selanjutnya yang cukup menarik,di bagian ini terdapat semacam rules atau permiss
 pertama dari permission atau rules ini saya isi untuk  cluster resource deny list saya isi semua atau "*" kenapa? karena projects kan mengisolasi agar deployment tetap
 berada di tempatnya dan service account diarahkan ke projects lalu bagian mana yang isolasi jika saja service account di projects bisa akses ke cluster resource,**NOTE!!! 
 SECARA TEORI INI AKAN BERJALAN DAN TIDAK AKAN ADA ERROR SYNC KARENA KONDISI DISINI HANYA TEST HOMELAB JADI ARGOCD TIDAK MEMBUAT SEBUAH RESOURCE DARI MANIFEST,TEST HANYA
-BERUPA DEPLOYMENT DAN SERVICE!!!!**,lalu jika sudah tinggal save semua config tadi lalu masuk ke dahboard utama dari argocd dan buat sebuah application seperti biasa 
+BERUPA DEPLOYMENT DAN SERVICE!!!!**,lalu jika sudah tinggal save semua config tadi lalu masuk ke dahboard utama dari argocd dan buat sebuah application untuk testing
 
 ![asdoiadv](/assets/images/hub_and_spoke/Screenshot 2026-10-28 001605.png)
 
@@ -244,6 +244,22 @@ oke jika sudah tinggal klik create lalu akan ada application di dashboard
 
 ![asduhadv](/assets/images/hub_and_spoke/Screenshot 2026-11-03 190609.png)
 
-dan seharusnya sudah ada application seperti diatas itu tandanya application berhasil di buat,lalu sekarang masuk ke bagian testing untuk membuat pipeline,pembuatan 
-strcuture folder repo untuk deployment 2 cluster,dan resource material untuk deployment itu 100% sama dengan dasar infra projek ini yaitu pull based tahap 1 bisa baca 
-sampai selesai [disini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/pull-based1/),nah yang menjadi pembeda itu
+dan seharusnya sudah ada application seperti diatas itu tandanya application berhasil di buat dan configurasi untuk project berhasil application tadi bisa dihapus atau 
+dipakai lagi,lalu sekarang masuk ke bagian testing untuk membuat pipeline,pembuatan strcuture folder repo untuk deployment 2 cluster,dan resource material untuk deploymentitu 100% sama dengan dasar infra projek ini yaitu pull based tahap 1 bisa baca  sampai selesai [disini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/pull-based1/),nah yang menjadi pembeda itu di hub and spoke semua
+dilakukan disatu argocd,jadi yang harus dipastikan disini adalah harus ada 4 repo di gitlab/github
+
+```
+jakarta-site/
+├── app-repo-jakarta-site
+├── config-repo-jakarta-site
+```
+
+lalu
+
+```
+bandung-site/
+├── app-repo-bandung-site
+├── config-repo-bandung-site
+```
+
+oke structure repo sudah lanjut ke pipeline 100% masih menggunakan pipeline yang sama yang digunakan di projek dasarnya yaotu pull based tahap 1
