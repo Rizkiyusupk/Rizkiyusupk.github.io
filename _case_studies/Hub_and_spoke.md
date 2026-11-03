@@ -70,6 +70,7 @@ Oke sebelum masuk ke setup saya harapkan anda semua membaca ini,semua kondisi ha
 
 untuk step lebih rincinya lagi ada disini baca sampai installasi k8s selesai!! [link](https://rizkiyusupk.github.io/devops/kubernetes/linux/server/iac/infrastructure/kvm/),
 lalu untuk melihat setup argocd bisa baca di [sini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/pull-based1/)
+
 ### Setup 
 
 Oke untuk langkah pertama cek apakah masih ada application di dalam argocd  di cluster bandung,jika ada hapus terlebih dahulu,lalu untuk langkah selanjutnya bisa di pilih 
@@ -239,3 +240,9 @@ lalu
 
 ![asdubdv](/assets/images/hub_and_spoke/Screenshot 2026-10-28 001620.png)
 
+oke jika sudah tinggal klik create lalu akan ada application di dashboard
+
+![asduhadv](/assets/images/hub_and_spoke/Screenshot 2026-11-03 190609.png)
+
+dan seharusnya sudah ada application seperti diatas itu tandanya application berhasil di buat,lalu sekarang masuk ke bagian testing seperti biasa,karena application sudah 
+berhasil dibuat dan belum sync itu karena repo belum ada 
