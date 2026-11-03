@@ -244,5 +244,6 @@ oke jika sudah tinggal klik create lalu akan ada application di dashboard
 
 ![asduhadv](/assets/images/hub_and_spoke/Screenshot 2026-11-03 190609.png)
 
-dan seharusnya sudah ada application seperti diatas itu tandanya application berhasil di buat,lalu sekarang masuk ke bagian testing seperti biasa,karena application sudah 
-berhasil dibuat dan belum sync itu karena repo belum ada 
+dan seharusnya sudah ada application seperti diatas itu tandanya application berhasil di buat,lalu sekarang masuk ke bagian testing untuk membuat pipeline,pembuatan 
+strcuture folder repo untuk deployment 2 cluster,dan resource material untuk deployment itu 100% sama dengan dasar infra projek ini yaitu pull based tahap 1 bisa baca 
+sampai selesai [disini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/pull-based1/),nah yang menjadi pembeda itu
