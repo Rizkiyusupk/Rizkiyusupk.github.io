@@ -246,7 +246,7 @@ oke jika sudah tinggal klik create lalu akan ada application di dashboard
 ![asduhadv](/assets/images/hub_and_spoke/Screenshot 2026-11-03 190609.png)
 
 dan seharusnya sudah ada application seperti diatas itu tandanya application berhasil di buat dan configurasi untuk project berhasil application tadi bisa dihapus atau 
-dipakai lagi,lalu sekarang masuk ke bagian testing untuk membuat pipeline,pembuatan strcuture folder repo untuk deployment 2 cluster,dan resource material untuk deploymentitu 100% sama dengan dasar infra projek ini yaitu pull based tahap 1 bisa baca  sampai selesai [disini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/pull-based1/),nah yang menjadi pembeda itu di hub and spoke semua
+dipakai lagi **NOTE!!JIKA BERHASIL MAKA ULANGI LAGI UNTUK SITE BANDUNG,GANTI URL CONFIG REPO JAKARTA MENJADI URL CONFIG REPO BANDUNG SISANYA SAMA SAJA**,lalu sekarang masuk ke bagian testing untuk membuat pipeline,pembuatan strcuture folder repo untuk deployment 2 cluster,dan resource material untuk deploymentitu 100% sama dengan dasar infra projek ini yaitu pull based tahap 1 bisa baca  sampai selesai [disini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/pull-based1/),nah yang menjadi pembeda itu di hub and spoke semua
 dilakukan disatu argocd,jadi yang harus dipastikan disini adalah harus ada 4 repo di gitlab/github
 
 ```
@@ -263,4 +263,4 @@ bandung-site/
 ├── config-repo-bandung-site
 ```
 
-oke structure repo sudah lanjut ke pipeline 100% masih menggunakan pipeline yang sama yang digunakan di projek dasarnya yaotu pull based tahap 1
+oke structure repo sudah lanjut ke pipeline 100% masih menggunakan pipeline yang sama yang digunakan di projek dasarnya yaotu pull based tahap 1 
