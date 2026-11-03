@@ -69,7 +69,8 @@ Oke sebelum masuk ke setup saya harapkan anda semua membaca ini,semua kondisi ha
 - **ARGOCD**   : Di cluster jakart yang akan menjadi hub wajib ada argocd
 
 untuk step lebih rincinya lagi ada disini baca sampai installasi k8s selesai!! [link](https://rizkiyusupk.github.io/devops/kubernetes/linux/server/iac/infrastructure/kvm/),
-lalu untuk melihat setup argocd bisa baca di [sini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/pull-based1/)
+lalu untuk melihat setup argocd bisa baca di [sini](https://rizkiyusupk.github.io/devops/clouds/linux/server/iac/infrastructure/pull-based1/),baca sampai selesai karena
+dasar dari infrastrcuture hub and spoke,
 
 ### Setup 
 
