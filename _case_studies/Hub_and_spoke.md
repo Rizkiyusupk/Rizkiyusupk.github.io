@@ -267,4 +267,13 @@ bandung-site/
 ├── config-repo-bandung-site
 ```
 
-oke structure repo sudah lanjut ke pipeline 100% masih menggunakan pipeline yang sama yang digunakan di projek dasarnya yaotu pull based tahap 1 
+oke structure repo sudah lanjut ke pipeline 100% masih menggunakan pipeline yang sama yang digunakan di projek dasarnya yaotu pull based tahap 1,jadinya sama seperti diprojek pull based tahap 1 harus ada dua pipeline ya karena memang masih menggunakan pipeline yang sama dan terhubung ke repo git yang sama juga hehe
+
+![asduba](/assets/images/hub_and_spoke/Screenshot 2026-11-04 150347.png)
+
+100% menggunaakn material yang sama tidak ganti sama sekali,makanya harus baca pulll based tahap 1 duulu karena memang dasar infrastructure dan materialnya dari sana semua,
+oke jadi dipastikan bahwa ada 2 pipeline yang terhubung dengan dua app repo jadi masing masing cluster 1 pipeline dan sudah terhubung ke webhooks app repo masing masing,
+oke jika dipastikan sudah ada resourcenya masuk ke tahap testing infra sekarang karena context bandung sudah ada di cluster jakart maka semua deployment akan dilakukan di 
+argocd cluster jakarta,untuk application tadi bisa di hapus atau bisa di biarkan saja,tapi saya disini akan buat baru dua duanya 
+
+!
