@@ -274,6 +274,7 @@ oke structure repo sudah lanjut ke pipeline 100% masih menggunakan pipeline yang
 100% menggunaakn material yang sama tidak ganti sama sekali,makanya harus baca pulll based tahap 1 duulu karena memang dasar infrastructure dan materialnya dari sana semua,
 oke jadi dipastikan bahwa ada 2 pipeline yang terhubung dengan dua app repo jadi masing masing cluster 1 pipeline dan sudah terhubung ke webhooks app repo masing masing,
 oke jika dipastikan sudah ada resourcenya masuk ke tahap testing infra sekarang karena context bandung sudah ada di cluster jakart maka semua deployment akan dilakukan di 
-argocd cluster jakarta,untuk application tadi bisa di hapus atau bisa di biarkan saja,tapi saya disini akan buat baru dua duanya 
+argocd cluster jakarta,untuk application tadi bisa di hapus atau bisa di biarkan saja,tapi saya disini akan buat baru dua duanya dan menghapus manifest yang ada di repo 
+config dari kedua cluster agar application baru tidak langsung sync,
 
-!
+!![asdubdv](/assets/images/hub_and_spoke/Screenshot 2026-11-04 192558.png)
