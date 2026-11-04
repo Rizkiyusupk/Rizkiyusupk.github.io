@@ -307,4 +307,54 @@ ngtok http 9091
 ```
 
 lalu karena pipline menggunakan pipeline yang sudah dibuat sebelumnya maka tidak perlu melakukan konfigurasi lagi,ok karena
-tadi sudah menghapus file manifest yang ada di config repo 
+tadi sudah menghapus file manifest yang ada di config repo maka saya akan memasukan manifest yang benar benar sama kembali lagi ke config repo
+
+```
+vim kube-site-nama-cluster.yaml
+|
+vim kube-site-jakarta.yaml
+|
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apps1
+  labels:
+    apps1: test
+  namespace: app-$site
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      apps1: test
+  template:
+    metadata:
+      labels:
+        apps1: test
+    spec:
+      containers:
+        - name: nginx
+          image: rizki736/site-$site-image:
+          ports:
+            - containerPort: 80
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apps1-service
+  namespace: app-$site
+spec:
+  selector:
+    apps1: test
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30000
+      protocol: TCP
+  type: NodePort
+```
+
+nah tinggal ganti nantinya dengan cluster masing masing,bisa manual commit lewat web gitlab/github,disini saya menggunakan gitlab atau bisa pula dengan clone repo lalu push
+lewat cli manual,oke dengan ini sudah ada satu file di config repo dan dianggap sudah melakukan manual push lalu untuk Jenkinsfile dan resource di app repo sama jadi saya 
+tidak ganti apapun bisa langsung melakukan test push sekarang,
