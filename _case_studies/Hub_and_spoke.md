@@ -296,3 +296,14 @@ app-repo-bandung-site/
 ├── Jenkinsfile
 ├── site-bandung.html
 ```
+
+jika sudah tau isi dari structure app repo untuk masing masing cluster langsung saja masuk ke bagian selanjutnya yaitu 
+persiapan push ke repo,pertama-tama aktifkan ngrok
+
+```
+ngrok http jenkins-port
+|
+ngtok http 9091
+```
+
+lalu karena pipline menggunakan pipeline yang sudah dibuat sebelumnya maka tidak perlu melakukan konfigurasi lagi,
