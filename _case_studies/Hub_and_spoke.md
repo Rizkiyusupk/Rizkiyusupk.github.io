@@ -278,3 +278,21 @@ argocd cluster jakarta,untuk application tadi bisa di hapus atau bisa di biarkan
 config dari kedua cluster agar application baru tidak langsung sync,
 
 !![asdubdv](/assets/images/hub_and_spoke/Screenshot 2026-11-04 192558.png)
+
+oke kurang lebih ada dua application itu menandakan bahwa kedua project berhasil di buat dan konfigurasi berjalan,oke jika sudah masuk selanjutnya persiapkan resource yang sama dengan yang ada di projek pull based tahap 1,isinya kurang lebih seperti ini 
+
+```
+app-repo-jakarta-site/
+├── Dockerfile.jakarta
+├── Jenkinsfile
+├── site-jakarta.html
+```
+
+lalu sama seperti dijakarta isi dari app repo bandung akan sama seperti ini
+
+```
+app-repo-bandung-site/
+├── Dockerfile.bandung
+├── Jenkinsfile
+├── site-bandung.html
+```
