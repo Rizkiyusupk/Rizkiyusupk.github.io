@@ -275,7 +275,7 @@ oke structure repo sudah lanjut ke pipeline 100% masih menggunakan pipeline yang
 oke jadi dipastikan bahwa ada 2 pipeline yang terhubung dengan dua app repo jadi masing masing cluster 1 pipeline dan sudah terhubung ke webhooks app repo masing masing,
 oke jika dipastikan sudah ada resourcenya masuk ke tahap testing infra sekarang karena context bandung sudah ada di cluster jakart maka semua deployment akan dilakukan di 
 argocd cluster jakarta,untuk application tadi bisa di hapus atau bisa di biarkan saja,tapi saya disini akan buat baru dua duanya dan menghapus manifest yang ada di repo 
-config dari kedua cluster agar application baru tidak langsung sync,
+config dari kedua cluster agar application baru tidak langsung sync dan pull manifest yang memang sudah ada di repo,
 
 !![asdubdv](/assets/images/hub_and_spoke/Screenshot 2026-11-04 192558.png)
 
@@ -306,4 +306,5 @@ ngrok http jenkins-port
 ngtok http 9091
 ```
 
-lalu karena pipline menggunakan pipeline yang sudah dibuat sebelumnya maka tidak perlu melakukan konfigurasi lagi,
+lalu karena pipline menggunakan pipeline yang sudah dibuat sebelumnya maka tidak perlu melakukan konfigurasi lagi,ok karena
+tadi sudah menghapus file manifest yang ada di config repo 
