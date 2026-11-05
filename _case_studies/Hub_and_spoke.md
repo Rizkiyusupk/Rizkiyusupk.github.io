@@ -361,4 +361,4 @@ tidak ganti apapun bisa langsung melakukan test push sekarang,
 
 ![asdadob](/assets/images/hub_and_spoke/Screenshot 2026-11-05 141736.png)
 
-oke sudah berhasil dua pipeline sudah sukses 
+oke sudah berhasil dua pipeline sudah sukses,lalu cek ke bagian dashboard dari argocd 
