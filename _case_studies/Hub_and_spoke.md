@@ -369,5 +369,37 @@ oke ternyata sudah ada dan berjalan tidak ada error dan sync berhasil,bisa dilih
 masing-masing cluster terdeploy dengan benar,masuk ke cli dari control node cluster jakarta lalu run command ini
 
 ```
+kubectl config use-context $site-context
+|
+kubectl config use-context jakarta
+```
+
+command diatas akan berpindah ke context cluster yang diinginkan seperti diatas contohnya saya ingin menggunakan context jakarta lalu 
 
 ```
+kubectl  get pods -n app-jakarta
+```
+
+untuk cek apakah ada pods yang berjalan
+
+![asd8ahv](/assets/images/hub_and_spoke/Screenshot 2026-11-05 201744.png)
+
+oke pods sudah berjalan dan deployment sudah berhasil dilakukan sekarang cek untuk cluster bandung sama seperti dijakarta gunakan use-context untk berpindah ke context 
+bandung
+
+```
+kubectl config use-context $site-context
+|
+kubectl config use-context bandung
+```
+
+lalu gunakana perintaha yang sama untuk cek apakah ada pods yang berjalan
+
+```
+kubectl get pods -n app-bandung
+```
+
+seharusnya sama seperti jakarta
+
+![asdioubadv](/assets/images/hub_and_spoke/Screenshot 2026-11-05 203449.png)
+
