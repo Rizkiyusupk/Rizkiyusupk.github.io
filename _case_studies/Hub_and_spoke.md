@@ -365,4 +365,9 @@ oke sudah berhasil dua pipeline sudah sukses,lalu cek ke bagian dashboard argocd
 
 ![asugduasdoub](/assets/images/hub_and_spoke/Screenshot 2026-11-05 195939.png)
 
-oke ternyata sudah ada dan berjalan tidak ada error dan sync berhasil,bisa dilihat bahwa kedua applicatiion hijau,
+oke ternyata sudah ada dan berjalan tidak ada error dan sync berhasil,bisa dilihat bahwa kedua applicatiion hijau,lanjutt masuk ke tahap testing apakah deployment dari 
+masing-masing cluster terdeploy dengan benar,masuk ke cli dari control node cluster jakarta lalu run command ini
+
+```
+
+```
