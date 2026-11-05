@@ -358,3 +358,7 @@ spec:
 nah tinggal ganti nantinya dengan cluster masing masing,bisa manual commit lewat web gitlab/github,disini saya menggunakan gitlab atau bisa pula dengan clone repo lalu push
 lewat cli manual,oke dengan ini sudah ada satu file di config repo dan dianggap sudah melakukan manual push lalu untuk Jenkinsfile dan resource di app repo sama jadi saya 
 tidak ganti apapun bisa langsung melakukan test push sekarang,
+
+![asdadob](/assets/images/hub_and_spoke/Screenshot 2026-11-05 141736.png)
+
+oke sudah berhasil dua pipeline sudah sukses 
