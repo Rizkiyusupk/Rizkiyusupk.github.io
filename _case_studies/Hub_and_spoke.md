@@ -237,7 +237,7 @@ BERUPA DEPLOYMENT DAN SERVICE!!!!**,lalu jika sudah tinggal save semua config ta
 
 ![asdoiadv](/assets/images/hub_and_spoke/Screenshot 2026-10-28 001605.png)
 
-lalu
+jangan lupa isi kotak kotak prune dan self heal karena ini salah satu bagian penting dari projek,lalu
 
 ![asdubdv](/assets/images/hub_and_spoke/Screenshot 2026-10-28 001620.png)
 
@@ -361,4 +361,8 @@ tidak ganti apapun bisa langsung melakukan test push sekarang,
 
 ![asdadob](/assets/images/hub_and_spoke/Screenshot 2026-11-05 141736.png)
 
-oke sudah berhasil dua pipeline sudah sukses,lalu cek ke bagian dashboard dari argocd 
+oke sudah berhasil dua pipeline sudah sukses,lalu cek ke bagian dashboard argocd
+
+![asugduasdoub](/assets/images/hub_and_spoke/Screenshot 2026-11-05 195939.png)
+
+oke ternyata sudah ada dan berjalan tidak ada error dan sync berhasil,bisa dilihat bahwa kedua applicatiion hijau,
