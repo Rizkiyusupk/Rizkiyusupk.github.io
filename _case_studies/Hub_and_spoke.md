@@ -431,10 +431,11 @@ selfheal dan prune tidak di isi,nah maka dari itu disini saya akan mencoba test 
 ```
 kubectl --context $context-site kubectl scale deployment deployment/apps1-$site --replicas=2
 |
-kubectl --context bandung kubectl scale deployment deployment/apps1-bandung --repliacs=2
+kubectl --context bandung  scale deployment/apps1 --repliacs=2 -n app-bandung
 ```
 
 saya akan jelaskan bahwa selfheal adalah sala satu fitur yang dimiliki oleh argocd,selfheal sendiri berfungsi untuk melakukan healing ke deployment oleh argocd,ingat bahwa argocd hanya akan melakukan deployment atau menerapkan suatu perubahan jika saja manifest di repo berubah dan ada perbedaan di current state(kondisi aktual server atau cluster) dengan declarative state (keadaan manifest di repo),tapi ada kasus dimana dev atau engineer akan melakukan sedikit perubahan tetapi dengan cara manual dan tidak menggunanakan pipeline,dimana hal tersebut tidak boleh dilakukan karena dalam konsep pull based sendiri git adalah source of the truth dimana git adahal satu satunya acuan,
 nah self heal adalah fitur di argocd dimana akan mengembalikan current state yang diubah secara manual oleh dev atau engineer ke keaddan sesuai dengan declarative state
-atau sesuai manifest yang ada di git
+atau sesuai manifest yang ada di git,oke perintah diatas berfungsi untuk melakukan scale up nah sementara manifest yang kita gunaka itu hanya mengizinkan 1 replicas atau 
+1 pods,oke kita akan ubah melalui cli,ohh ya dan diatsa itu scale accroess cluster karena menggunakan context bandung tapi di kirim dari jakarta
 
