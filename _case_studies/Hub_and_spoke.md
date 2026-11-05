@@ -426,5 +426,15 @@ perintah diatas akan menggunakan context site bandung dan menggunakan perintah g
 
 seharusnya seperti ini tidak ada resource yang ditemukan,berarti isolasi berjalan dan alur dari sistem berhasil,masuk ke test selanjutnya yaitu test self heal ingat 
 checklist yang dilakukan ketika membuat application di dashboard argocd?nah di infra dasar dari projek ini atau di pull based tahap 1 ketika membuat application untuk
-selfheal dan prune tidak di isi
+selfheal dan prune tidak di isi,nah maka dari itu disini saya akan mencoba test fitur selfheal dan prune milik argocd,pertama-tama saya test untuk selfheal
+
+```
+kubectl --context $context-site kubectl scale deployment deployment/apps1-$site --replicas=2
+|
+kubectl --context bandung kubectl scale deployment deployment/apps1-bandung --repliacs=2
+```
+
+saya akan jelaskan bahwa selfheal adalah sala satu fitur yang dimiliki oleh argocd,selfheal sendiri berfungsi untuk melakukan healing ke deployment oleh argocd,ingat bahwa argocd hanya akan melakukan deployment atau menerapkan suatu perubahan jika saja manifest di repo berubah dan ada perbedaan di current state(kondisi aktual server atau cluster) dengan declarative state (keadaan manifest di repo),tapi ada kasus dimana dev atau engineer akan melakukan sedikit perubahan tetapi dengan cara manual dan tidak menggunanakan pipeline,dimana hal tersebut tidak boleh dilakukan karena dalam konsep pull based sendiri git adalah source of the truth dimana git adahal satu satunya acuan,
+nah self heal adalah fitur di argocd dimana akan mengembalikan current state yang diubah secara manual oleh dev atau engineer ke keaddan sesuai dengan declarative state
+atau sesuai manifest yang ada di git
 
