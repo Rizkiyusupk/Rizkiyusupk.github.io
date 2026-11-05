@@ -403,3 +403,28 @@ seharusnya sama seperti jakarta
 
 ![asdioubadv](/assets/images/hub_and_spoke/Screenshot 2026-11-05 203449.png)
 
+oke ternyata dibandung juga sudah ada pods yang berjalan,sekarang test apakah bisa dari cluster jakarta akses ke bandung,test ini dilakukan murni karena saya penasaran dan 
+ingin membuktikan isolasi dan point dari meskipun deployment dilakukan di satu argocd tetapi untuk letak deployment sama sekali berbeda dan dilakukan dimasing masing 
+cluster,oke masuk ke perintahnya gunakan command
+
+```
+kubectl config get-contexts
+```
+
+untuk melihat nama dari context yang akan digunakan,jaga jaga siapa tau lupa hehe,oke masuk ke perintah selanjutnya
+
+
+```
+kubectl --context $site-context get pods -n $site-namespace
+|
+kubectl --context kubernetes-admin-bandung@kubernetes get pods -n app-jakarta
+```
+
+perintah diatas akan menggunakan context site bandung dan menggunakan perintah get pods ke namepsace app-jakarta 
+
+![asdyav](/assets/images/hub_and_spoke/Screenshot 2026-11-05 204827.png)
+
+seharusnya seperti ini tidak ada resource yang ditemukan,berarti isolasi berjalan dan alur dari sistem berhasil,masuk ke test selanjutnya yaitu test self heal ingat 
+checklist yang dilakukan ketika membuat application di dashboard argocd?nah di infra dasar dari projek ini atau di pull based tahap 1 ketika membuat application untuk
+selfheal dan prune tidak di isi
+
