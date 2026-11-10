@@ -460,5 +460,20 @@ dan diapplication juga sudah ada,lalu cek kembali ke terminal cluster jakarta un
 ![sdapia](/assets/images/hub_and_spoke/Screenshot 2026-11-10 195531.png)
 
 nah jika pods otomatis berubah dari container creating lalu ke terminating itu artinya self heal dari argocd berjalan dan pods yang baru saja ada di tahap container creating langsung di hapus oleh argocd,itu karena argocd membandingkan current state dengan declarative state,di current state seperti yang bisa dilihat bahwa ada 2 pods yang akan berjalan sementara di declarative state atau dimanifest tertulis bahwa replicas hanya 1,jadinya argocd tidak membiarkan hal tersebut dan langsung menghapus atau
-terminate si pods yang baru,
+terminate si pods yang baru,sekarang cek ke dashboard argocd lagi apakah sudah hilang untuk pods tadi
 
+![asdoijauv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 195809.png)
+
+oke ternyata suda berhasil hilang di dashboard argocd sekarnag cek apakah deployment kembali menjadi 1 pods lagi di cluster gunakan command
+
+```
+kubectl --context $context-site get pods -n app-$site
+|
+kubectl --context bandung get pods -n app-bandung
+```
+
+seharus akan seperti ini
+
+![asidaubv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 195942.png)
+
+oke sudah kembali ke kondisi semula dengan 1 replicas
