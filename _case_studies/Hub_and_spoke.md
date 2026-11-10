@@ -532,4 +532,31 @@ sudah ada ternyata (biasanya harus menunggu cukup lama) oke langsung cek ke clus
 
 ![asdoasnv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 223112.png)
 
-oke di cluster pun sama sudah ada berarti benar dan valid dikedua tempat yang pertama di dashboard argocd lalu di cluster
+oke di cluster pun sama sudah ada berarti benar dan valid dikedua tempat yang pertama di dashboard argocd lalu di cluster,lanjut hapus file manifestnya untuk melakukan test
+apakah prune benar benar berjalan,tinggal hapus saja filenya di manifest lalu tunggu di dashboard argocd lagi
+
+![asdiasuv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 222933.png)
+
+nah tanda dari prune berjalan ialah resource yang dibuat akan menunjukan out of sync karena memang manifest dari resource tersebut sudah hilang
+
+![asdiouhadv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 223027.png)
+
+oke service sudah hilang lalu tersisa deployments tunggu hingga tersisa hany satu deployment yaitu apps1 saja
+
+![asdina](/assets/images/hub_and_spoke/Screenshot 2026-11-10 231200.png)
+
+sekarang tinggal tersisa deployment apps1 lalu cek ke cluster gunakan command 
+
+```
+kubectl get pods -n app-$site
+|
+kubectl get pods -n app-jakarta
+```
+
+hasilnya akan seperti ini
+
+![asdbadv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 223119.png)
+
+tersissa deployment apps1 jadi selfheal dan prune sudah berjalan dengan sempurna dan infrastrcuture hub & spoke berhasil!!!
+
+
