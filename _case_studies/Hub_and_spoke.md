@@ -451,4 +451,14 @@ kubectl --context bandung  get pods -n app-bandung -w
 
 ![asdiand](/assets/images/hub_and_spoke/Screenshot 2026-11-10 195526.png)
 
-sudah ada repilcas dan sekarang ada satu container dalam tahap creating,
+sudah ada repilcas dan sekarang ada satu container dalam tahap creating,lalu cek ke dashboard argocd dan bagian application untuk site bandung
+
+![asdnafafs](/assets/images/hub_and_spoke/Screenshot 2026-11-10 195543.png)
+
+dan diapplication juga sudah ada,lalu cek kembali ke terminal cluster jakarta untuk melihat kondisi dari pods
+
+![sdapia](/assets/images/hub_and_spoke/Screenshot 2026-11-10 195531.png)
+
+nah jika pods otomatis berubah dari container creating lalu ke terminating itu artinya self heal dari argocd berjalan dan pods yang baru saja ada di tahap container creating langsung di hapus oleh argocd,itu karena argocd membandingkan current state dengan declarative state,di current state seperti yang bisa dilihat bahwa ada 2 pods yang akan berjalan sementara di declarative state atau dimanifest tertulis bahwa replicas hanya 1,jadinya argocd tidak membiarkan hal tersebut dan langsung menghapus atau
+terminate si pods yang baru,
+
