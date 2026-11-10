@@ -476,4 +476,52 @@ seharus akan seperti ini
 
 ![asidaubv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 195942.png)
 
-oke sudah kembali ke kondisi semula dengan 1 replicas
+oke sudah kembali ke kondisi semula dengan 1 replicas,lanjut untuk bagian test fitur prune,sebelumnya saya akan jelaskan apa itu fitur prune,di argocd semua itu berbasis
+git atau mengacu pada git nah karena git merupakan single source of truth karena itulah setiap manifest yang ada didalam git akan di appply ke cluster,nah fungsi dari pruni ini ialah jika saja ada manifest atau resource yang di hapus dari git maka argocd akan otomatis menghapus resource tersebut dari cluster maupun dari argocd dashboard itu sendiri karena inilah bentuk penerapan dari git single source of truth,makanya setiap ada perubahan menambah ataupun mengahapus argocd akan selalu berpaku pada git,oke
+tanpa berlama-lama langsung saja langkah pertama buat file kube-site-jakarta2.yaml di config repo jakarta
+
+```
+kube-site-jakarta2.yaml
+|
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apps2
+  labels:
+    apps2: test
+  namespace: app-jakarta 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      apps1: test
+  template:
+    metadata:
+      labels:
+        apps1: test
+    spec:
+      containers:
+        - name: nginx
+          image: rizki736/site-jakarta-image:2
+          ports:
+            - containerPort: 80
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apps2-service
+  namespace: app-jakarta 
+spec:
+  selector:
+    apps2: test
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30001
+      protocol: TCP
+  type: NodePort
+```
+
+untuk isi dari manifest sama saja seperti dengan manifest pertama atau manifest utama,yang menjadi pembeda hanyalah deployment akan bernama apps2 dan semua labels dans service juga akan menjadi apps2,
