@@ -55,8 +55,7 @@ k8s/
 ```
 
 ### Reasoning
-Kenapa saya memutuskan untuk membuat hub and spoke infra?? karena saya melihat bahwa infra stand alone itu tidak tersentralisasi atau terpusat 
-pada satu cluster dan kurangnya aspek keamanan atau security aspect,dan juga gampang untuk di scale up jika saja ada cluster baru 
+Kenapa saya membuat hub and spoke infra? karena infra stand alone itu tidak tersentralisasi, setiap cluster punya argocd sendiri-sendiri jadi harus berpindah dashboard dan mengelola banyak argocd, sementara di hub and spoke cukup satu dashboard dan satu argocd dan gampang di scale up jika ada cluster baru. Tapi perlu diingat ada trade-offnya: hub menyimpan kredensial semua spoke jadi hub harus dijaga lebih ketat dan menjadi single point of failure, kalau hub down maka sync, selfheal, dan prune ke semua cluster berhenti (aplikasi yang sudah berjalan tetap hidup). Karena itu saya memakai AppProject untuk membatasi apa yang boleh dideploy ke mana, dan terbukti ditolak di bagian test isolasi.
 
 ### prerequisites 
 Oke sebelum masuk ke setup saya harapkan anda semua membaca ini,semua kondisi harus memenuhi 
@@ -557,6 +556,25 @@ hasilnya akan seperti ini
 
 ![asdbadv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 223119.png)
 
-tersissa deployment apps1 jadi selfheal dan prune sudah berjalan dengan sempurna dan infrastrcuture hub & spoke berhasil!!!
+tersissa deployment apps1 jadi selfheal dan prune sudah berjalan dengan sempurna,masuk ke test terakhir test dimana benar benar membuktikan bahwa isolasi benar benar 
+berjalan dengan baik dengan cara melakukan negative teest,buat application terlebih dahulu sama saja
 
+![asdaionsd](/assets/images/hub_and_spoke/Screenshot 2026-11-11 003929.png)
 
+di negative test kali ini saya akan menggunakan project untuk app-jakarta tapiii
+
+![asasdascsdv](/assets/images/hub_and_spoke/Screenshot 2026-11-11 003938.png)
+
+untuk source dan destination diarahkan ke repo app-bandung dan cluster bandung apakah bisa?? mari kita coba
+
+![asdaisjcvadv](/assets/images/hub_and_spoke/Screenshot 2026-11-11 004025.png)
+
+gagal!!! ternyata isolasi berjalan dengan baik dan pesan yang ditunjukan kurang lebih seperti ini
+
+```
+Unable to create application: application spec for apps1-test-isolation is invalid: InvalidSpecError: application repo https://gitlab.com/rizkiyusupk/config-repo-bandung-
+site.git is not permitted in project 'app-jakarta';InvalidSpecError: application destination server 'https://10.10.10.222:6443' and namespace 'app-bandung' do not match
+any of the allowed destinations in project 'app-jakarta'
+```
+
+baiklah semua test sudah berhasil dilakukan terimakasih telah menyimak
