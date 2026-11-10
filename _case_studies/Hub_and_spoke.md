@@ -458,7 +458,7 @@ dan diapplication juga sudah ada,lalu cek kembali ke terminal cluster jakarta un
 
 ![sdapia](/assets/images/hub_and_spoke/Screenshot 2026-11-10 195531.png)
 
-nah jika pods otomatis berubah dari container creating lalu ke terminating itu artinya self heal dari argocd berjalan dan pods yang baru saja ada di tahap container creating langsung di hapus oleh argocd,itu karena argocd membandingkan current state dengan declarative state,di current state seperti yang bisa dilihat bahwa ada 2 pods yang akan berjalan sementara di declarative state atau dimanifest tertulis bahwa replicas hanya 1,jadinya argocd tidak membiarkan hal tersebut dan langsung menghapus atau
+nah jika pods otomatis berubah dari container creating lalu ke terminating itu artinya self heal dari argocd berjalan dan pods yang baru saja ada di tahap container creating langsung dikembalikan lagi ke keadaan sesuai di manifest,itu karena argocd membandingkan current state dengan declarative state,di current state seperti yang bisa dilihat bahwa ada 2 pods yang akan berjalan sementara di declarative state atau dimanifest tertulis bahwa replicas hanya 1,jadinya argocd tidak membiarkan hal tersebut dan langsung menghapus atau
 terminate si pods yang baru,sekarang cek ke dashboard argocd lagi apakah sudah hilang untuk pods tadi
 
 ![asdoijauv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 195809.png)
@@ -493,7 +493,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      apps1: test
+      apps2: test
   template:
     metadata:
       labels:
@@ -527,7 +527,7 @@ untuk isi dari manifest sama saja seperti dengan manifest pertama atau manifest 
 
 ![asdojaaev](/assets/images/hub_and_spoke/Screenshot 2026-11-10 222205.png)
 
-sudah ada ternyata (biasanya harus menunggu cukup lama) oke langsung cek ke cluster apakah ada resource apps2
+sudah ada ternyata (biasanya harus menunggu cukup lama karena argocd polling 3 menit) oke langsung cek ke cluster apakah ada resource apps2
 
 ![asdoasnv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 223112.png)
 
