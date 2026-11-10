@@ -524,4 +524,12 @@ spec:
   type: NodePort
 ```
 
-untuk isi dari manifest sama saja seperti dengan manifest pertama atau manifest utama,yang menjadi pembeda hanyalah deployment akan bernama apps2 dan semua labels dans service juga akan menjadi apps2,
+untuk isi dari manifest sama saja seperti dengan manifest pertama atau manifest utama,yang menjadi pembeda hanyalah deployment akan bernama apps2 dan semua labels dans service juga akan menjadi apps2,oke jika sudah langsung commit ke repo,llalu tunggu di argocd dashboard  apakah ada perubahan
+
+![asdojaaev](/assets/images/hub_and_spoke/Screenshot 2026-11-10 222205.png)
+
+sudah ada ternyata (biasanya harus menunggu cukup lama) oke langsung cek ke cluster apakah ada resource apps2
+
+![asdoasnv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 223112.png)
+
+oke di cluster pun sama sudah ada berarti benar dan valid dikedua tempat yang pertama di dashboard argocd lalu di cluster
