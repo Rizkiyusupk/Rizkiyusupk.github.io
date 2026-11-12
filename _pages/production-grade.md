@@ -6,9 +6,9 @@ author_profile: true
 ---
 
 page dimana semua hal akan mengikuti best practice,production grade,dan sesuai dengan penerapan konsep masing-masing,contohnya playbook idempotent,terraform clean,dll.
-{% for case in site.case_studies %}
-<div class="case-preview">
-  <h3><a href="{{ case.url | relative_url }}">{{ case.title }}</a></h3>
-  <p><em>{{ case.infra_used }}</em> — {{ case.date | date: "%B %Y" }}</p>
+{% for case in site.production_grade %}
+<div class="procuction-preview">
+  <h3><a href="{{ production.url | relative_url }}">{{ production.title }}</a></h3>
+  <p><em>{{ production.infra_used }}</em> — {{ production.date | date: "%B %Y" }}</p>
 </div>
 {% endfor %}
