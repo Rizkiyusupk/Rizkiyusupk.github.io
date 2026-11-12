@@ -1,7 +1,7 @@
 ---
 title: "Production Grade"
 layout: single
-permalink: /case-studies/
+permalink: /production-grade/
 author_profile: true
 ---
 
