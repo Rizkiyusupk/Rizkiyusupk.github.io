@@ -92,9 +92,7 @@ cluster-side/
 - **Node Exporter** : v1.12.0
 - **Promtail** : 3.5.1
 
-### Setup
-
-Oke masuk ke tahap pertama dari proses ini yaitu membuat namespace agar semua pods bisa berjalan didalam namespace 
+Oke masuk ke tahap pertama dari proses ini yaitu Oke masuk ke tahap pertama dari proses ini yaitu membuat namespace agar semua pods bisa berjalan didalam namespace 
 
 ```
 kubectl create namespace monitoring
@@ -103,35 +101,52 @@ kubectl create namespace monitoring
 lanjut setup helm untuk melakukan installasi plg stack pertama-tama buat sebuah file playbook
 
 ```
-  vim observ.yaml
+  vim observ-native.yaml
   |
-  - name: install observ tech stack
+- name: install observ tools
   hosts: masters
-  become: true
+  become: yes
 
   tasks:
     - name: install helm
-      ansible.builtin.shell:    curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-    - name: add repo for node-exporter
-      ansible.builtin.shell: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-    - name: update package
-      ansible.builtin.shell: helm repo update
-    - name: install package
-      ansible.builtin.shell: helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring  --kubeconfig /home/ubuntu/.kube/config --create-namespace
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+        dest: /home/ubuntu/helm.sh
+        mode: "0700"
+
+    - name: execute sh file
+      ansible.builtin.shell: /home/ubuntu/helm.sh
+      args:
+        creates: /usr/local/bin/helm
+      environment:
+        DESIRED_VERSION: "v3.22.0"
+    - name: Add a repository
+      kubernetes.core.helm_repository:
+        name: prometheus-community
+        repo_url: https://prometheus-community.github.io/helm-charts
+    - name: Deploy latest version of Grafana chart inside monitoring namespace with values
+      kubernetes.core.helm:
+        name: prometheus
+        chart_ref: prometheus-community/kube-prometheus-stack
+        chart_version: "65.1.0"
+        release_namespace: monitoring
+        update_repo_cache: true
+        kubeconfig: /home/ubuntu/.kube/config
+
 ```
 
-gunakan command
+di playbook installati observ pertama itu hanya ada satu play dan terdiri dari beberapa task yang terpisah,jadi di task pertama itu untuk mendownload file script helm dengan menggunakan module get url,lalu di task 
+kedua menggunakan module shell untuk execute file sh,lalu dengan menggunaakn create maka nilai idempotent tetap ada,masuk ke task selanjutnya yaitu menambahkan repo dari prometheus dengan menggunakan module 
+helm_repository,masuk ke task terakhir yaitu task untuk melakukan installasi prometheus dengan menggunakan module core helm,karena tadi sudah menambahkan repo dari prometheus community jadinya di task ini 
+tinggal,install dari repo yang sudah di tambahkan,saya menggunakan charts prometheus-community/kube-prometheus-stack dengan versi charts yang stabil untuk k8s versi 1.28,lalu masukan ke namspace monitoring yang sudah dibuat sebelumnya dengan dan path dari kubeconfig,karena playbook dijalankan dengan permission root jadinya helm akan kebingungan mencari dimana kubeconfig jadinya beri absolute path dari kubeconfig 
 
 ```
 ansible-playbook playbook.yaml
 |
-ansible-playbook observ.yaml
+ansible-playbook observ-native.yaml
 ```
 
-playbook diatas melakukan installasi untuk helm dan untuk melakukan semua installasi dari plg stack yang akan kita gunakan nantinya,setelah melakukan installasi dari helm task selanjutnya 
-yaitu melakukan installasi dari node exporter untuk mengambil semua metrics dan data dari setiap node dan node exporter berlaku sebagai daemon set di semua node yang nantinya di 
-distribusikan oleh master node sekalian untuk installsi dari promeheues dan untuk task terakhir yaitu untuk helm installasi dan memnbuat sebuah namespace dengan nama 
-monitoring,sebelum itu install terlebih dahulu untuk storage nya agar loki tidak kebingungan nanitnya 
+playbook diatas melakukan installasi untuk helm dan untuk melakukan installasi dari prometheus community,di task pertama 
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.30/deploy/local-path-storage.yaml
@@ -146,43 +161,66 @@ kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storagec
 selanjutnya yaitu instlaasi dari loki,grafana
 
 ```
-vim observ_2.yaml
+vim observ_2-native.yaml
 |
-- name: install loki stack
+- name: install loki
   hosts: masters
-  become: true
+  become: yes
   tasks:
-    - name: add repo grafana
-      ansible.builtin.shell: helm repo add grafana https://grafana.github.io/helm-charts
-    - name: update package
-      ansible.builtin.shell: helm repo update
-    - name: install loki monolithic
-      ansible.builtin.shell: >
-        helm install loki grafana/loki
-        --namespace monitoring
-        --kubeconfig /home/ubuntu/.kube/config
-        --set deploymentMode=SingleBinary
-        --set loki.commonConfig.replication_factor=1
-        --set loki.storage.type=filesystem
-        --set loki.schemaConfig.configs[0].from=2024-04-01
-        --set loki.schemaConfig.configs[0].store=tsdb
-        --set loki.schemaConfig.configs[0].object_store=filesystem
-        --set loki.schemaConfig.configs[0].schema=v13
-        --set loki.schemaConfig.configs[0].index.prefix=loki_index_
-        --set loki.schemaConfig.configs[0].index.period=24h
-        --set singleBinary.replicas=1
-        --set singleBinary.persistence.enabled=true
-        --set singleBinary.persistence.size=5Gi
-        --set read.replicas=0
-        --set write.replicas=0
-        --set backend.replicas=0
+    - name: Add a repository
+      kubernetes.core.helm_repository:
+        name: grafana
+        repo_url: https://grafana.github.io/helm-charts
+    ###  saya meminta claude untuk memasukan semua nilai --set dari playbook lama di satu task ini karena memang beanr benar membingungkan
+    - name: Deploy Loki (single binary)
+      kubernetes.core.helm:
+        name: loki
+        chart_ref: grafana/loki
+        chart_version: "6.55.0"
+        release_namespace: monitoring
+        create_namespace: true
+        update_repo_cache: true
+        kubeconfig: /home/ubuntu/.kube/config
+        values:
+          deploymentMode: SingleBinary
+          loki:
+            commonConfig:
+              replication_factor: 1
+            storage:
+              type: filesystem
+            schemaConfig:
+              configs:
+                - from: "2024-04-01"
+                  store: tsdb
+                  object_store: filesystem
+                  schema: v13
+                  index:
+                    prefix: loki_index_
+                    period: 24h
+          singleBinary:
+            replicas: 1
+            persistence:
+              enabled: true
+              size: 5Gi
+          read:
+            replicas: 0
+          write:
+            replicas: 0
+          backend:
+            replicas: 0
+    - name: Deploy latest version of Grafana/promtail chart inside monitoring namespace with values
+      kubernetes.core.helm:
+        name: promtail
+        chart_ref: grafana/promtail
+        chart_version: "6.17.1"
+        release_namespace: monitoring
+        update_repo_cache: true
+        kubeconfig: /home/ubuntu/.kube/config
+        values:
+          config:
+            clients:
+              - url: http://loki:3100/loki/api/v1/push
 
-    - name: install promtail
-      ansible.builtin.shell: >
-        helm install promtail grafana/promtail
-        --namespace monitoring
-        --kubeconfig /home/ubuntu/.kube/config
-        --set config.clients[0].url=http://loki:3100/loki/api/v1/push
 ```
 
 gunakan command 
@@ -190,18 +228,15 @@ gunakan command
 ```
 ansible-playbook
 |
-playbook observ_2.yaml
+playbook observ_2-native.yaml
 ```
 
-untuk task pertama yaitu menambahkan repo resmi dari grafana lalu melakukan update repo menggunakan helm lalu,di task selanjutnya yaitu melakukan installasi loki menggunakan helm disini 
-saya menggunakan loki monolithic karena saya membuat infrastructure skala homelab dengan resource terbatas jadinya saya tidak ingin membuat beban terhadap laptop saya dengan menggunakan
-loki tipe lain jika saja saya meggunakan loki tipe scalable atau microservices saya akan membuat beban yang cukup besar dengan resource yang saya punya sekarang,tapi meskipun resource 
-saya terbatas saya tetap membangun sebuah infrastructure yang production grade, dan yang terakhir di task terakhir itu melakukan installasi dari promtail,agar nantinya bisa collect log,
-tunggu hingga proses installasi selesai jika sudah jangan langsung masuk ke browser untuk mengakses si dashboard karena tidak bisa langsung mengakses dashboard dibutuhkan tunneling dan
-port fordward terlebih dahulu tapi sebelum itu buka wsl dan install socat terlebih dahulu gunakan command
+diplaybook kedua untuk obesrv ini akan menginstall loki binary dan promtail terdapat satau play dan tiga task,di task pertama akan menambahkan repo dari loki menggunakan module helm_repo lalu ditask kedua melakukan
+deployment dari repo yang sudah ditambahkan ditask sebelumnya dengan  chart yang dideploy berupa grafana/loki dengan versi v6.55.0 asumsi bahwa ini  versi stabil dengan k8s versi 1.28 lalu di deploy ke namespace 
+monitoring dengan menggunakan kubeconfig absolute path dan ada beberapa values yang bisa saya jelaskan seperti deployment mode berupa single binary karena memang yang akan saya gunakan adalah single binary mode dan ada banyak lagi hal yang tidak bisa saya jelaskan karena terlalu panjang,masuk ke task selanjutnya sama seperti task installasi loki task ini melkukan installasi promtail dengan chart grafana/promtail dengan versi v6.17.1 asumsi saya ini versi yang stabil untuk k8s 1.28 sisaya sama tapi dipromtail ini ada url yang dimana url itu adalah tempat promtail mengambil data dari loki,tunggu hingga proses installasi selesai jika sudah jangan langsung masuk ke browser untuk mengakses si dashboard karena tidak bisa langsung mengakses dashboard dibutuhkan tunneling dan port fordward terlebih dahulu tapi sebelum itu buka wsl dan install socat terlebih dahulu gunakan command
 
 ```
-apt-get install -y socet
+apt-get install -y socat
 ```
 
 oke karena socat sudah terinstall lalu selanjutnya gunakan command ini
@@ -217,7 +252,7 @@ dan
 ```
 di wsl
 |
-socat TCP-LISTEN:8884,bind=0.0.0.0,fork TCP:10.10.10.55:3001 &
+socat TCP-LISTEN:8884,bind=0.0.0.0,fork TCP:ip-node-master:3001 &
 ```
 
 nah kenapa harus sekali melakukan tunneling dan port forward seperti ini karena layer dari infrastructure kali ini itu benar benar cukup rumit untuk user agar langsung bisa mengakses 
@@ -340,8 +375,6 @@ cari bagian chat id lalu simpan baik-baik sekarang buka terminal ssh ke node mas
 lalu buat file dengan nama alertmanager-telegram.yaml
 
 ```
-vim alertmanager-telegram.yaml
-|
 alertmanager:
   config:
     global:
@@ -361,7 +394,7 @@ alertmanager:
       - name: 'telegram-notif'
         telegram_configs:
           - bot_token: 'BOT-TOKEN'
-            chat_id: 1854226173
+            chat_id: 'CHAT-ID'
             parse_mode: 'HTML'
             send_resolved: true
 ```
@@ -384,7 +417,7 @@ oke jika sudah maka masuk ke dashboard alertmanager tapi sebelum itu lakukan byp
 ```
 Di Wsl2
 |
-ssh -L 9093:localhost:9093 ubuntu@10.10.10.55 -N
+ssh -L 9093:localhost:9093 ubuntu@ip-node-master -N
 ```
 
 lalu
@@ -427,5 +460,3 @@ dan
 dan cek di dashboard alertmanager
 
 ![aihcosub](/assets/images/observ/Screenshot 2026-07-15 195533.png)
-
-oke jika sudah berarti semuanya berjalan terimakasih telah menyimak 
