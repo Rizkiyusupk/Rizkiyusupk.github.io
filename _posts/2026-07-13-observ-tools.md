@@ -92,11 +92,17 @@ cluster-side/
 - **Node Exporter** : v1.12.0
 - **Promtail** : 3.5.1
 
-  ### Setup
+### Setup
 
-  Oke masuk ke tahap pertama dari proses ini yaitu setup helm untuk melakukan installasi plg stack pertama-tama buat sebuah file playbook
+Oke masuk ke tahap pertama dari proses ini yaitu membuat namespace agar semua pods bisa berjalan didalam namespace 
 
-  ```
+```
+kubectl create namespace monitoring
+```
+
+lanjut setup helm untuk melakukan installasi plg stack pertama-tama buat sebuah file playbook
+
+```
   vim observ.yaml
   |
   - name: install observ tech stack
@@ -112,7 +118,7 @@ cluster-side/
       ansible.builtin.shell: helm repo update
     - name: install package
       ansible.builtin.shell: helm install prometheus prometheus-community/kube-prometheus-stack --namespace monitoring  --kubeconfig /home/ubuntu/.kube/config --create-namespace
-  ```
+```
 
 gunakan command
 
