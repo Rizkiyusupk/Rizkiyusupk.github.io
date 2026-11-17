@@ -314,18 +314,14 @@ jika sudah bisa kita langsung ke tahap selanjutnya
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-# Add Kubernetes GPG key dan repository
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-# Install Kubernetes tools
 sudo apt update
 sudo apt install -y kubelet kubeadm kubectl
 
-# Hold packages dari auto-update
 sudo apt-mark hold kubelet kubeadm kubectl
 
-# Enable kubelet
 sudo systemctl enable kubelet
 ```
 **lakukan semua step diatas disemua vm!!!!**
