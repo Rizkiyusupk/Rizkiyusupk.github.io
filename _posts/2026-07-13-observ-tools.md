@@ -92,6 +92,15 @@ cluster-side/
 - **Node Exporter** : v1.12.0
 - **Promtail** : 3.5.1
 
+### Catatan Kompatibilitas
+Dites pada: VM Ubuntu 22.04 (jammy, dari image cloud) dan node Jenkins Ubuntu 25.04.
+Kalau memakai rilis Ubuntu lain, alur playbook dan module-nya sama. Yang perlu
+disesuaikan hanya yang bergantung pada codename rilis:
+- HashiCorp: ubah `hashicorp_suite` bila suite rilis belum ada di repo mereka.
+- Docker: pastikan `download.docker.com` sudah punya suite untuk rilis tersebut.
+- Terraform: ganti URL image di `prep-vm.tf`.
+
+### Setup
 Oke masuk ke tahap pertama dari proses ini yaitu Oke masuk ke tahap pertama dari proses ini yaitu membuat namespace agar semua pods bisa berjalan didalam namespace 
 
 ```
