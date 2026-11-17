@@ -191,7 +191,6 @@ setelah itu menonaktifkan firewall dan port yang akan digunakan,[apa itu firewal
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-#semua port yang dibutuhkan di master
 sudo ufw allow "OpenSSH"
 sudo ufw enable
 sudo ufw allow 6443/tcp
