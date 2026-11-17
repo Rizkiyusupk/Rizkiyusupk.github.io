@@ -157,10 +157,8 @@ karena kubelet tidak akan berjalan jika ada swapp yang on
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-#ini itu untuk menonaktifkan swapnya tapi sementara
 sudo swapoff -a
 
-#dan masukan command ini untuk menonaktifkannya secara permanen
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ```
 
@@ -184,11 +182,9 @@ tahap ini berfungsi untuk menulis modul-modul secara presistent agar nantinya bi
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-# Load modules
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
-# Buat persistent
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
@@ -209,7 +205,6 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
 EOF
 
-# Apply sysctl
 sudo sysctl --system
 ```
 
@@ -218,27 +213,20 @@ tahap selanjutnya ialah installasi untuk cri (container runtime interface) kita 
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-# Install dependencies
 sudo apt install -y apt-transport-https ca-certificates curl gnupg lsb-release
 
-# Add Docker GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-# Add Docker repository (Ubuntu 24.04 menggunakan noble)
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Install containerd
 sudo apt update
 sudo apt install -y containerd.io
 
-# Configure containerd
 sudo mkdir -p /etc/containerd
 containerd config default | sudo tee /etc/containerd/config.toml
 
-# Edit config untuk systemd cgroup (Ubuntu 24.04 sudah default systemd)
 sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
 
-# Restart containerd
 sudo systemctl restart containerd
 sudo systemctl enable containerd
 ```
@@ -248,18 +236,14 @@ jika sudah bisa kita langsung ke tahap selanjutnya,apply GPG key dan repository 
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-# Add Kubernetes GPG key dan repository
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-# Install Kubernetes tools
 sudo apt update
 sudo apt install -y kubelet kubeadm kubectl
 
-# Hold packages dari auto-update
 sudo apt-mark hold kubelet kubeadm kubectl
 
-# Enable kubelet
 sudo systemctl enable kubelet
 ```
 **lakukan semua step diatas disemua vm!!!!**
@@ -390,16 +374,12 @@ dan masuk ke step berikutnya tinggal install beberapa dependensi untuk ansible c
 karena kita akan menginstallnya di dalam venv
 
 ```
-## untuk upgrade si pipnya
 pip install --upgrade pip
 
-## dependesi si ansible
 pip install ansible
 
-## libraries buat kuber di python
 pip install kubernetes openshift PyYAML
 
-## install core buat kuber jaga jaga
 ansible-galaxy collection install kubernetes.core
 
 ```
