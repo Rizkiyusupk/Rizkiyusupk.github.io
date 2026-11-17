@@ -198,7 +198,6 @@ setelah itu menonaktifkan firewall dan port yang akan digunakan,[apa itu firewal
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-#semua port yang dibutuhkan di master
 sudo ufw allow "OpenSSH"
 sudo ufw enable
 sudo ufw allow 6443/tcp
@@ -237,10 +236,8 @@ karena kubelet tidak akan berjalan jika ada swapp yang on
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-#ini itu untuk menonaktifkan swapnya tapi sementara
 sudo swapoff -a
 
-#dan masukan command ini untuk menonaktifkannya secara permanen
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ```
 nah selanjutnya ialah optimasi disk i/o agar tidak terlalu berat
@@ -263,11 +260,9 @@ tahap ini berfungsi untuk menulis modul-modul secara presistent agar nantinya bi
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-# Load modules
 sudo modprobe overlay
 sudo modprobe br_netfilter
 
-# Buat persistent
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
@@ -288,7 +283,6 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
 EOF
 
-# Apply sysctl
 sudo sysctl --system
 ```
 
@@ -297,27 +291,20 @@ tahap selanjutnya ialah installasi untuk cri (container runtime interface) kita 
 > 💡 **Tips:** Pastikan menjalankan perintah ini sebagai **root** atau gunakan `sudo`.
 
 ```
-# Install dependencies
 sudo apt install -y apt-transport-https ca-certificates curl gnupg lsb-release
 
-# Add Docker GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-# Add Docker repository (Ubuntu 24.04 menggunakan noble)
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Install containerd
 sudo apt update
 sudo apt install -y containerd.io
 
-# Configure containerd
 sudo mkdir -p /etc/containerd
 containerd config default | sudo tee /etc/containerd/config.toml
 
-# Edit config untuk systemd cgroup (Ubuntu 24.04 sudah default systemd)
 sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
 
-# Restart containerd
 sudo systemctl restart containerd
 sudo systemctl enable containerd
 ```
