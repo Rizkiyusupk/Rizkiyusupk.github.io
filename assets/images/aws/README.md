@@ -1,1 +1,1 @@
-pentil kuda
+kuda
