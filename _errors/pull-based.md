@@ -7,7 +7,7 @@ header:
 categories: [DevOps, Clouds,linux,Linux,Server,iac,infrastructure]
 ---
 
-![aihvsdv](/assets/images/pull-based/Neon DevOps Architecture Blueprint.png)
+![aihvsdv](/assets/images/pull-based/ChatGPT Image Sep 21, 2026, 09_19_40 AM.png)
 
 ### Overview
 Baik seperti biasa jika sebuah projek sudah selesai maka tahap selanjutnya yaitu pembuatan error pagenya tidak usa berlama-lama langsung saja
