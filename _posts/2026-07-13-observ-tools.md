@@ -45,11 +45,15 @@ k8s/
 ├── inventory
 ├── playbook-allow-port-native.yaml
 ├── playbook-ip-native.yaml
+├── playbook-install-java-baremetal-native.yaml
+├── playbook-install-jenkins-baremetal-native.yaml
+├── playbook-install-kubectl-baremetal-native.yaml
 ├── playbook-join-native.yaml
 ├── playbook-kubernetes-native.yaml
 ├── playbook-pkg-native.yaml
 ├── playbook-swap-native.yaml
 ├── playbook-config-native.yaml
+├── playbook-install-terraform-baremetal-native.yaml
 ├── observ-native.yaml
 ├── observ_2-native.yaml
 ```
