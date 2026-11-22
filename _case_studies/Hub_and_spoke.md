@@ -552,6 +552,8 @@ kubectl get pods -n app-$site
 kubectl get pods -n app-jakarta
 ```
 
+### Result
+
 hasilnya akan seperti ini
 
 ![asdbadv](/assets/images/hub_and_spoke/Screenshot 2026-11-10 223119.png)
