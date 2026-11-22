@@ -128,7 +128,7 @@ lanjut setup helm untuk melakukan installasi plg stack pertama-tama buat sebuah 
       args:
         creates: /usr/local/bin/helm
       environment:
-        DESIRED_VERSION: "v3.22.0"
+        DESIRED_VERSION: "v3.21.0"
     - name: Add a repository
       kubernetes.core.helm_repository:
         name: prometheus-community
@@ -137,7 +137,7 @@ lanjut setup helm untuk melakukan installasi plg stack pertama-tama buat sebuah 
       kubernetes.core.helm:
         name: prometheus
         chart_ref: prometheus-community/kube-prometheus-stack
-        chart_version: "65.1.0"
+        chart_version: "88.6.2"
         release_namespace: monitoring
         update_repo_cache: true
         kubeconfig: /home/ubuntu/.kube/config
@@ -185,7 +185,7 @@ vim observ_2-native.yaml
       kubernetes.core.helm:
         name: loki
         chart_ref: grafana/loki
-        chart_version: "6.55.0"
+        chart_version: "7.3.0"
         release_namespace: monitoring
         create_namespace: true
         update_repo_cache: true
