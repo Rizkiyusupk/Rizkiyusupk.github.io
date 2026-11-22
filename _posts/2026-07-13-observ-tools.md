@@ -109,8 +109,11 @@ Oke sebelum masuk ke setup saya harapkan anda semua membaca ini,semua kondisi ha
 
  - **K8s sudah terinstall di node**
  - **Java,Jenkins,Terraform,Kubectl harus terinstall di laptop 2**
+ - **kubernetes.core**
+ - **community.general**
+ - **ansible.posix**
 
-semua hal yang ada diatas adalah syarta wajib untuk melanjutkan ke setup,baca disini jika belum memenuhi syarat [ini](https://github.com/Rizkiyusupk/Rizkiyusupk.github.io/blob/master/_posts/2026-06-22-kvm.md)
+semua hal yang ada diatas adalah syarta wajib untuk melanjutkan ke setup untuk ansible collection bisa di install terlebih dahulu atau bisa melakukan installasi ansible lewat pip,baca disini jika belum memenuhi syarat [ini](https://github.com/Rizkiyusupk/Rizkiyusupk.github.io/blob/master/_posts/2026-06-22-kvm.md)
 
 ### Setup
 Oke masuk ke tahap pertama dari proses ini yaitu Oke masuk ke tahap pertama dari proses ini yaitu membuat namespace agar semua pods bisa berjalan didalam namespace 
