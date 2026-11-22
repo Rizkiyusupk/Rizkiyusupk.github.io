@@ -15,12 +15,12 @@ tapi juga untuk bot telegram di tambahkan sesuai dengan cluster yang ditambah,la
 
 | Node        | CPU     | RAM  | Storage | Network                                             |
 |-------------|---------|------|---------|---------------------------------------------------- |
-| **Master-cluster-Jakarta**  | 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Worker 1-cluster-Jakarta**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Worker 2-cluster-Jakarta**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Master-cluster-Bandung**  | 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Worker 1-cluster-Bandung**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Worker 2-Cluster-Bandung**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Master-cluster-Jakarta**  | 2 cores | 2GB  | 10GB    | 1 Adapters   ( DHCP Ip )            |
+| **Worker 1-cluster-Jakarta**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( DHCP Ip )            |
+| **Worker 2-cluster-Jakarta**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( DHCP Ip )            |
+| **Master-cluster-Bandung**  | 2 cores | 2GB  | 10GB    | 1 Adapters   ( DHCP Ip )            |
+| **Worker 1-cluster-Bandung**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( DHCP Ip )            |
+| **Worker 2-Cluster-Bandung**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( DHCP Ip )            |
 | **Jenkins**                 | 7 cores | 7GB  | 240GB   |                Wlan                 |
 
 ### STRUCTURE FOLDER 
@@ -56,15 +56,19 @@ lalu yang kedua
 k8s/
 ├── ansible.cfg
 ├── inventory
-├── playbook-allow-port.yaml
-├── playbook-ip.yaml
-├── playbook-join.yaml
-├── playbook-kubernetes.yaml
-├── playbook-pkg.yaml
-├── playbook-swap.yaml
-├── playbook-config.yaml
-├── observ.yaml
-├── observ_2.yaml
+├── playbook-allow-port-native.yaml
+├── playbook-ip-native.yaml
+├── playbook-join-native.yaml
+├── playbook-install-java-baremetal-native.yaml
+├── playbook-install-jenkins-baremetal-native.yaml
+├── playbook-install-kubectl-baremetal-native.yaml
+├── playbook-install-terraform-baremetal-native.yaml
+├── playbook-kubernetes-native.yaml
+├── playbook-pkg-native.yaml
+├── playbook-swap-native.yaml
+├── playbook-config-native.yaml
+├── observ-native.yaml
+├── observ_2-native.yaml
 ├── service-account.yaml
 ├── clusterrole.yaml
 ├── role-binding.yaml
