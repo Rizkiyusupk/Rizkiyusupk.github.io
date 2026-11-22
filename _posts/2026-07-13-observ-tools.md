@@ -17,9 +17,9 @@ itu masih sama saja dengan projek sebelumnya,oke langsung saja masuk ke pembahas
 
 | Node        | CPU     | RAM  | Storage | Network                             |
 |-------------|---------|------|---------|------------------------------------ |
-| **Master**  | 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Worker 1**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
-| **Worker 2**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( Static Ip )          |
+| **Master**  | 2 cores | 2GB  | 10GB    | 1 Adapters   ( DHCP Ip )            |
+| **Worker 1**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( DHCP Ip )            |
+| **Worker 2**| 2 cores | 2GB  | 10GB    | 1 Adapters   ( DHCP Ip )            |
 | **Jenkins** | 7 cores | 7GB  | 240GB   |                Wlan                 |
 
 ![scdbijcf](/assets/images/observ/ChatGPT Image Jul 13, 2026, 06_53_45 PM.png)
