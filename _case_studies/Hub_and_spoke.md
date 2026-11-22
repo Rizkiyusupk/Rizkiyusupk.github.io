@@ -523,7 +523,11 @@ spec:
   type: NodePort
 ```
 
-untuk isi dari manifest sama saja seperti dengan manifest pertama atau manifest utama,yang menjadi pembeda hanyalah deployment akan bernama apps2 dan semua labels dans service juga akan menjadi apps2,oke jika sudah langsung commit ke repo,llalu tunggu di argocd dashboard  apakah ada perubahan
+untuk isi dari manifest sama saja seperti dengan manifest pertama atau manifest utama,yang menjadi pembeda hanyalah deployment akan bernama apps2 dan semua labels dans service juga akan menjadi apps2,oke jika sudah langsung commit ke repo
+
+### Result
+
+llalu tunggu di argocd dashboard  apakah ada perubahan
 
 ![asdojaaev](/assets/images/hub_and_spoke/Screenshot 2026-11-10 222205.png)
 
@@ -551,8 +555,6 @@ kubectl get pods -n app-$site
 |
 kubectl get pods -n app-jakarta
 ```
-
-### Result
 
 hasilnya akan seperti ini
 
