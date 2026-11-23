@@ -54,6 +54,9 @@ k8s/
 ├── argocd.yaml
 ```
 
+### Tools
+Sama saja seperti yang digunakan di pull based atau dasar infranya :)
+
 ### Reasoning
 Kenapa saya membuat hub and spoke infra? karena infra stand alone itu tidak tersentralisasi, setiap cluster punya argocd sendiri-sendiri jadi harus berpindah dashboard dan mengelola banyak argocd, sementara di hub and spoke cukup satu dashboard dan satu argocd dan gampang di scale up jika ada cluster baru. Tapi perlu diingat ada trade-offnya: hub menyimpan kredensial semua spoke jadi hub harus dijaga lebih ketat dan menjadi single point of failure, kalau hub down maka sync, selfheal, dan prune ke semua cluster berhenti (aplikasi yang sudah berjalan tetap hidup). Karena itu saya memakai AppProject untuk membatasi apa yang boleh dideploy ke mana, dan terbukti ditolak di bagian test isolasi.
 
