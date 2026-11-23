@@ -367,6 +367,9 @@ oke sudah berhasil dua pipeline sudah sukses,lalu cek ke bagian dashboard argocd
 
 ![asugduasdoub](/assets/images/hub_and_spoke/Screenshot 2026-11-05 195939.png)
 
+
+### Testing & Result
+
 oke ternyata sudah ada dan berjalan tidak ada error dan sync berhasil,bisa dilihat bahwa kedua applicatiion hijau,lanjutt masuk ke tahap testing apakah deployment dari 
 masing-masing cluster terdeploy dengan benar,masuk ke cli dari control node cluster jakarta lalu run command ini
 
@@ -527,8 +530,6 @@ spec:
 ```
 
 untuk isi dari manifest sama saja seperti dengan manifest pertama atau manifest utama,yang menjadi pembeda hanyalah deployment akan bernama apps2 dan semua labels dans service juga akan menjadi apps2,oke jika sudah langsung commit ke repo
-
-### Result
 
 llalu tunggu di argocd dashboard  apakah ada perubahan
 
